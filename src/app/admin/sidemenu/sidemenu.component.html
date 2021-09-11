@@ -1,0 +1,192 @@
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+	<div class="sidebar-logo">
+		<a [routerLink]="'/admin'">
+			<img src="assets/img/logo-icon.png" class="img-fluid" alt="">
+		</a>
+	</div>
+	<div class="sidebar-inner slimscroll">
+		<div id="sidebar-menu" class="sidebar-menu">
+			<ul>
+				<li [className]="page === 'dashboard'? 'active' : ''">
+					<a [routerLink]="'/admin'"><i class="fas fa-columns"></i> <span>Dashboard</span></a>
+				</li>
+				<!-- <li [class.active]="page === 'categories' || page === 'add-category' || page === 'edit-category'" >
+					<a [routerLink]="'/admin/categories'"><i class="fas fa-layer-group"></i> <span>Categories</span></a>
+				</li>
+				<li [class.active]="page === 'sub-categories' || page === 'add-sub-category' || page === 'edit-sub-category'">
+					<a [routerLink]="'/admin/sub-categories'"><i class="fab fa-buffer"></i> <span>Sub Categories</span></a>
+				</li>
+				<li [className]="page === 'services'? 'active' : ''">
+					<a [routerLink]="'/admin/services'"><i class="fas fa-bullhorn"></i> <span> Services</span></a>
+				</li>
+				<li [className]="page === 'booking-list'? 'active' : ''">
+					<a [routerLink]="'/admin/booking-list'"><i class="far fa-calendar-check"></i> <span> Booking List</span></a>
+				</li>
+				<li [className]="page === 'payments'? 'active' : ''">
+					<a [routerLink]="'/admin/payments'"><i class="fas fa-hashtag"></i> <span>Payments</span></a>
+				</li>
+        
+				<li [class.active]="page === 'rating-type' || page === 'add-rating-type' || page === 'edit-rating-type'">
+					<a [routerLink]="'/admin/rating-type'"><i class="fas fa-star-half-alt"></i> <span>Rating Type</span></a>
+				</li>
+				<li [className]="page === 'ratings'? 'active' : ''">
+					<a [routerLink]="'/admin/ratings'"><i class="fas fa-star"></i> <span>Ratings</span></a>
+				</li>
+				<li [class.active]="page === 'subscriptions' || page === 'add-subscription' || page === 'edit-subscription'">
+					<a [routerLink]="'/admin/subscriptions'"><i class="far fa-calendar-alt"></i> <span>Subscriptions</span></a>
+				</li>
+				<li [className]="page === 'wallet'? 'active' : ''">
+					<a [routerLink]="'/admin/wallet'"><i class="fas fa-wallet"></i> <span> Wallet</span></a>
+				</li>
+				<li [className]="page === 'service-providers'? 'active' : ''">
+					<a [routerLink]="'/admin/service-providers'"><i class="fas fa-user-tie"></i> <span> Service Providers</span></a>
+				</li>
+				<li [className]="page === 'users'? 'active' : ''">
+					<a [routerLink]="'/admin/users'"><i class="fas fa-user"></i> <span>Users</span></a>
+				</li>
+				<li [className]="page === 'settings'? 'active' : ''">
+					<a [routerLink]="'/admin/settings'"><i class="fas fa-cog"></i> <span> Settings</span></a>
+				</li>
+      	<li class="submenu">
+          <a href="#"><i class="fas fa-border-all"></i> <span> Application</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li [className]="page === 'chat'? 'active' : ''"><a [routerLink]="'/admin/chat'">Chat</a></li>
+            <li [className]="page === 'calender'? 'active' : ''"><a [routerLink]="'/admin/calender'">Calendar</a></li>
+            <li [className]="page === 'email'? 'active' : ''"><a [routerLink]="'/admin/email'">Email</a></li>
+          </ul>
+        </li> -->
+            <!-- <li [className]="page === 'admin-profile'? 'active' : ''">
+          <a [routerLink]="'/admin/admin-profile'"><i class="fas fa-user-plus"></i> <span>Profile</span></a>
+        </li> -->
+        <!-- <li class="submenu">
+          <a href="#"><i class="fas fa-user-lock"></i> <span> Authentication</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li [className]="page === 'login'? 'active' : ''"><a [routerLink]="'/admin/login'">Login</a></li>
+            <li [className]="page === 'register'? 'active' : ''"><a [routerLink]="'/admin/register'">Register</a></li>
+            <li [className]="page === 'forget-password'? 'active' : ''"><a [routerLink]="'/admin/forget-password'">Forget Password</a></li>
+            <li [className]="page === 'lock-screen'? 'active' : ''"><a [routerLink]="'/admin/lock-screen'">Lock Screen</a></li>
+          </ul>
+        </li> -->
+        <!-- <li class="submenu">
+          <a href="#"><i class="fas fa-exclamation-circle"></i> <span> Error pages</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li [className]="page === 'error404'? 'active' : ''"><a [routerLink]="'/admin/pages/error404'">Error 404</a></li>
+            <li [className]="page === 'error500'? 'active' : ''"><a [routerLink]="'/admin/pages/error500'">Error 500</a></li>
+          </ul>
+        </li> -->
+        <li class="menu-title">
+          <span>Test Phase</span>
+        </li>
+    
+        <li class="submenu">
+          <a href="#"><i class="fas fa-cog"></i> <span> Test Phase</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+           <li [className]="page === 'test'? 'active' : ''"><a [routerLink]="'/admin/test'">Start Test</a></li>
+            <!-- <li [className]="page === 'outside'? 'active' : ''"><a [routerLink]="'/admin/maintenance/outside'">Outside Store</a></li> -->
+          </ul>
+        </li>
+        <li class="menu-title">
+          <span>Maintenance</span>
+        </li>
+    
+        <li class="submenu">
+          <a href="#"><i class="fas fa-cog"></i> <span> Maintenance</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li [className]="page === 'inside'? 'active' : ''"><a [routerLink]="'/admin/maintenance/inside'">Inside Store</a></li>
+            <li [className]="page === 'outside'? 'active' : ''"><a [routerLink]="'/admin/maintenance/outside'">Outside Store</a></li>
+          </ul>
+        </li>
+        <li class="menu-title">
+          <span>Invocies</span>
+        </li>
+        <li class="submenu">
+          <a href="#"><i class="fab fa-wpforms"></i> <span> Invoices</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li class="submenu">
+              <a href="javascript:void(0);"> <span>Sale Invoices</span> <span class="menu-arrow"></span></a>
+              <ul style="display: none;">
+                <li [className]="page === 'inside'? 'active' : ''"><a [routerLink]="'/admin/Invoices/add/sale'"><span>Add Sale Invoice</span></a></li>
+            
+                <li ><a [routerLink]="'/admin/Invoices/list/sale'"> <span>View all invoices</span></a></li>
+              </ul>
+            </li>         
+            <li class="submenu">
+              <a href="javascript:void(0);"> <span>Purchase Invoices</span> <span class="menu-arrow"></span></a>
+              <ul style="display: none;">
+                <li><a [routerLink]="'/admin/Invoices/add/purchase'"><span>Add purchase invoice</span></a></li>
+            
+                <li><a [routerLink]="'/admin/Invoices/list/purchase'"> <span>View all invoices</span></a></li>
+              </ul>
+            </li>           </ul>
+        </li>
+        <li class="menu-title">
+          <span>Reports</span>
+        </li>
+    
+        <li class="submenu">
+          <a href="#"><i class="fas fa-layer-group"></i> <span> Reports</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li [className]="page === 'error404'? 'active' : ''"><a [routerLink]="'/admin/reports/good-products'">Good Products Report</a></li>
+            <li [className]="page === 'error500'? 'active' : ''"><a [routerLink]="'/admin/reports/defective-products'">Defective Products Report</a></li>
+            <li [className]="page === 'error500'? 'active' : ''"><a [routerLink]="'/admin/reports/missing-pieces'">Missing Pieces Report</a></li>
+            <li [className]="page === 'error500'? 'active' : ''"><a [routerLink]="'/admin/reports/employees'">Employees Report</a></li>
+          </ul>
+        </li>
+        <!-- <li [className]="page === 'users'? 'active' : ''">
+          <a [routerLink]="'/admin/users'"><i class="fas fa-users"></i> <span>Users</span></a>
+        </li>
+        <li [className]="page === 'blank'? 'active' : ''">
+          <a [routerLink]="'/admin/blank'"><i class="far fa-file"></i> <span>Blank Page</span></a>
+        </li>
+        <li [className]="page === 'vector-map'? 'active' : ''">
+          <a [routerLink]="'/admin/vector-map'"><i class="far fa-map"></i> <span>Vector Maps</span></a>
+        </li>
+        <li [className]="page === 'components'? 'active' : ''">
+          <a [routerLink]="'/admin/components'"><i class="fas fa-vector-square"></i> <span>Components</span></a>
+        </li>
+        <li class="submenu">
+          <a href="#"><i class="fab fa-wpforms"></i> <span> Forms</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li [className]="page === 'basic-input'? 'active' : ''"><a [routerLink]="'/admin/forms/basic-input'">Basic Input</a></li>
+            <li [className]="page === 'input-groups'? 'active' : ''"><a [routerLink]="'/admin/forms/input-groups'">Input Groups</a></li>
+            <li [className]="page === 'horizontal-form'? 'active' : ''"><a [routerLink]="'/admin/forms/horizontal-form'">Horizontal form</a></li>
+            <li [className]="page === 'vertical-form'? 'active' : ''"><a [routerLink]="'/admin/forms/vertical-form'">Vertical form</a></li>
+            <li [className]="page === 'form-mask'? 'active' : ''"><a [routerLink]="'/admin/forms/form-mask'">Form Mask</a></li>
+            <li [className]="page === 'form-validation'? 'active' : ''"><a [routerLink]="'/admin/forms/form-validation'">Form Validation</a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="#"><i class="fas fa-table"></i> <span>Tables</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li [className]="page === 'basic-table'? 'active' : ''"><a [routerLink]="'/admin/tables/basic-table'">Basic Table</a></li>
+            <li [className]="page === 'default-table'? 'active' : ''"><a [routerLink]="'/admin/tables/default-table'">Default Table</a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="javascript:void(0);"><i class="fas fa-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li class="submenu">
+              <a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>
+              <ul style="display: none;">
+                <li><a href="javascript:void(0);"><span>Level 2</span></a></li>
+                <li class="submenu">
+                  <a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
+                  <ul style="display: none;">
+                    <li><a href="javascript:void(0);">Level 3</a></li>
+                    <li><a href="javascript:void(0);">Level 3</a></li>
+                  </ul>
+                </li>
+                <li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="javascript:void(0);"> <span>Level 1</span></a>
+            </li>
+          </ul>
+        </li> -->
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- /Sidebar -->
