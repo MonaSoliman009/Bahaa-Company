@@ -44,6 +44,7 @@
     "google-maps": "^4.3.2",
     "google-maps-infowindow": "0.0.1",
     "helmet": "^4.6.0",
+    "joi": "^17.4.2",
     "jquery": "^3.5.1",
     "jsonwebtoken": "^8.5.1",
     "markers-on-map": "^1.4.0",

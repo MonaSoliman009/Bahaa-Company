@@ -92,7 +92,12 @@ const productSchema=new Schema({
     addedBy:{
         type: Schema.Types.ObjectId,//who add the product
         ref: 'Employee'
-    } 
+    } ,
+    status:{
+        type: String,
+        required: true,
+        default:"New"
+    }
  } );
   
 

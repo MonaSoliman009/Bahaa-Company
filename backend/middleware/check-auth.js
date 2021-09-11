@@ -1,12 +1,64 @@
-const jwt = require("jsonwebtoken");
+var jwt = require("jsonwebtoken")
 
-module.exports = (req, res, next) => {
+var {
+  accountant
+  
+} = require("../models/accountant");
+var {employee}=require("../models/employee");
+var {  owner } = require("../models/owner");
+
+function auth(req, resp, next) {
   try {
-    const token = req.headers.authorization.split(" ")[1]; 
-    const decodedToken = jwt.verify(token, "secret_this_should_be_longer");
-    req.userData = { email: decodedToken.email, userId: decodedToken.userId };
-    next();
-  } catch (error) {
-    res.status(401).json({ message: "Auth failed!" });
+    var token = req.header('x_auth_token_owner');
+    if (!token) {
+      token = req.header('x_auth_token_accountant');
+      if (!token) {
+        token = req.header('x_auth_token_employee');
+        if (!token) {
+          resp.status(401).send("you are not logged in .")
+
+        } else {
+
+          var decoded = jwt.verify(token);
+          req.employee = decoded;
+          var freshuser = employee.findById(decoded._id);
+          if (!freshuser) {
+            resp.status(401).send("token is no longer exsist.")
+
+          }
+          next();
+
+        }
+
+      } else {
+
+        var decoded = jwt.verify(token);
+        req.accountant = decoded;
+        var freshuser = accountant.findById(decoded._id);
+        if (!freshuser) {
+          resp.status(401).send("token is no longer exsist.")
+
+        }
+        next();
+
+
+      }
+
+
+
+    } else {
+
+      var decoded = jwt.verify(token);
+      req.owner = decoded;
+      var freshuser = owner.findById(decoded._id);
+      if (!freshuser) {
+        resp.status(401).send("token is no longer exsist.")
+
+      }
+      next();
+    }
+  } catch (err) {
+    resp.status(400).send('invalid token')
   }
-};
+}
+module.exports = auth;

@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
-const Schema = mongoose.Schema;
-const employeeSchema=new Schema({
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+var joi = require("joi");
+
+var employee=mongoose.model("employee", new mongoose.Schema({
     userName:{
         type: String,
         required: true 
@@ -17,16 +18,29 @@ const employeeSchema=new Schema({
       },
       mobile:{
         type: String,
-        required: true
+        
       },
     image:{
         type: String, 
-        required: true
+        
 
-      }  
+      }  ,
+      approved:{
+        type: Boolean, default: false
+      }
 
-});
+}));
 
-employeeSchema.plugin(uniqueValidator);
+function validateEmployee(emp) {
+  var Schema =joi.object( {
+    userName: joi.string().min(5).max(45).required(),
+    image: joi.string(),
+    email: joi.string().min(15).max(225).required(),
+    password: joi.string().min(8).max(255).required(),
+  
+  });
+  return Schema.validate(emp)
+}
 
-module.exports=mongoose.model('Employee',employeeSchema);
+exports.validateEmployee = validateEmployee;
+exports.employee = employee;

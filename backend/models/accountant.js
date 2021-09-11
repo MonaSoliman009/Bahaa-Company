@@ -23,19 +23,22 @@ var accountant = mongoose.model(
     img: {
       type: String,
     },
+    approved:{
+      type: Boolean, default: false
+    }
   })
 );
 
 
 function validateAccountant(accountant) {
-    var Schema = {
+    var Schema =joi.object( {
       name: joi.string().min(5).max(25).required(),
       img: joi.string(),
       email: joi.string().min(15).max(225).required(),
       password: joi.string().min(8).max(255).required(),
     
-    };
-    return joi.validate(accountant, Schema)
+    });
+    return Schema.validate(accountant )
   }
 
   exports.validateAccountant = validateAccountant;

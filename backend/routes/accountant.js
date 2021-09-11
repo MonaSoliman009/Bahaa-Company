@@ -1,8 +1,8 @@
 const express = require("express");
 const multer = require("multer");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
+const bodyParser = require("body-parser");
+var bcrypt = require("bcryptjs");
 
 const router = express.Router();
 
@@ -13,33 +13,33 @@ var employeeReport = require("../models/employeeReport");
 var missingPiecesSchema = require("../models/missing pieces report");
 var saleInvoice = require("../models/saleInvoice");
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, "../upload/"));
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  });
-  const fileFilter = (req, file, cb) => {
-    // reject a file
-    if (
-      file.mimetype === "image/jpeg" ||
-      file.mimetype === "image/png" ||
-      file.mimetype === "image/jpg"
-    ) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  };
-  var upload = multer({
-    storage: storage,
-    limits: {
-      fileSize: 1024 * 1024 * 5,
-    },
-    fileFilter: fileFilter,
-  });
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, path.join(__dirname, "../upload/"));
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname);
+//     },
+//   });
+//   const fileFilter = (req, file, cb) => {
+//     // reject a file
+//     if (
+//       file.mimetype === "image/jpeg" ||
+//       file.mimetype === "image/png" ||
+//       file.mimetype === "image/jpg"
+//     ) {
+//       cb(null, true);
+//     } else {
+//       cb(null, false);
+//     }
+//   };
+//   var upload = multer({
+//     storage: storage,
+//     limits: {
+//       fileSize: 1024 * 1024 * 5,
+//     },
+//     fileFilter: fileFilter,
+//   });
   var parseUrlencoded = bodyParser.urlencoded({
     extended: true,
   });
@@ -47,50 +47,50 @@ const storage = multer.diskStorage({
 
   router.post(
     "/signup",
-    upload.single("img"),
+    // upload.single("img"),
     parseUrlencoded,
     async (req, res, next) => {
       var { error } = validateAccountant(req.body);
       if (error) {
         return res.status(400).send(error.details[0].message);
       }
-      let accountant = await accountant.findOne({
+      let accountantt = await accountant.findOne({
         email: req.body.email,
       });
-      if (accountant) {
+      if (accountantt) {
         return res.status(400).send("user already registered.");
       }
   
-      accountant = new accountant({
+      accountantt = new accountant({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        img: req.body.img,
+        // img: req.body.img,
       });
   
       var salt = await bcrypt.genSalt(10);
-      accountant.password = await bcrypt.hash(accountant.password, salt);
-      await accountant.save();
+      accountantt.password = await bcrypt.hash(accountantt.password, salt);
+      await accountantt.save();
   
-      res.send(accountant);
+      res.send(accountantt);
     }
   );
 
-  router.get("/account/:id", auth, async (req, res) => {
+  router.get("/account/:id", async (req, res) => {
     let accountantspec = await accountant.findOne({
       _id: req.params.id,
     });
   
     res.json(accountantspec);
   });
-  router.get("/goodProductsReport/:id", auth, async (req, res) => {
+  router.get("/goodProductsReport/:id",  async (req, res) => {
     let goodProductsReportspec = await goodProductsReport.findOne({
       _id: req.params.id,
     });
   
     res.json(goodProductsReportspec);
   });
-  router.get("/defectiveProductsReport/:id", auth, async (req, res) => {
+  router.get("/defectiveProductsReport/:id",  async (req, res) => {
     let defectiveProductsReportspec = await defectiveProductsReport.findOne({
       _id: req.params.id,
     });
@@ -98,36 +98,36 @@ const storage = multer.diskStorage({
     res.json(defectiveProductsReportspec);
   });
   
-  router.get("/goodProductsReport", auth, async (req, res) => {
+  router.get("/goodProductsReport",  async (req, res) => {
     let goodProductsReportspec = await goodProductsReport.find({});
   
     res.json(goodProductsReportspec);
   });
-  router.get("/defectiveProductsReport", auth, async (req, res) => {
+  router.get("/defectiveProductsReport", async (req, res) => {
     let defectiveProductsReportspec = await defectiveProductsReport.find({});
   
     res.json(defectiveProductsReportspec);
   });
-  router.get("/employeeReport", auth, async (req, res) => {
+  router.get("/employeeReport",  async (req, res) => {
     let employeeReportReportspec = await employeeReport.find({});
   
     res.json(employeeReportReportspec);
   });
-  router.get("/employeeReport/:id", auth, async (req, res) => {
+  router.get("/employeeReport/:id", async (req, res) => {
     let employeeReportReportspec = await employeeReport.findOne({
       _id: req.params.id,
     });
   
     res.json(employeeReportReportspec);
   });
-  router.get("/missingPiecesSchema/:id", auth, async (req, res) => {
+  router.get("/missingPiecesSchema/:id",  async (req, res) => {
     let missingPiecesSchematReportspec = await missingPiecesSchema.findOne({
       _id: req.params.id,
     });
   
     res.json(missingPiecesSchematReportspec);
   });
-  router.get("/missingPiecesSchema", auth, async (req, res) => {
+  router.get("/missingPiecesSchema", async (req, res) => {
     let missingPiecesSchematReportspec = await missingPiecesSchema.find({});
   
     res.json(missingPiecesSchematReportspec);
@@ -148,12 +148,12 @@ const storage = multer.diskStorage({
     saleInvoice.save();
     res.json(saleInvoice);
   });
-  router.get("/saleInvoice", auth, async (req, res) => {
+  router.get("/saleInvoice",  async (req, res) => {
     let saleInvoicespec = await saleInvoice.find({});
   
     res.json(saleInvoicespec);
   });
-  router.get("/saleInvoice/:id", auth, async (req, res) => {
+  router.get("/saleInvoice/:id",  async (req, res) => {
     let saleInvoicespec = await saleInvoice.findOne({
       _id: req.params.id,
     });
@@ -177,4 +177,4 @@ const storage = multer.diskStorage({
   
     res.json("done");
   });
-  
+  module.exports = router;

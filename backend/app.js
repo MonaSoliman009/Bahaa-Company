@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const productsRoutes = require("./routes/products");
 const testPhaseRoutes = require("./routes/testPhase");
-const employeeRoutes = require("./routes/employee");
+const employee= require("./routes/employee");
+const accountant=require("./routes/accountant")
+var login=require("./routes/login");
+var owner=require("./routes/owner");
 
 const cors = require("cors");
 var mongosanatize = require("express-mongo-sanitize");
@@ -14,8 +17,8 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://bahaa:BahaaBahaa123@cluster0.e3di4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    {
+    "mongodb+srv://bahaa123:mona123456789@cluster0.jt4lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+        {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     }
@@ -53,10 +56,14 @@ app.use((req, res, next) => {
 
 app.use("/products", productsRoutes);
 app.use("/test", testPhaseRoutes);
-app.use("/employee", employeeRoutes);
+app.use("/employee", employee);
+app.use("/login", login);
+app.use("/accountant", accountant);
+app.use("/owner", owner);
 
 
 
 
-module.exports = app;
-  
+app.listen(3000, function () {
+  console.log("listen")
+});  
