@@ -1,1 +1,15 @@
-@import '../../../assets/css/style.css';
+@import "../../../assets/css/style.css";
+/* .has-error input[type="email"],
+.has-error input[type="password"] .has-error input[type="name"] {
+  border-color: rgb(216, 12, 12);
+  color: rgb(230, 14, 14);
+} */
+/* input.ng-invalid {
+  border: 1px solid red;
+}
+input.ng-valid {
+  border: 1px solid green;
+} */
+.error {
+  color: red;
+}
