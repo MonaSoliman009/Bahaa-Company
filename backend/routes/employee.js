@@ -58,7 +58,7 @@ router.post(
     }
 
     Employee = new employee({
-      userName: req.body.userName,
+      name: req.body.name,
       email: req.body.email,
       password: req.body.password,
     });

@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var joi = require("joi");
 
 var employee=mongoose.model("employee", new mongoose.Schema({
-    userName:{
+    name:{
         type: String,
         required: true 
     },
