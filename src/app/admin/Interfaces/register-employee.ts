@@ -1,5 +1,5 @@
 export class RegisterEmployee {
-  userName: string;
+  name: string;
   email: string;
   password: string;
 }

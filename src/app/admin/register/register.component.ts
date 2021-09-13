@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
         .subscribe((res) => {
           console.log('success', res);
         });
-    } else {
+    } else if (this.selectedPosition == 2) {
       this.service
         .employee_register(this.registerForm.value)
         .subscribe((res) => {
