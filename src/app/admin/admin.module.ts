@@ -4,7 +4,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ModalModule } from  'ngx-bootstrap/modal';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { DataService } from './../data.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './header/header.component';
@@ -27,20 +27,22 @@ import { FormValidationComponent } from './forms/form-validation/form-validation
 import { BasicTableComponent } from './tables/basic-table/basic-table.component';
 import { DefaultTableComponent } from './tables/default-table/default-table.component';
 import { NgForm } from '@angular/forms';
- 
 
 @NgModule({
-  declarations: [AdminComponent, SidemenuComponent, HeaderComponent, PageHeaderComponent , ],
+  declarations: [
+    AdminComponent,
+    SidemenuComponent,
+    HeaderComponent,
+    PageHeaderComponent,
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     NgbModule,
     NgSelect2Module,
-    InMemoryWebApiModule.forRoot(DataService),
+    // InMemoryWebApiModule.forRoot(DataService),
     ModalModule.forRoot(),
   ],
-  exports: [
-    NgForm
-]
+  exports: [NgForm],
 })
 export class AdminModule {}

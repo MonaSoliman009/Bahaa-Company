@@ -13,6 +13,18 @@
           <h3>Register <span>Truelysell</span></h3>
           <p class="text-muted">Access to our dashboard</p>
         </div>
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <select
+              class="select form-control"
+              [(ngModel)]="selectedVlaue"
+              (change)="selected(selectedVlaue)"
+            >
+              <option value="1">Accountant</option>
+              <option value="2">Employee</option>
+            </select>
+          </div>
+        </div>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label class="control-label">Username</label>
@@ -21,11 +33,11 @@
               type="text"
               placeholder="Enter your name"
               formControlName="name"
-              [ngClass]="{
-                'is-invalid': submitted && registerForm.controls.name.errors
-              }"
             />
-            <div
+            <!-- [ngClass]="{
+                'is-invalid': submitted && registerForm.controls.name.errors
+              }" -->
+            <!-- <div
               class="error"
               *ngIf="
                 registerForm.controls.name.errors.invalid ||
@@ -33,7 +45,7 @@
               "
             >
               Name is required.
-            </div>
+            </div> -->
           </div>
 
           <div class="form-group">
@@ -42,12 +54,9 @@
               class="form-control"
               type="text"
               placeholder="Enter your mail id"
-              [ngClass]="{
-                'is-invalid': submitted && registerForm.controls.email.errors
-              }"
               formControlName="email"
             />
-            <div
+            <!-- <div
               class="error"
               *ngIf="
                 registerForm.controls.email.errors.invalid ||
@@ -55,7 +64,7 @@
               "
             >
               Email is required.
-            </div>
+            </div> -->
           </div>
 
           <div class="form-group mb-4">
@@ -63,12 +72,10 @@
             <input
               class="form-control"
               type="password"
+              formControlName="password"
               placeholder="Enter your password"
-              [ngClass]="{
-                'is-invalid': submitted && registerForm.controls.password.errors
-              }"
             />
-            <div
+            <!-- <div
               class="error"
               *ngIf="
                 registerForm.controls.password.errors.invalid ||
@@ -76,9 +83,16 @@
               "
             >
               Password is required.
-            </div>
+            </div> -->
           </div>
-
+          <!-- <input
+            style="display: none"
+            [value]="false"
+            type="text"
+            name=""
+            id=""
+            formControlName="approved"
+          /> -->
           <div class="text-center">
             <button class="btn btn-primary btn-block account-btn" type="submit">
               Register

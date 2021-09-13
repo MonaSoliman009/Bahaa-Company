@@ -21,7 +21,7 @@
               type="text"
               placeholder="Enter your mail id"
               [ngClass]="{
-                'is-invalid': submitted && !loginForm.controls.email
+                'is-invalid': submitted && loginForm.controls.email.errors
               }"
               formControlName="email"
             />

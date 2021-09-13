@@ -23,17 +23,14 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     HttpClientModule,
     SlickCarouselModule,
     ToastrModule.forRoot(),
-    HttpClientInMemoryWebApiModule.forRoot(DataService),
+    // HttpClientInMemoryWebApiModule.forRoot(DataService),
     BrowserAnimationsModule,
     FormsModule,
     NgbModule,
     Daterangepicker,
     NgSelect2Module,
-    
   ],
-  exports: [
-    NgForm
-],
+  exports: [NgForm],
   providers: [],
   bootstrap: [AppComponent],
 })
