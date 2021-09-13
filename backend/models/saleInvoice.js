@@ -25,7 +25,7 @@ var saleInvoice = mongoose.model(
         {
           productId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product',
+            ref: 'product',
             required: true
           },
           quantity: { type: Number, required: true },
