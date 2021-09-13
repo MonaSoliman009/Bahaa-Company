@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Observable } from 'rxjs';
-import { Register } from '../model/register';
+import { RegisterAccountant } from '../../Interfaces/register';
+import { RegisterEmployee } from '../../Interfaces/register-employee';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,10 +24,10 @@ export class RegisterService implements InMemoryDbService {
     ];
     return { heroes };
   }
-  employee_register(Register: Register) {
+  employee_register(Register: RegisterEmployee) {
     return this.http.post('http://localhost:3000/employee/signup', Register);
   }
-  accountant_register(Register: Register): Observable<any> {
+  accountant_register(Register: RegisterAccountant): Observable<any> {
     return this.http.post('http://localhost:3000/accountant/signup', Register);
   }
 }
