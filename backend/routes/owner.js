@@ -1,20 +1,18 @@
 const express = require("express");
 const multer = require("multer");
-const jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-var {
-  accountant,
-  validateAccountant
-} = require("../models/accountant");
-var {employee,validateEmployee}=require("../models/employee");
+var { accountant, validateAccountant } = require("../models/accountant");
+
+var  {product  }= require("../models/product");
+var { employee, validateEmployee } = require("../models/employee");
 var { validateOwner, owner } = require("../models/owner");
 var goodProductsReport = require("../models/goodProductsReport");
 var defectiveProductsReport = require("../models/defectiveProductsReport");
 var employeeReport = require("../models/employeeReport");
 var missingPiecesSchema = require("../models/missing pieces report");
 var saleInvoice = require("../models/saleInvoice");
-var purchaseInvoiceSchema=require("../models/purchase invoice");
+var PurchaseInvoice = require("../models/purchase invoice");
 const router = express.Router();
 // const storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
@@ -50,9 +48,7 @@ var parseUrlencoded = bodyParser.urlencoded({
 });
 
 router.post("/add", parseUrlencoded, async (req, res) => {
-  var {
-    error
-  } = validateOwner(req.body);
+  var { error } = validateOwner(req.body);
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
@@ -60,8 +56,7 @@ router.post("/add", parseUrlencoded, async (req, res) => {
   let new_owner = new owner({
     password: req.body.password,
     email: req.body.email,
-    name:req.body.name
-
+    name: req.body.name,
   });
   var salt = await bcrypt.genSalt(5);
   new_owner.password = await bcrypt.hash(new_admin.password, salt);
@@ -70,66 +65,70 @@ router.post("/add", parseUrlencoded, async (req, res) => {
 });
 
 router.post("/approve/accountant/:id", parseUrlencoded, async (req, res) => {
-  accountant.findOneAndUpdate({_id:req.params.id},{approved:true},function(err,data){
-    if(err){
-      return res.status(400).send(err);
-
+  accountant.findOneAndUpdate(
+    { _id: req.params.id },
+    { approved: true },
+    function (err, data) {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      res.send(data);
     }
-    res.send(data)
-})
+  );
 });
 router.post("/approve/employee/:id", parseUrlencoded, async (req, res) => {
-  employee.findOneAndUpdate({_id:req.params.id},{approved:true},function(err,data){
-    if(err){
-      return res.status(400).send(err);
-
+  employee.findOneAndUpdate(
+    { _id: req.params.id },
+    { approved: true },
+    function (err, data) {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      res.send(data);
     }
-    res.send(data)
-})
+  );
 });
-router.get("/list/accountants/unapproved",async(req,res)=>{
-  let result = await accountant.find({approved:false});
-res.json(result)
+router.get("/list/accountants/unapproved", async (req, res) => {
+  let result = await accountant.find({ approved: false });
+  res.json(result);
+});
 
-})
+router.get("/list/employees/unapproved", async (req, res) => {
+  let result = await employee.find({ approved: false });
+  res.json(result);
+});
 
+router.get("/list/accountants/approved", async (req, res) => {
+  let result = await accountant.find({ approved: true });
+  res.json(result);
+});
 
-router.get("/list/employees/unapproved",async(req,res)=>{
-  let result = await employee.find({approved:false});
-res.json(result)
+router.get("/list/employees/approved", async (req, res) => {
+  let result = await employee.find({ approved: true });
+  res.json(result);
+});
 
-})
+router.post("/add/product/:id", parseUrlencoded, function (req, res) {
+  let productt = new product({
+    serialNumber: req.body.serialNumber,
+    model: req.body.model,
+    addedAt: req.body.addedAt,
+    quantity: req.body.quantity,
+    price: req.body.price,
+    purchaseSerialNumber: req.body.purchaseSerialNumber,
+    addedBy: req.params.addedBy,
+  });
+  productt.save();
+  res.json(productt);
+});
 
+router.get("/account/:id", async (req, res) => {
+  let ownerspec = await owner.findOne({
+    _id: req.params.id,
+  });
 
-
-
-router.get("/list/accountants/approved",async(req,res)=>{
-  let result = await accountant.find({approved:true});
-res.json(result)
-
-})
-
-
-router.get("/list/employees/approved",async(req,res)=>{
-  let result = await employee.find({approved:true});
-res.json(result)
-
-})
-
-
-
-
-
-
-
-
-// router.get("/account/:id", auth, async (req, res) => {
-//   let ownerspec = await owner.findOne({
-//     _id: req.params.id,
-//   });
-
-//   res.json(ownerspec);
-// });
+  res.json(ownerspec);
+});
 
 // router.post("/forget/password", parseUrlencoded, async (req, res) => {
 //   var smtpTransport = nodemailer.createTransport({
@@ -155,11 +154,11 @@ res.json(result)
 //       subject: "This email is from savethem website",
 //       html: `
 //       <h1 style="text-align:center;margin-bottom:20px">Reset your password?</h1>
-//       <h4 style="text-align:center;margin-bottom:20px">If you requested a password reset for ${req.body.email}, click the button below.</br> 
+//       <h4 style="text-align:center;margin-bottom:20px">If you requested a password reset for ${req.body.email}, click the button below.</br>
 //       If you didn't make this request, ignore this email.</h4>
 //       <button style="background-color:#3B6D8C;margin-left:50%;border-style:none;padding:5px"><a style="text-decoration:none;background-color:#3B6D8C;color:white" href="http://localhost:4200/reset-password">Reset Password</a></button>
 //     <p style="text-align:center">This email was meant for ${req.body.email}</p>
-    
+
 //       `,
 //     };
 //     smtpTransport.sendMail(mailOptions, function (error, response) {
@@ -339,50 +338,47 @@ res.json(result)
 //   res.json("done");
 // });
 
+router.post("/add/purchaseInvoice", parseUrlencoded, function (req, res) {
+  // var { error } = validatesaleInvoice(req.body);
+  // if (error) {
+  //   return res.status(400).send(error.details[0].message);
+  // }
+  let PurchaseInvoice = new PurchaseInvoice({
+    purchaseNumber: req.body.purchaseNumber,
+    purchaseDate: req.body.purchaseDate,
+    supplier: req.body.supplier,
+    purchaseCart: req.body.purchaseCart,
+  });
+  PurchaseInvoice.save();
+  res.json(PurchaseInvoice);
+});
+router.get("/purchaseInvoice",  async (req, res) => {
+  let purchaseInvoicespec = await PurchaseInvoice.find({});
 
+  res.json(purchaseInvoicespec);
+});
+router.get("/purchaseInvoice/:id", async (req, res) => {
+  let purchaseInvoicespec = await PurchaseInvoice.findOne({
+    _id: req.params.id,
+  });
 
+  res.json(purchaseInvoicespec);
+});
+router.post("/update/purchaseInvoice/:id", parseUrlencoded, function (req, res) {
+  PurchaseInvoice.update({ _id: req.params.id }, req.body, function (err, data) {
+    if (err) {
+      console.log(err);
+    }
+    res.send(data);
+  });
+});
+router.delete("/delete/purchaseInvoice/:id", parseUrlencoded, function (req, res) {
+  PurchaseInvoice.removeById(  req.params.id , function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
 
-// router.post("/add/purchaseInvoice", parseUrlencoded, function (req, res) {
-//   // var { error } = validatesaleInvoice(req.body);
-//   // if (error) {
-//   //   return res.status(400).send(error.details[0].message);
-//   // }
-//   let purchaseInvoiceSchema = new purchaseInvoiceSchema({
-//     purchaseNumber: req.body.purchaseNumber,
-//     purchaseDate: req.body.purchaseDate,
-//     supplier: req.body.supplier,
-//     purchaseCart: req.params.purchaseCart,
-//   });
-//   purchaseInvoiceSchema.save();
-//   res.json(purchaseInvoiceSchema);
-// });
-// router.get("/purchaseInvoice", auth, async (req, res) => {
-//   let purchaseInvoicespec = await purchaseInvoiceSchema.find({});
-
-//   res.json(purchaseInvoicespec);
-// });
-// router.get("/purchaseInvoice/:id", auth, async (req, res) => {
-//   let purchaseInvoicespec = await purchaseInvoiceSchema.findOne({
-//     _id: req.params.id,
-//   });
-
-//   res.json(purchaseInvoicespec);
-// });
-// router.post("/update/purchaseInvoice/:id", parseUrlencoded, function (req, res) {
-//   purchaseInvoiceSchema.update({ _id: req.params.id }, req.body, function (err, data) {
-//     if (err) {
-//       console.log(err);
-//     }
-//     res.send(data);
-//   });
-// });
-// router.delete("/delete/purchaseInvoice/:id", parseUrlencoded, function (req, res) {
-//   purchaseInvoiceSchema.remove({ _id: req.params.id }, function (err) {
-//     if (err) {
-//       console.log(err);
-//     }
-//   });
-
-//   res.json("done");
-// });
+  res.json("done");
+});
 module.exports = router;

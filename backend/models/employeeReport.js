@@ -6,17 +6,17 @@ var employeeReport = mongoose.model(
   new mongoose.Schema({
     maintainedProducts: [{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Product"
+        ref:"product"
      
     }],
 
     testedProducts:[ {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Product"
+        ref:"product"
     }],
     soldProducts:[ {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Product"
+        ref:"product"
     }],
   
   })

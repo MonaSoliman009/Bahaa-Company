@@ -11,7 +11,7 @@ var spareParts = mongoose.model(
 
     insideProduct: {
       isInside: { type: Boolean, required: true },
-      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      product: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
     },
   })
 );

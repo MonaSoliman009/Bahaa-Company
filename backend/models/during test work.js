@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const duringTestWorkSchema=new Schema({
     productId: {//or serial number
         type: Schema.Types.ObjectId,
-        ref: 'Product',
+        ref: 'product',
         required: true
       },
     employee : {//currently working //or done by
