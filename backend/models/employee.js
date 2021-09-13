@@ -33,7 +33,7 @@ var employee=mongoose.model("employee", new mongoose.Schema({
 
 function validateEmployee(emp) {
   var Schema =joi.object( {
-    userName: joi.string().min(5).max(45).required(),
+    name: joi.string().min(5).max(45).required(),
     image: joi.string(),
     email: joi.string().min(15).max(225).required(),
     password: joi.string().min(8).max(255).required(),
