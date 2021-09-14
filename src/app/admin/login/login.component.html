@@ -26,12 +26,7 @@
                 'is-invalid': submitted && loginForm.controls.email.errors
               }"
             />
-            <div
-              class="invalid-feedback"
-              *ngIf="
-                !loginForm.controls.email || loginForm.controls.email.touched
-              "
-            >
+            <div class="invalid-feedback" *ngIf="!loginForm.controls.email">
               Please enter your password.
             </div>
           </div>
@@ -48,20 +43,14 @@
                 'is-invalid': submitted && loginForm.controls.password.errors
               }"
             />
-            <div
-              class="invalid-feedback"
-              *ngIf="
-                !loginForm.controls.password ||
-                loginForm.controls.password.touched
-              "
-            >
+            <div class="invalid-feedback" *ngIf="!loginForm.controls.password">
               Please enter your password.
             </div>
           </div>
 
           <div class="text-center">
             <button class="btn btn-primary btn-block account-btn" type="submit">
-              Register
+              Login
             </button>
           </div>
         </form>

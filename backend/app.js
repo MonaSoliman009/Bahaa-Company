@@ -1,13 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const productsRoutes = require("./routes/products");
+const product = require("./routes/products");
 const testPhaseRoutes = require("./routes/testPhase");
 const employee = require("./routes/employee");
 const accountant = require("./routes/accountant");
 var login = require("./routes/login");
 var owner = require("./routes/owner");
-
+var PurchaseInvoice = require("./routes/purchase");
 const cors = require("cors");
 var mongosanatize = require("express-mongo-sanitize");
 var xss = require("xss-clean");
@@ -52,12 +52,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/products", productsRoutes);
 app.use("/test", testPhaseRoutes);
 app.use("/employee", employee);
 app.use("/login", login);
 app.use("/accountant", accountant);
 app.use("/owner", owner);
+app.use("/product", product);
+app.use("/purchase", PurchaseInvoice);
 
 app.listen(3000, function () {
   console.log("listen");

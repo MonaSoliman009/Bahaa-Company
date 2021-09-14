@@ -36,29 +36,22 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
+
     console.log(this.loginForm.value);
 
-    this.ser.login_Accountant(this.loginForm.value).subscribe((response) => {
-      console.log(response);
+    this.ser.login(this.loginForm.value).subscribe((response) => {
+      console.log('response', response);
       console.log(response);
 
       localStorage.setItem('token', response.token as string);
       localStorage.setItem('name', response.name as string);
 
-      if (response.name === 'accountant') {
-        // this.router.navigate(['/home/volunteer', response.volunteer]);
-        localStorage.setItem('id', response.accountant as string);
-        console.log(response.accountant);
+      // if (response.name === 'accountant') {
+      //   // this.router.navigate(['/home/volunteer', response.volunteer]);
+      //   localStorage.setItem('id', response.accountant as string);
+      //   console.log(response.accountant);
 
-        // } else if (response.name === 'charitiy') {
-        //   this.router.navigate(['/home/charity', response.charity]);
-        //   localStorage.setItem('id', response.charity as string);
-        // } else {
-        //   localStorage.setItem('id', response.admin as string);
-
-        //   this.router.navigate(['/admin', response.admin]);
-        // }
-      }
+      // }
     });
   }
   // onSubmit() {

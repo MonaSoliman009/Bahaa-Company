@@ -27,13 +27,13 @@ var owner = mongoose.model(
 );
 
 function validateOwner(owner) {
-  var Schema = {
+  var Schema = joi.object({
     name: joi.string().min(5).max(25).required(),
     img: joi.string(),
     email: joi.string().min(15).max(225).required(),
     password: joi.string().min(8).max(255).required(),
-  };
-  return joi.validate(owner, Schema);
+  });
+  return Schema.validate(owner);
 }
 
 exports.validateOwner = validateOwner;

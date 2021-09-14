@@ -23,7 +23,7 @@ const PurchaseInvoice = mongoose.model(
             required: true,
           },
           quantity: { type: Number, required: true },
-        },
+        }
       ]
     
   })

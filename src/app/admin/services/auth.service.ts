@@ -8,8 +8,8 @@ import { Login } from '../Interfaces/login';
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
-  login;
-  login_Accountant(user: Login): Observable<any> {
+
+  login(user: Login): Observable<any> {
     return this.http.post('http://localhost:3000/login', user);
   }
 }
