@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
 
     this.ser.login_Accountant(this.loginForm.value).subscribe((response) => {
       console.log(response);
+      console.log(response);
 
       localStorage.setItem('token', response.token as string);
       localStorage.setItem('name', response.name as string);
