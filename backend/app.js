@@ -1,13 +1,13 @@
 const express = require("express"); 
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const productsRoutes = require("./routes/products");
+const product = require("./routes/products");
 const testPhaseRoutes = require("./routes/testPhase");
 const employee= require("./routes/employee");
 const accountant=require("./routes/accountant")
 var login=require("./routes/login");
 var owner=require("./routes/owner");
-
+var PurchaseInvoice=require("./routes/purchase");
 const cors = require("cors");
 var mongosanatize = require("express-mongo-sanitize");
 var xss = require("xss-clean");
@@ -23,13 +23,13 @@ mongoose
       useNewUrlParser: true,
     }
   )
-  // .then(() => {
-  //   console.log("Connected to database!");
-  // })
-  // .catch(() => {
-  //   console.log("Connection failed!");
-  // }
-  // );
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  }
+  );
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));  
@@ -55,12 +55,14 @@ app.use((req, res, next) => {
 });
 
 
-app.use("/products", productsRoutes);
 app.use("/test", testPhaseRoutes);
 app.use("/employee", employee);
 app.use("/login", login);
 app.use("/accountant", accountant);
 app.use("/owner", owner);
+app.use("/product", product);
+app.use("/purchase", PurchaseInvoice);
+
 
 
 

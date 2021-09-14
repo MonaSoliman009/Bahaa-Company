@@ -59,7 +59,7 @@ router.post("/add", parseUrlencoded, async (req, res) => {
     name: req.body.name,
   });
   var salt = await bcrypt.genSalt(5);
-  new_owner.password = await bcrypt.hash(new_admin.password, salt);
+  new_owner.password = await bcrypt.hash(new_owner.password, salt);
   await new_owner.save();
   res.json(new_owner);
 });
@@ -108,19 +108,7 @@ router.get("/list/employees/approved", async (req, res) => {
   res.json(result);
 });
 
-router.post("/add/product/:id", parseUrlencoded, function (req, res) {
-  let productt = new product({
-    serialNumber: req.body.serialNumber,
-    model: req.body.model,
-    addedAt: req.body.addedAt,
-    quantity: req.body.quantity,
-    price: req.body.price,
-    purchaseSerialNumber: req.body.purchaseSerialNumber,
-    addedBy: req.params.addedBy,
-  });
-  productt.save();
-  res.json(productt);
-});
+
 
 router.get("/account/:id", async (req, res) => {
   let ownerspec = await owner.findOne({
@@ -338,20 +326,7 @@ router.get("/account/:id", async (req, res) => {
 //   res.json("done");
 // });
 
-router.post("/add/purchaseInvoice", parseUrlencoded, function (req, res) {
-  // var { error } = validatesaleInvoice(req.body);
-  // if (error) {
-  //   return res.status(400).send(error.details[0].message);
-  // }
-  let PurchaseInvoice = new PurchaseInvoice({
-    purchaseNumber: req.body.purchaseNumber,
-    purchaseDate: req.body.purchaseDate,
-    supplier: req.body.supplier,
-    purchaseCart: req.body.purchaseCart,
-  });
-  PurchaseInvoice.save();
-  res.json(PurchaseInvoice);
-});
+
 router.get("/purchaseInvoice",  async (req, res) => {
   let purchaseInvoicespec = await PurchaseInvoice.find({});
 

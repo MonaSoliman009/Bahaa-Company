@@ -14,6 +14,11 @@ const routes: Routes = [
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
+        path: 'approval',
+        loadChildren: () =>
+          import('./approval/approval.module').then((m) => m.ApprovalModule),
+      },
+      {
         path: 'categories',
         loadChildren: () =>
           import('./categories/categories.module').then((m) => m.CategoriesModule),

@@ -14,7 +14,7 @@ http://localhost:3000/employee/signup
 
 
 interface>>>
-userName:"string",
+name:"string",
 email:"string",
 password:"string"
 
@@ -49,3 +49,56 @@ http://localhost:3000/owner/approve/employee/:id       (send accountant id in ur
 ///////////////////////////////////////////////////////////////////////////
 //approve accountant(POST)
 http://localhost:3000/owner/approve/accountant/:id            (send accountant id in url)
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//list unapproved accountants(GET)
+http://localhost:3000/owner/list/accountants/approved
+
+
+////////////////////////////////////////////////////////////////////////////
+//list unapproved accountants(GET)
+http://localhost:3000/owner/list/employees/approved
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+//owner can add another owner   (POST) 
+
+http://localhost:3000/owner/add
+
+
+interface>>>
+name:"string",
+email:"string",
+password:"string"
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+add product  (POST)
+
+http://localhost:3000/product/add/:id
+
+       (the id in url is for employee or accountant or owner anyone can add prduct)
+
+
+interface>>>>>
+
+ serialNumber:Number ,
+    model:String ,
+    addedAt:Date ,
+    quantity:Number ,
+    price: Number,
+  
+
+  //////////////////////////////////////////////////////////////////////////////
+  
+list owner account details   (GET)
+
+http://localhost:3000/owner/account/:id            (id or owner)
+
+
+//////////////////////////////////////////////////////////////////////////////
