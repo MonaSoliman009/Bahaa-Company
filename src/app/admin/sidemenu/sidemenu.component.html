@@ -1,17 +1,19 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-	<div class="sidebar-logo">
-		<a [routerLink]="'/admin'">
-			<img src="assets/img/logo-icon.png" class="img-fluid" alt="">
-		</a>
-	</div>
-	<div class="sidebar-inner slimscroll">
-		<div id="sidebar-menu" class="sidebar-menu">
-			<ul>
-				<li [className]="page === 'dashboard'? 'active' : ''">
-					<a [routerLink]="'/admin'"><i class="fas fa-columns"></i> <span>Dashboard</span></a>
-				</li>
-				<!-- <li [class.active]="page === 'categories' || page === 'add-category' || page === 'edit-category'" >
+  <div class="sidebar-logo">
+    <a [routerLink]="'/admin'">
+      <img src="assets/img/logo-icon.png" class="img-fluid" alt="" />
+    </a>
+  </div>
+  <div class="sidebar-inner slimscroll">
+    <div id="sidebar-menu" class="sidebar-menu">
+      <ul>
+        <li [className]="page === 'dashboard' ? 'active' : ''">
+          <a [routerLink]="'/admin'"
+            ><i class="fas fa-columns"></i> <span>Dashboard</span></a
+          >
+        </li>
+        <!-- <li [class.active]="page === 'categories' || page === 'add-category' || page === 'edit-category'" >
 					<a [routerLink]="'/admin/categories'"><i class="fas fa-layer-group"></i> <span>Categories</span></a>
 				</li>
 				<li [class.active]="page === 'sub-categories' || page === 'add-sub-category' || page === 'edit-sub-category'">
@@ -26,7 +28,7 @@
 				<li [className]="page === 'payments'? 'active' : ''">
 					<a [routerLink]="'/admin/payments'"><i class="fas fa-hashtag"></i> <span>Payments</span></a>
 				</li>
-        
+
 				<li [class.active]="page === 'rating-type' || page === 'add-rating-type' || page === 'edit-rating-type'">
 					<a [routerLink]="'/admin/rating-type'"><i class="fas fa-star-half-alt"></i> <span>Rating Type</span></a>
 				</li>
@@ -56,7 +58,7 @@
             <li [className]="page === 'email'? 'active' : ''"><a [routerLink]="'/admin/email'">Email</a></li>
           </ul>
         </li> -->
-            <!-- <li [className]="page === 'admin-profile'? 'active' : ''">
+        <!-- <li [className]="page === 'admin-profile'? 'active' : ''">
           <a [routerLink]="'/admin/admin-profile'"><i class="fas fa-user-plus"></i> <span>Profile</span></a>
         </li> -->
         <!-- <li class="submenu">
@@ -78,75 +80,146 @@
         <li class="menu-title">
           <span>Test Phase</span>
         </li>
-    
+
         <li class="submenu">
-          <a href="#"><i class="fas fa-cog"></i> <span> Test Phase</span> <span class="menu-arrow"></span></a>
-          <ul style="display: none;">
-           <li [className]="page === 'test'? 'active' : ''"><a [routerLink]="'/admin/test'">Start Test</a></li>
+          <a href="#"
+            ><i class="fas fa-cog"></i> <span> Test Phase</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li [className]="page === 'test' ? 'active' : ''">
+              <a [routerLink]="'/admin/test'">Start Test</a>
+            </li>
             <!-- <li [className]="page === 'outside'? 'active' : ''"><a [routerLink]="'/admin/maintenance/outside'">Outside Store</a></li> -->
           </ul>
         </li>
         <li class="menu-title">
           <span>Maintenance</span>
         </li>
-    
+
         <li class="submenu">
-          <a href="#"><i class="fas fa-cog"></i> <span> Maintenance</span> <span class="menu-arrow"></span></a>
-          <ul style="display: none;">
-            <li [className]="page === 'inside'? 'active' : ''"><a [routerLink]="'/admin/maintenance/inside'">Inside Store</a></li>
-            <li [className]="page === 'outside'? 'active' : ''"><a [routerLink]="'/admin/maintenance/outside'">Outside Store</a></li>
+          <a href="#"
+            ><i class="fas fa-cog"></i> <span> Maintenance</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li [className]="page === 'inside' ? 'active' : ''">
+              <a [routerLink]="'/admin/maintenance/inside'">Inside Store</a>
+            </li>
+            <li [className]="page === 'outside' ? 'active' : ''">
+              <a [routerLink]="'/admin/maintenance/outside'">Outside Store</a>
+            </li>
           </ul>
         </li>
         <li class="menu-title">
           <span>Invocies</span>
         </li>
         <li class="submenu">
-          <a href="#"><i class="fab fa-wpforms"></i> <span> Invoices</span> <span class="menu-arrow"></span></a>
-          <ul style="display: none;">
+          <a href="#"
+            ><i class="fab fa-wpforms"></i> <span> Invoices</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
             <li class="submenu">
-              <a href="javascript:void(0);"> <span>Sale Invoices</span> <span class="menu-arrow"></span></a>
-              <ul style="display: none;">
-                <li [className]="page === 'inside'? 'active' : ''"><a [routerLink]="'/admin/Invoices/add/sale'"><span>Add Sale Invoice</span></a></li>
-            
-                <li ><a [routerLink]="'/admin/Invoices/list/sale'"> <span>View all invoices</span></a></li>
+              <a href="javascript:void(0);">
+                <span>Sale Invoices</span> <span class="menu-arrow"></span
+              ></a>
+              <ul style="display: none">
+                <li [className]="page === 'inside' ? 'active' : ''">
+                  <a [routerLink]="'/admin/Invoices/add/sale'"
+                    ><span>Add Sale Invoice</span></a
+                  >
+                </li>
+
+                <li>
+                  <a [routerLink]="'/admin/Invoices/list/sale'">
+                    <span>View all invoices</span></a
+                  >
+                </li>
               </ul>
-            </li>         
+            </li>
             <li class="submenu">
-              <a href="javascript:void(0);"> <span>Purchase Invoices</span> <span class="menu-arrow"></span></a>
-              <ul style="display: none;">
-                <li><a [routerLink]="'/admin/Invoices/add/purchase'"><span>Add purchase invoice</span></a></li>
-            
-                <li><a [routerLink]="'/admin/Invoices/list/purchase'"> <span>View all invoices</span></a></li>
+              <a href="javascript:void(0);">
+                <span>Purchase Invoices</span> <span class="menu-arrow"></span
+              ></a>
+              <ul style="display: none">
+                <li>
+                  <a [routerLink]="'/admin/Invoices/add/purchase'"
+                    ><span>Add purchase invoice</span></a
+                  >
+                </li>
+
+                <li>
+                  <a [routerLink]="'/admin/Invoices/list/purchase'">
+                    <span>View all invoices</span></a
+                  >
+                </li>
               </ul>
-            </li>           </ul>
+            </li>
+          </ul>
         </li>
         <li class="menu-title">
           <span>Reports</span>
         </li>
-    
+
         <li class="submenu">
-          <a href="#"><i class="fas fa-layer-group"></i> <span> Reports</span> <span class="menu-arrow"></span></a>
-          <ul style="display: none;">
-            <li [className]="page === 'error404'? 'active' : ''"><a [routerLink]="'/admin/reports/good-products'">Good Products Report</a></li>
-            <li [className]="page === 'error500'? 'active' : ''"><a [routerLink]="'/admin/reports/defective-products'">Defective Products Report</a></li>
-            <li [className]="page === 'error500'? 'active' : ''"><a [routerLink]="'/admin/reports/missing-pieces'">Missing Pieces Report</a></li>
-            <li [className]="page === 'error500'? 'active' : ''"><a [routerLink]="'/admin/reports/employees'">Employees Report</a></li>
+          <a href="#"
+            ><i class="fas fa-layer-group"></i> <span> Reports</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li [className]="page === 'error404' ? 'active' : ''">
+              <a [routerLink]="'/admin/reports/good-products'"
+                >Good Products Report</a
+              >
+            </li>
+            <li [className]="page === 'error500' ? 'active' : ''">
+              <a [routerLink]="'/admin/reports/defective-products'"
+                >Defective Products Report</a
+              >
+            </li>
+            <li [className]="page === 'error500' ? 'active' : ''">
+              <a [routerLink]="'/admin/reports/missing-pieces'"
+                >Missing Pieces Report</a
+              >
+            </li>
+            <li [className]="page === 'error500' ? 'active' : ''">
+              <a [routerLink]="'/admin/reports/employees'">Employees Report</a>
+            </li>
           </ul>
         </li>
-
-
-
-
 
         <li class="menu-title">
           <span>Approve Accounts</span>
         </li>
-    
+
         <li class="submenu">
-          <a href="#"><i class="fas fa-layer-group"></i> <span> Approve Accounts</span> <span class="menu-arrow"></span></a>
-          <ul style="display: none;">
-            <li [className]="page === 'error404'? 'active' : ''"><a [routerLink]="'/admin/approval/employees'">Approve Employees</a></li>
-            <li [className]="page === 'error500'? 'active' : ''"><a [routerLink]="'/admin/approval/accountants'">Approve Accountants</a></li>
+          <a href="#"
+            ><i class="fas fa-layer-group"></i> <span> Approve Accounts</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li [className]="page === 'error404' ? 'active' : ''">
+              <a [routerLink]="'/admin/approval/employees'"
+                >Approve Employees</a
+              >
+            </li>
+            <li [className]="page === 'error500' ? 'active' : ''">
+              <a [routerLink]="'/admin/approval/accountants'"
+                >Approve Accountants</a
+              >
+            </li>
+
+            <li [className]="page === 'error500' ? 'active' : ''">
+              <a [routerLink]="'/admin/approval/Unapproveemployees'"
+                >Unapprove Employees</a
+              >
+            </li>
+            <li [className]="page === 'error500' ? 'active' : ''">
+              <a [routerLink]="'/admin/approval/Unapproveaccountants'"
+                >Unapprove Accountants</a
+              >
+            </li>
           </ul>
         </li>
         <!-- <li [className]="page === 'users'? 'active' : ''">
@@ -201,8 +274,8 @@
             </li>
           </ul>
         </li> -->
-			</ul>
-		</div>
-	</div>
+      </ul>
+    </div>
+  </div>
 </div>
 <!-- /Sidebar -->

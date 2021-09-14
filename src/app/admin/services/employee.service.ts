@@ -17,4 +17,7 @@ export class EmployeeService {
       id
     );
   }
+  getApproveEmployee() {
+    return this.http.get('http://localhost:3000/owner/list/employees/approved');
+  }
 }
