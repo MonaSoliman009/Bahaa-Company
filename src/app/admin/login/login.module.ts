@@ -11,7 +11,5 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, LoginRoutingModule, ReactiveFormsModule, FormsModule],
 })
 export class LoginModule {
-  //isLoading = false;
-
   constructor() {}
 }

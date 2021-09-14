@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,18 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  selectedPosition: any;
+  selectedVlaue: any;
+  //isLoading = false;
+  selected(id) {
+    console.log('selected', id);
+    this.selectedPosition = id;
+  }
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private ser: AuthService
+  ) {}
   get formControls() {
     console.log(this.loginForm.controls);
 
@@ -23,16 +35,39 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit() {
-    console.log('register');
+    console.log(this.loginForm.value);
 
-    this.submitted = true;
+    this.ser.login_Accountant(this.loginForm.value).subscribe((response) => {
+      console.log(response);
 
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      console.log('invalid');
-    } else {
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value));
-      console.log('invalid');
-    }
+      localStorage.setItem('token', response.token as string);
+      localStorage.setItem('name', response.name as string);
+
+      if (response.name === 'accountant') {
+        // this.router.navigate(['/home/volunteer', response.volunteer]);
+        localStorage.setItem('id', response.accountant as string);
+        console.log(response.accountant);
+
+        // } else if (response.name === 'charitiy') {
+        //   this.router.navigate(['/home/charity', response.charity]);
+        //   localStorage.setItem('id', response.charity as string);
+        // } else {
+        //   localStorage.setItem('id', response.admin as string);
+
+        //   this.router.navigate(['/admin', response.admin]);
+        // }
+      }
+    });
   }
+  // onSubmit() {
+  //   console.log('register');
+  //   this.submitted = true;
+  //   // stop here if form is invalid
+  //   console.log('form value', this.loginForm.value);
+
+  //   console.log(this.loginForm.value);
+  //   this.ser.login_Accountant(this.loginForm.value).subscribe((res) => {
+  //     console.log('success', res);
+  //   });
+  // }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from './services/register.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 // import { MustMatch } from './_helpers/must-match.validator';
 @Component({
   selector: 'app-register',
@@ -35,6 +36,13 @@ export class RegisterComponent implements OnInit {
     console.log('selected', id);
     this.selectedPosition = id;
   }
+  alertWithSuccess() {
+    Swal.fire('Thank you...', 'You submitted succesfully!', 'success').then(
+      (res) => {
+        location.reload();
+      }
+    );
+  }
   onSubmit() {
     console.log('register');
 
@@ -55,6 +63,7 @@ export class RegisterComponent implements OnInit {
         .employee_register(this.registerForm.value)
         .subscribe((res) => {
           console.log('employee');
+          this.alertWithSuccess();
           res;
         });
     }
