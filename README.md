@@ -54,12 +54,12 @@ http://localhost:3000/owner/approve/accountant/:id            (send accountant i
 
 
 //////////////////////////////////////////////////////////////////////////////
-//list unapproved accountants(GET)
+//list approved accountants(GET)
 http://localhost:3000/owner/list/accountants/approved
 
 
 ////////////////////////////////////////////////////////////////////////////
-//list unapproved accountants(GET)
+//list approved accountants(GET)
 http://localhost:3000/owner/list/employees/approved
 
 
