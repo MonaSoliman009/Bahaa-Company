@@ -25,7 +25,12 @@
             </select>
           </div>
         </div>
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <form
+          [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()"
+          class="needs-validation"
+          novalidate
+        >
           <div class="form-group">
             <label class="control-label">Username</label>
             <input
@@ -33,7 +38,20 @@
               type="text"
               placeholder="Enter your name"
               formControlName="name"
+              required
+              [ngClass]="{
+                'is-invalid': submitted && registerForm.controls.name.errors
+              }"
             />
+            <div
+              class="invalid-feedback"
+              *ngIf="
+                !registerForm.controls.name ||
+                registerForm.controls.name.touched
+              "
+            >
+              Please add your E-mail.
+            </div>
             <!-- [ngClass]="{
                 'is-invalid': submitted && registerForm.controls.name.errors
               }" -->
@@ -55,7 +73,19 @@
               type="text"
               placeholder="Enter your mail id"
               formControlName="email"
+              [ngClass]="{
+                'is-invalid': submitted && registerForm.controls.email.errors
+              }"
             />
+            <div
+              class="invalid-feedback"
+              *ngIf="
+                !registerForm.controls.email ||
+                registerForm.controls.email.touched
+              "
+            >
+              Please add your E-mail.
+            </div>
             <!-- <div
               class="error"
               *ngIf="
@@ -74,6 +104,10 @@
               type="password"
               formControlName="password"
               placeholder="Enter your password"
+              required
+              [ngClass]="{
+                'is-invalid': submitted && registerForm.controls.password.errors
+              }"
             />
             <!-- <div
               class="error"
@@ -84,6 +118,15 @@
             >
               Password is required.
             </div> -->
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              !registerForm.controls.password ||
+              registerForm.controls.password.touched
+            "
+          >
+            Please enter your password.
           </div>
           <!-- <input
             style="display: none"

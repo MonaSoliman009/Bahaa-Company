@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit() {
+    this.submitted = true;
     console.log(this.loginForm.value);
 
     this.ser.login_Accountant(this.loginForm.value).subscribe((response) => {

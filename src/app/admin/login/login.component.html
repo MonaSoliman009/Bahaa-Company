@@ -22,7 +22,18 @@
               type="text"
               placeholder="Enter your mail id"
               formControlName="email"
+              [ngClass]="{
+                'is-invalid': submitted && loginForm.controls.email.errors
+              }"
             />
+            <div
+              class="invalid-feedback"
+              *ngIf="
+                !loginForm.controls.email || loginForm.controls.email.touched
+              "
+            >
+              Please enter your password.
+            </div>
           </div>
 
           <div class="form-group mb-4">
@@ -32,7 +43,20 @@
               type="password"
               placeholder="Enter your password"
               formControlName="password"
+              required
+              [ngClass]="{
+                'is-invalid': submitted && loginForm.controls.password.errors
+              }"
             />
+            <div
+              class="invalid-feedback"
+              *ngIf="
+                !loginForm.controls.password ||
+                loginForm.controls.password.touched
+              "
+            >
+              Please enter your password.
+            </div>
           </div>
 
           <div class="text-center">
