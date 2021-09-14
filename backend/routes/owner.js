@@ -23,6 +23,7 @@ const router = express.Router();
 //   },
 // });
 const bodyParser = require("body-parser");
+var mongoose = require("mongoose");
 
 // const fileFilter = (req, file, cb) => {
 //   // reject a file
@@ -117,6 +118,49 @@ router.get("/account/:id", async (req, res) => {
 
   res.json(ownerspec);
 });
+
+router.delete("/employee/delete/:id",async (req, resp) =>{
+ 
+  let result = await employee.findOne({ _id: req.params.id });
+  console.log(result)
+if(result){
+  mongoose.model("employee").findOneAndRemove({
+    _id: req.params.id
+  },
+  function (err, data) {
+    if (err) {
+      resp.json(err.message)
+    }
+  })
+  resp.json("employee deleted")
+
+}else if(!result){
+  resp.json("Try again")
+
+}
+
+  
+
+})
+router.delete("/accountant/delete/:id", async (req, resp)=> {
+  let result = await accountant.findOne({ _id: req.params.id });
+  if(result){
+    mongoose.model("accountant").findOneAndRemove({
+      _id: req.params.id
+    },
+    function (err, data) {
+      if (!err) {
+      }
+    })
+
+  resp.json("accountant done")
+  
+  }else if(!result){
+    resp.json("Try again")
+  
+  }
+  
+})
 
 // router.post("/forget/password", parseUrlencoded, async (req, res) => {
 //   var smtpTransport = nodemailer.createTransport({

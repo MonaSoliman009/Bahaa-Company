@@ -31,7 +31,7 @@ password:"string"
 
 /////////////////////////////////////////////////////////////////////////////////
 //list unapproved employees(GET)
-http://localhost:3000/owner/list/employees/approved
+http://localhost:3000/owner/list/employees/unapproved
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,17 @@ interface>>>>>
   
 list owner account details   (GET)
 
-http://localhost:3000/owner/account/:id            (id or owner)
+http://localhost:3000/owner/account/:id            (id for owner)
 
 
 //////////////////////////////////////////////////////////////////////////////
+
+delete accountant         (DELETE)
+
+http://localhost:3000/owner/accountant/delete/:id
+
+//////////////////////////////////////////////////////////////////////////////
+
+delete employee         (DELETE)
+
+http://localhost:3000/owner/employee/delete/:id
