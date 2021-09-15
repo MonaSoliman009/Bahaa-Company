@@ -9,6 +9,7 @@ var login = require("./routes/login");
 var owner = require("./routes/owner");
 var PurchaseInvoice = require("./routes/purchase");
 var saleInvoice = require("./routes/sale");
+const soldProductsReport = require("./routes/soldProductsReport");
 
 const cors = require("cors");
 var mongosanatize = require("express-mongo-sanitize");
@@ -62,6 +63,8 @@ app.use("/owner", owner);
 app.use("/product", product);
 app.use("/purchase", PurchaseInvoice);
 app.use("/sale", saleInvoice);
+app.use("/soldProducts", soldProductsReport);
+
 
 
 app.listen(3000, function () {

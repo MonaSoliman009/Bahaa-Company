@@ -181,3 +181,9 @@ list sale invoices:
 
 http://localhost:3000/sale/list    (GET)
 
+//////////////////////////////////////////////////////////
+
+list sold products Report:
+
+http://localhost:3000/soldProducts/list          (GET)
+
