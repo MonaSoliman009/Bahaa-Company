@@ -79,6 +79,47 @@
                 <div class="text-right">
                   <button type="button" class="btn btn-primary"  (click)="addNewSection()">Add another product</button>
                 </div>
+
+
+
+
+                <div class="card-header col-md-4 mb-3">
+                  <h5 class="card-title">Accessories</h5>
+                </div>
+                <div class="form-row" *ngFor = "let element of newSection2">
+                  
+                  
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom02">Type</label>
+                  <input type="text" class="form-control" id="validationCustom02" placeholder="Type"  required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom02">Quantity</label>
+                  <input type="number" class="form-control" id="validationCustom02" placeholder="Quantity"  required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+             
+             
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom02">Price</label>
+                  <input type="number" class="form-control" id="validationCustom02" placeholder="Price"  required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                
+              
+                </div>
+                <div class="text-right">
+                  <button type="button" class="btn btn-primary"  (click)="addNewSection2()">Add another product</button>
+                </div>
+
+
                 <button class="btn btn-primary" type="submit">Submit form</button>
               </form>
             </div>
