@@ -31,7 +31,7 @@ password:"string"
 
 /////////////////////////////////////////////////////////////////////////////////
 //list unapproved employees(GET)
-http://localhost:3000/owner/list/employees/approved
+http://localhost:3000/owner/list/employees/unapproved
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,86 @@ interface>>>>>
   
 list owner account details   (GET)
 
-http://localhost:3000/owner/account/:id            (id or owner)
+http://localhost:3000/owner/account/:id            (id for owner)
 
 
 //////////////////////////////////////////////////////////////////////////////
+
+delete accountant         (DELETE)
+
+http://localhost:3000/owner/accountant/delete/:id
+
+//////////////////////////////////////////////////////////////////////////////
+
+delete employee         (DELETE)
+
+http://localhost:3000/owner/employee/delete/:id
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+Purchase Invoice:
+/////////////////////////
+
+add purchase invoice:
+http://localhost:3000/purchase/add    (POST)
+
+interface>>>>>>>>> 
+
+purchaseNumber:number
+purchaseDate:date
+supplier:string
+purchaseCart:  [
+        {
+          productId: id  (product or accessories),
+          quantity: number,
+        }
+      ]
+
+///////////////////////////
+
+list purchase invoices:
+
+http://localhost:3000/purchase/list    (GET)
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+sale Invoice:
+/////////////////////////
+
+add sale invoice:
+http://localhost:3000/sale/add    (POST)
+
+interface>>>>>>>>> 
+
+customerName:string
+price:number
+date:date
+Products:  [
+     
+        {
+          productId:id,
+          quantity: number,
+          configuration: {
+            cpu:string,
+            withCharger:boolean,
+            ram:type:Number,
+            hard:String
+         }
+        }
+      
+    ]
+
+   seller:id   (Employee id) 
+
+///////////////////////////
+
+list sale invoices:
+
+http://localhost:3000/sale/list    (GET)
+
