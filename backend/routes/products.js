@@ -31,6 +31,17 @@ router.post("/add/:id", parseUrlencoded, async function (req, res) {
   res.json(productt);
 });
 
+router.post("/get/id", parseUrlencoded, async function (req, res) {
+
+  let productt = await product.findOne({
+    serialNumber: req.body.serialNumber
+  });
+
+ 
+  res.json(productt);
+});
+
+
 // //Adding Product
 // router.post("",checkAuth, (req, res, next) => {
 //     const product = new Product({

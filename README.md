@@ -121,17 +121,20 @@ Purchase Invoice:
 /////////////////////////
 
 add purchase invoice:
-http://localhost:3000/purchase/add    (POST)
+http://localhost:3000/purchase/add/:id    (POST)   >>>>>>id for (owner or employee or accountant)
 
 interface>>>>>>>>> 
 
 purchaseNumber:number
 purchaseDate:date
 supplier:string
-purchaseCart:  [
+products:  [
         {
-          productId: id  (product or accessories),
-          quantity: number,
+          serialNumber: string,
+          model: String,
+          addedAt:Date,>>>>>>>(date of today)
+          quantity:number,
+          price:number,
         }
       ]
 
@@ -161,7 +164,7 @@ date:date
 Products:  [
      
         {
-          productId:id,
+        productId:id,>>>>>>>u can use this route http://localhost:3000/product/get/id  to take serial num and get id
           quantity: number,
           configuration: {
             cpu:string,
@@ -181,3 +184,19 @@ list sale invoices:
 
 http://localhost:3000/sale/list    (GET)
 
+//////////////////////////////////////////////////////////
+
+list sold products Report:
+
+http://localhost:3000/soldProducts/list          (GET)
+
+
+///////////////////////////////////////////////////////
+
+get product by serial number:
+
+http://localhost:3000/product/get/id          (POST)
+
+interface>>>>>
+
+serialNumber:number                 (serial number for the product)

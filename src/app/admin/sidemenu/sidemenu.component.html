@@ -184,8 +184,14 @@
               >
             </li>
             <li [className]="page === 'error500' ? 'active' : ''">
+              <a [routerLink]="'/admin/reports/sold-products'"
+                >Sold Products Report</a
+              >
+            </li>
+            <li [className]="page === 'error500' ? 'active' : ''">
               <a [routerLink]="'/admin/reports/employees'">Employees Report</a>
             </li>
+            
           </ul>
         </li>
 

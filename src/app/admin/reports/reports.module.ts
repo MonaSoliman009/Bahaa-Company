@@ -6,6 +6,7 @@ import { GoodProductsComponent } from './good-products/good-products.component';
 import { DefectiveProductsComponent } from './defective-products/defective-products.component';
 import { MissingPiecesComponent } from './missing-pieces/missing-pieces.component';
 import { EmployeeReportComponent } from './employee-report/employee-report.component';
+import { SoldProductsComponent } from './sold-products/sold-products.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { EmployeeReportComponent } from './employee-report/employee-report.compo
     GoodProductsComponent,
     DefectiveProductsComponent,
     MissingPiecesComponent,
-    EmployeeReportComponent
+    EmployeeReportComponent,
+    SoldProductsComponent
   ],
   imports: [
     CommonModule,
