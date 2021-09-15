@@ -47,9 +47,8 @@
                 <div class="card-header col-md-4 mb-3">
                   <h5 class="card-title">Products</h5>
                 </div>
-                <div class="form-row" *ngFor = "let element of newSection">
-                  
-                  
+              <div formArrayName="options">
+              <div class="form-row" *ngFor="let element of newSection">
                 <div class="col-md-4 mb-3">
                   <label for="validationCustom02">Serial Number</label>
                   <input type="text" class="form-control" id="validationCustom02" placeholder="Serial Number"  required>
