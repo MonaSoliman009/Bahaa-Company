@@ -77,7 +77,7 @@ var product =mongoose.model("product", new mongoose.Schema({
     required: true,
   },
   purchaseSerialNumber: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: "PurchaseInvoice",
   },
   addedBy: {
