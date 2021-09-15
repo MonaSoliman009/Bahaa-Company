@@ -140,3 +140,44 @@ purchaseCart:  [
 list purchase invoices:
 
 http://localhost:3000/purchase/list    (GET)
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+sale Invoice:
+/////////////////////////
+
+add sale invoice:
+http://localhost:3000/sale/add    (POST)
+
+interface>>>>>>>>> 
+
+customerName:string
+price:number
+date:date
+Products:  [
+     
+        {
+          productId:id,
+          quantity: number,
+          configuration: {
+            cpu:string,
+            withCharger:boolean,
+            ram:type:Number,
+            hard:String
+         }
+        }
+      
+    ]
+
+   seller:id   (Employee id) 
+
+///////////////////////////
+
+list sale invoices:
+
+http://localhost:3000/sale/list    (GET)
+

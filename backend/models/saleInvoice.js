@@ -20,8 +20,8 @@ var saleInvoice = mongoose.model(
       required: true,
       
     },
-    Products: {
-      items: [
+    Products: [
+     
         {
           productId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -30,17 +30,18 @@ var saleInvoice = mongoose.model(
           },
           quantity: { type: Number, required: true },
           configuration: {
-            cpu:{type:String},
+            cpu:{type:String,required:true},
             withCharger:{type:Boolean,required:true},
             ram:{type:Number,required:true},
             hard:{type:String,required:true} 
          }
         }
-      ]
-    },
+      
+    ],
           seller:{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Employee",
+            required: true
           }
         
     
