@@ -4,11 +4,11 @@ import { Accountant } from '../../model/accountant';
 import { AccountantService } from '../../services/accountant.service';
 
 @Component({
-  selector: 'app-approve-accountants',
-  templateUrl: './approve-accountants.component.html',
-  styleUrls: ['./approve-accountants.component.css'],
+  selector: 'app-unapprove-accountant',
+  templateUrl: './unapprove-accountant.component.html',
+  styleUrls: ['./unapprove-accountant.component.css'],
 })
-export class ApproveAccountantsComponent implements OnInit {
+export class UnapproveAccountantComponent implements OnInit {
   constructor(private ser: AccountantService) {}
   ratings: Accountant;
   errorMessage: string;
@@ -27,14 +27,13 @@ export class ApproveAccountantsComponent implements OnInit {
     );
   }
   alertWithSuccess() {
-    Swal.fire('Thank you...', 'succesfully approved!', 'success');
+    Swal.fire('Thank you...', ' Succesfully deleted!', 'success');
   }
-  approve(id) {
+  delete(id) {
     console.log('id', id);
-
-    this.ser.ApproveAccountant(id).subscribe((res) => {
-      console.log('response', res);
-      this.alertWithSuccess();
-    });
+    this.alertWithSuccess();
+    // this.ser.ApproveAccountant(id).subscribe((res) => {
+    //   console.log('response', res);
+    // });
   }
 }

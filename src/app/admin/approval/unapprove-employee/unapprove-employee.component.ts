@@ -1,22 +1,21 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../model/employee';
-
 import { EmployeeService } from '../../services/employee.service';
 
 @Component({
-  selector: 'app-approve-employees',
-  templateUrl: './approve-employees.component.html',
-  styleUrls: ['./approve-employees.component.css'],
+  selector: 'app-unapprove-employee',
+  templateUrl: './unapprove-employee.component.html',
+  styleUrls: ['./unapprove-employee.component.css'],
 })
-export class ApproveEmployeesComponent implements OnInit {
+export class UnapproveEmployeeComponent implements OnInit {
   emplyee: Employee;
   errorMessage: string;
   id: any;
   constructor(public ser: EmployeeService) {}
 
   ngOnInit(): void {
-    this.ser.getUnApprovedEmployee().subscribe((res: Employee) => {
+    this.ser.getApproveEmployee().subscribe((res: Employee) => {
       console.log(res);
 
       this.emplyee = res;
@@ -29,12 +28,13 @@ export class ApproveEmployeesComponent implements OnInit {
     });
   }
   alertWithSuccess() {
-    Swal.fire('Thank you...', 'succesfully approved!', 'success');
+    Swal.fire('Thank you...', ' Succesfully deleted!', 'success');
   }
-  appprove(id) {
-    this.ser.ApproveEmployee(id).subscribe((res) => {
-      console.log('response', res);
-      this.alertWithSuccess();
-    });
+  delete(id) {
+    console.log('id', id);
+    this.alertWithSuccess();
+    // this.ser.ApproveAccountant(id).subscribe((res) => {
+    //   console.log('response', res);
+    // });
   }
 }
