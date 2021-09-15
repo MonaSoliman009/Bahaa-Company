@@ -164,7 +164,7 @@ date:date
 Products:  [
      
         {
-        productId:id,>>>>>>>u can use this route http://localhost:3000/product/get/id  to take serial num and get id
+           productId:id,>>>>>>>u can use this route http://localhost:3000/product/getBySerialNum  to take serial num and get id
           quantity: number,
           configuration: {
             cpu:string,
@@ -195,7 +195,7 @@ http://localhost:3000/soldProducts/list          (GET)
 
 get product by serial number:
 
-http://localhost:3000/product/get/id          (POST)
+http://localhost:3000/product/getBySerialNum         (POST)
 
 interface>>>>>
 
