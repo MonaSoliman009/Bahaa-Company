@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
 
       // }
     });
+    this.router.navigate(['./admin/dashboard']);
   }
   // onSubmit() {
   //   console.log('register');

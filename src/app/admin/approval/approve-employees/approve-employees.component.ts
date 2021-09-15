@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../model/employee';
 
@@ -27,9 +28,13 @@ export class ApproveEmployeesComponent implements OnInit {
       });
     });
   }
+  alertWithSuccess() {
+    Swal.fire('Thank you...', 'succesfully approved!', 'success');
+  }
   appprove(id) {
     this.ser.ApproveEmployee(id).subscribe((res) => {
       console.log('response', res);
+      this.alertWithSuccess();
     });
   }
 }

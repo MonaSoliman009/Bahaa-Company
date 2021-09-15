@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../model/employee';
 import { EmployeeService } from '../../services/employee.service';
@@ -26,9 +27,14 @@ export class UnapproveEmployeeComponent implements OnInit {
       });
     });
   }
-  appprove(id) {
-    this.ser.ApproveEmployee(id).subscribe((res) => {
-      console.log('response', res);
-    });
+  alertWithSuccess() {
+    Swal.fire('Thank you...', ' Succesfully deleted!', 'success');
+  }
+  delete(id) {
+    console.log('id', id);
+    this.alertWithSuccess();
+    // this.ser.ApproveAccountant(id).subscribe((res) => {
+    //   console.log('response', res);
+    // });
   }
 }

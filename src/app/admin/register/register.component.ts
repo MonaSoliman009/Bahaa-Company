@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from './services/register.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Router } from '@angular/router';
 // import { MustMatch } from './_helpers/must-match.validator';
 @Component({
   selector: 'app-register',
@@ -14,6 +15,7 @@ export class RegisterComponent implements OnInit {
   selectedVlaue: any;
   selectedPosition: any;
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private service: RegisterService
   ) {}
@@ -56,7 +58,9 @@ export class RegisterComponent implements OnInit {
       this.service
         .accountant_register(this.registerForm.value)
         .subscribe((res) => {
+          this.alertWithSuccess();
           console.log('success', res);
+          this.router.navigate(['./admin/dashboard']);
         });
     } else if (this.selectedPosition == 2) {
       this.service
@@ -64,6 +68,7 @@ export class RegisterComponent implements OnInit {
         .subscribe((res) => {
           console.log('employee');
           this.alertWithSuccess();
+          this.router.navigate(['./admin/dashboard']);
           res;
         });
     }
