@@ -21,6 +21,8 @@ export class EmployeeService {
     return this.http.get('http://localhost:3000/owner/list/employees/approved');
   }
   deleteEmployee(id) {
-    return this.http.get(`http://localhost:3000/owner/employee/delete/${id}`);
+    return this.http.delete(
+      `http://localhost:3000/owner/employee/delete/${id}`
+    );
   }
 }

@@ -11,22 +11,23 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DataService } from 'src/app/data.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AddPurchaseInvoiceComponent } from './add-purchase-invoice/add-purchase-invoice.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AddSaleInvoiceComponent,
     ListSaleComponent,
     ListPurchaseComponent,
-    AddPurchaseInvoiceComponent
+    AddPurchaseInvoiceComponent,
   ],
   imports: [
     CommonModule,
     InvoicesRoutingModule,
     NgbModule,
     NgSelect2Module,
+    ReactiveFormsModule,
     InMemoryWebApiModule.forRoot(DataService),
-    ModalModule.forRoot()
-  ]
+    ModalModule.forRoot(),
+  ],
 })
-export class InvoicesModule { }
+export class InvoicesModule {}
