@@ -40,6 +40,14 @@ router.post("/getBySerialNum", parseUrlencoded, async function (req, res) {
  
   res.json(productt);
 });
+router.get("/list", parseUrlencoded, async function (req, res) {
+
+  let productts = await product.find({
+  });
+
+ 
+  res.json(productts);
+});
 
 
 // //Adding Product

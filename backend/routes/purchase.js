@@ -7,7 +7,7 @@ var parseUrlencoded = bodyParser.urlencoded({
 });
 var { PurchaseInvoice } = require("../models/purchase invoice");
 var { product } = require("../models/product");
-
+var {accessories}= require("../models/accessories");
 router.post("/add/:id", parseUrlencoded, async (req, res)=> {
   var arr = [];
   for (var i = 0; i < req.body.products.length; i++) {
@@ -27,6 +27,24 @@ router.post("/add/:id", parseUrlencoded, async (req, res)=> {
     console.log(pro)
 
     arr.push({ productId: pro.id, quantity: req.body.products[i].quantity });
+  }
+
+  for(var i=0;i< req.body.accessories.length;i++){
+    let accessoriess = new accessories({
+      type: req.body.accessories[i].type,
+      price: req.body.accessories[i].price,
+      quantity: req.body.accessories[i].quantity,
+    
+    });
+    await  accessoriess.save();
+    let acc = await accessories.findOne({
+      type: accessoriess.type,
+      price:accessoriess.price,
+      quantity:accessoriess.quantity
+    });
+    console.log(acc)
+    arr.push({ productId: acc.id, quantity: req.body.accessories[i].quantity });
+
   }
   console.log(arr)
   let PurchaseInvoicee = new PurchaseInvoice({

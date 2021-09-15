@@ -6,6 +6,7 @@ const PurchaseInvoice = mongoose.model(
     purchaseNumber: {
       type: Number,
       required: true,
+      unique: true,
     },
     purchaseDate: {
       type: Date,

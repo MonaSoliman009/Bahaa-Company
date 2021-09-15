@@ -3,6 +3,7 @@ var product =mongoose.model("product", new mongoose.Schema({
   serialNumber: {
     type: Number,
     required: true,
+    unique: true,
   },
 //   make: {
 //     type: String,
