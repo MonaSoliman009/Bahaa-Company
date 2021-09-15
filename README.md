@@ -112,3 +112,31 @@ http://localhost:3000/owner/accountant/delete/:id
 delete employee         (DELETE)
 
 http://localhost:3000/owner/employee/delete/:id
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+Purchase Invoice:
+/////////////////////////
+
+add purchase invoice:
+http://localhost:3000/purchase/add    (POST)
+
+interface>>>>>>>>> 
+
+purchaseNumber:number
+purchaseDate:date
+supplier:string
+purchaseCart:  [
+        {
+          productId: id  (product or accessories),
+          quantity: number,
+        }
+      ]
+
+///////////////////////////
+
+list purchase invoices:
+
+http://localhost:3000/purchase/list    (GET)

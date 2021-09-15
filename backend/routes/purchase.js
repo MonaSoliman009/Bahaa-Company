@@ -10,10 +10,7 @@ var {PurchaseInvoice }= require("../models/purchase invoice");
 
 
 router.post("/add", parseUrlencoded, function (req, res) {
-    // var { error } = validatesaleInvoice(req.body);
-    // if (error) {
-    //   return res.status(400).send(error.details[0].message);
-    // }
+  
     let PurchaseInvoicee = new PurchaseInvoice({
       purchaseNumber: req.body.purchaseNumber,
       purchaseDate: req.body.purchaseDate,
@@ -25,7 +22,10 @@ router.post("/add", parseUrlencoded, function (req, res) {
   });
 
 
-
+  router.get("/list", parseUrlencoded, async (req, res)=> {
+    let result = await PurchaseInvoice.find();
+    res.json(result);
+  });
 
 
 
