@@ -136,7 +136,9 @@ date:date
 Products: [
 
         {
-           productId:id,>>>>>>>u can use this route http://localhost:3000/product/getBySerialNum  to take serial num and get id
+           productId:id,>>>>>>>
+           u can use this route http://localhost:3000/product/getBySerialNum
+            to take serial num and get id
           quantity: number,
           configuration: {
             cpu:string,
@@ -149,14 +151,14 @@ Products: [
     ]
 
 accessories:[
-            {
-         type: String,
-          price: Number,
-           quantity:  Number}
+{
+type: String,
+price: Number,
+quantity: Number}
 
            ]
 
-seller:id              (Employee id)
+seller:id (Employee id)
 
 ///////////////////////////
 

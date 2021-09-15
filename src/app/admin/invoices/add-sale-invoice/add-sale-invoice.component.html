@@ -55,7 +55,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4 mb-3">
+                <!-- <div class="col-md-4 mb-3">
                   <label for="validationCustom02">Seller Name</label>
                   <input
                     type="text"
@@ -65,106 +65,113 @@
                     required
                   />
                   <div class="valid-feedback">Looks good!</div>
-                </div>
+                </div> -->
               </div>
 
               <div class="card-header col-md-4 mb-3">
                 <h5 class="card-title">Products</h5>
               </div>
-              <div formArrayName="Products">
-                <div>
-                  <div class="form-row" *ngFor="let element of newSection">
-                    <div class="col-md-4 mb-3">
-                      <label for="validationCustom02">Serial Number</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="validationCustom02"
-                        placeholder="Serial Number"
-                        formControlName=" Products.productId"
-                        required
-                      />
-                      <div class="valid-feedback">Looks good!</div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <label for="validationCustom02">Quantity</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="validationCustom02"
-                        placeholder="Quantity"
-                        formControlName="Products.quantity"
-                        required
-                      />
-                      <div class="valid-feedback">Looks good!</div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <label for="validationCustom02">CPU</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="validationCustom02"
-                        placeholder="CPU"
-                        formControlName="configuration.cpu"
-                        required
-                      />
-                      <div class="valid-feedback">Looks good!</div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <label class="d-block">With Charger</label>
-                      <div class="form-check form-check-inline">
+              <ng-container formArrayName="Products">
+                <div *ngFor="let product of Products.controls; index as i">
+                  <div class="form-row">
+                    <ng-container
+                      [formGroupName]="i"
+                      *ngFor="let element of newSection"
+                    >
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustom02">Serial Number</label>
                         <input
-                          class="form-check-input"
-                          type="radio"
-                          name="gender"
-                          id="gender_male"
-                          formControlName="configuration.withCharger"
-                          value="option1"
+                          type="text"
+                          class="form-control"
+                          id="validationCustom02"
+                          placeholder="Serial Number"
+                          formControlName="productId"
+                          required
                         />
-                        <label class="form-check-label" for="gender_male"
-                          >Yes</label
-                        >
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustom02">Quantity</label>
                         <input
-                          class="form-check-input"
-                          type="radio"
-                          name="gender"
-                          id="gender_female"
-                          value="option2"
+                          type="number"
+                          class="form-control"
+                          id="validationCustom02"
+                          placeholder="Quantity"
+                          formControlName="quantity"
+                          required
                         />
-                        <label class="form-check-label" for="gender_female"
-                          >No</label
-                        >
+                        <div class="valid-feedback">Looks good!</div>
                       </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <label for="validationCustom02">RAM</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="validationCustom02"
-                        placeholder="RAM"
-                        formControlName="configuration.ram"
-                        required
-                      />
-                      <div class="valid-feedback">Looks good!</div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                      <label for="validationCustom02">Hard</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="validationCustom02"
-                        placeholder="Hard"
-                        formControlName="configuration.hard"
-                        required
-                      />
-                      <div class="valid-feedback">Looks good!</div>
-                    </div>
+                      <ng-container formGroupName="configuration">
+                        <div class="col-md-4 mb-3">
+                          <label for="validationCustom02">CPU</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="validationCustom02"
+                            placeholder="CPU"
+                            formControlName="cpu"
+                            required
+                          />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label class="d-block">With Charger</label>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="withCharger"
+                              id="withCharger_male"
+                              formControlName="withCharger"
+                              [value]="true"
+                            />
+                            <label class="form-check-label" for="gender_male"
+                              >Yes</label
+                            >
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="withCharger"
+                              id="withCharger_female"
+                              formControlName="withCharger"
+                              [value]="false"
+                            />
+                            <label class="form-check-label" for="gender_female"
+                              >No</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="validationCustom02">RAM</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="validationCustom02"
+                            placeholder="RAM"
+                            required
+                            formControlName="ram"
+                          />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="validationCustom02">Hard</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="validationCustom02"
+                            placeholder="Hard"
+                            formControlName="hard"
+                            required
+                          />
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
                   </div>
                 </div>
-              </div>
+              </ng-container>
               <div class="text-right">
                 <button
                   type="button"
