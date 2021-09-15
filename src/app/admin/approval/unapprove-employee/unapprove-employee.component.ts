@@ -28,13 +28,18 @@ export class UnapproveEmployeeComponent implements OnInit {
     });
   }
   alertWithSuccess() {
-    Swal.fire('Thank you...', ' Succesfully deleted!', 'success');
+    Swal.fire('Thank you...', ' Succesfully deleted!', 'success').then(
+      (res) => {
+        location.reload();
+      }
+    );
   }
   delete(id) {
     console.log('id', id);
-    this.alertWithSuccess();
-    // this.ser.ApproveAccountant(id).subscribe((res) => {
-    //   console.log('response', res);
-    // });
+
+    this.ser.deleteEmployee(id).subscribe((res) => {
+      console.log('response', res);
+      this.alertWithSuccess();
+    });
   }
 }

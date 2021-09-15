@@ -22,4 +22,9 @@ export class AccountantService {
       'http://localhost:3000/owner/list/accountants/approved'
     );
   }
+  deleteAccountant(id) {
+    http: return this.http.delete(
+      `http://localhost:3000/owner/accountant/delete/${id}`
+    );
+  }
 }
