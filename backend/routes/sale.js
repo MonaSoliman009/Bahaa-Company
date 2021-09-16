@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 var parseUrlencoded = bodyParser.urlencoded({
   extended: true,
 });
-var { saleInvoice } = require("../models/saleInvoice");
+var  saleInvoice  = require("../models/saleInvoice");
 var { soldProductsReport } = require("../models/soldProductsReport");
 var { product } = require("../models/product");
 var mongoose = require("mongoose");
@@ -41,13 +41,9 @@ router.post("/add", parseUrlencoded, async (req, res)=> {
       }
     });
 
-    mongoose.model("product").findOneAndRemove({
-      serialNumber: req.body.Products[i].productSerialNumber,quantity:0
-    },
-    function (err, data) {
-      if (!err) {
-      }
-    })
+  // let x=await mongoose.model("product").findOneAndRemove({
+  //     serialNumber: req.body.Products[i].productSerialNumber,quantity:0
+  //   })
    }else{
     console.log("2")
 
@@ -61,8 +57,13 @@ router.post("/add", parseUrlencoded, async (req, res)=> {
 });
 
 router.get("/list", parseUrlencoded, async (req, res) => {
-  let result = await saleInvoice.find().populate("Products.productId");
-  res.json(result);
+   saleInvoice.find().populate("serials").exec(function(error, bands) {
+    if(error){
+      console.log(error)
+    }
+    res.json(bands);
+
+  });;
 });
 
 module.exports = router;

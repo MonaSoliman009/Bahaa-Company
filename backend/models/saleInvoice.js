@@ -1,9 +1,9 @@
 var mongoose = require("mongoose");
 var joi = require("joi");
+const Schema = mongoose.Schema
+ var saleInvoice = new Schema({ 
+  
 
-var saleInvoice = mongoose.model(
-  "saleInvoice",
-  new mongoose.Schema({
     customerName: {
       type: String,
       required: true,
@@ -25,7 +25,6 @@ var saleInvoice = mongoose.model(
         {
           productSerialNumber: {
             type: Number,
-            ref: 'product',
             required: true
           },
           quantity: { type: Number, required: true },
@@ -46,9 +45,19 @@ var saleInvoice = mongoose.model(
         
     
   })
-);
 
 
 
+saleInvoice.virtual('serials', {
+  ref: 'product', // The model to use
+  localField: 'Products.productSerialNumber', // Find people where `localField`
+  foreignField: 'serialNumber', // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: false,
+  match: { isActive: true }
+});
+saleInvoice.set('toJSON', { virtuals: true })
 
-exports.saleInvoice = saleInvoice;
+// exports.saleInvoice = saleInvoice;
+module.exports = mongoose.model('saleInvoice', saleInvoice)
