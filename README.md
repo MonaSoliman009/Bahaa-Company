@@ -136,13 +136,7 @@ date:date
 Products: [
 
         {
-<<<<<<< HEAD
            productSerialNumber:Number,
-=======
-           productId:id,>>>>>>>
-           u can use this route http://localhost:3000/product/getBySerialNum
-            to take serial num and get id
->>>>>>> 166d51f2a69e8e767c81be1184bdfe65af89719b
           quantity: number,
           configuration: {
             cpu:string,
