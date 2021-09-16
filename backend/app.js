@@ -1,7 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const app = express();
+
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
 const product = require("./routes/products");
+var  {productSchema  }= require("./models/product");
+
 const testPhaseRoutes = require("./routes/testPhase");
 const employee = require("./routes/employee");
 const accountant = require("./routes/accountant");
@@ -15,7 +21,6 @@ const cors = require("cors");
 var mongosanatize = require("express-mongo-sanitize");
 var xss = require("xss-clean");
 var helmet = require("helmet");
-const app = express();
 
 mongoose
   .connect(
@@ -65,8 +70,39 @@ app.use("/purchase", PurchaseInvoice);
 app.use("/sale", saleInvoice);
 app.use("/soldProducts", soldProductsReport);
 
+io.on("connection", (socket) => {
+  console.log("new user connected");
+
+  socket.on("disconnect", () => {
+    console.log("disconnect");
+  });
+/////////////////////////////////////////////////////////////////////////
+  socket.on("startTest", async (productserialNumber,id) => {
+  let productt=  await productSchema.find(
+      { serialNumber: productserialNumber },
+      function (err, data) {
+        if (err) {
+          console.log(err);
+        } else {
+          if(productt.status=="New"||productt.status=="Under Test Phase"){
+            productSchema.updateOne({ serialNumber: productt.serialNumber},  {
+              $set: {status: 'Tested Now'} ,
+          })
+             
+          
+          }else{
 
 
-app.listen(3000, function () {
+          }
+         
+        }
+      }
+    );
+  });
+
+  ////////////////////////////////////////////////////////////////////////
+});
+
+server.listen(3000, function () {
   console.log("listen");
 });

@@ -21,11 +21,11 @@ router.post("/add", parseUrlencoded, async (req, res)=> {
   var obj = {};
   for (var i = 0; i < req.body.Products.length; i++) {
     obj={
-      productId: req.body.Products[i].productId,
+      productSerialNumber: req.body.Products[i].productSerialNumber,
       quantity: req.body.Products[i].quantity,
     };
     console.log(req.body.Products[i].quantity);
-  let productt=await  product.findOne({_id:req.body.Products[i].productId,quantity : {$gte : req.body.Products[i].quantity}})
+  let productt=await  product.findOne({serialNumber:req.body.Products[i].productSerialNumber,quantity : {$gte : req.body.Products[i].quantity}})
    if(productt){
      console.log("1")
     let soldProductsReportt = new soldProductsReport({
@@ -33,7 +33,7 @@ router.post("/add", parseUrlencoded, async (req, res)=> {
       
     });
     soldProductsReportt.save();
-    product.findByIdAndUpdate({_id:req.body.Products[i].productId },{$inc: {quantity: -req.body.Products[i].quantity}},function(err,updated){
+    product.findOneAndUpdate({serialNumber:req.body.Products[i].productSerialNumber },{$inc: {quantity: -req.body.Products[i].quantity}},function(err,updated){
       if(err){
         console.log(err)
       }else{
@@ -42,7 +42,7 @@ router.post("/add", parseUrlencoded, async (req, res)=> {
     });
 
     mongoose.model("product").findOneAndRemove({
-      _id: req.body.Products[i].productId,quantity:0
+      serialNumber: req.body.Products[i].productSerialNumber,quantity:0
     },
     function (err, data) {
       if (!err) {

@@ -79,7 +79,7 @@ var product =mongoose.model("product", new mongoose.Schema({
   },
   purchaseSerialNumber: {
     type: Number,
-    ref: "PurchaseInvoice",
+  
   },
   addedBy: {
     type: mongoose.Schema.Types.ObjectId, //who add the product

@@ -23,8 +23,8 @@ var saleInvoice = mongoose.model(
     Products: [
      
         {
-          productId: {
-            type: mongoose.Schema.Types.ObjectId,
+          productSerialNumber: {
+            type: Number,
             ref: 'product',
             required: true
           },

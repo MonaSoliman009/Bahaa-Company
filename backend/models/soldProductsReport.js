@@ -6,8 +6,8 @@ var soldProductsReport = mongoose.model(
   new mongoose.Schema({
     product: 
       {
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
+        productSerialNumber: {
+          type: Number,
           ref: "product",
           required: true,
         },

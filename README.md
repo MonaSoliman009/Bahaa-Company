@@ -136,7 +136,7 @@ date:date
 Products: [
 
         {
-           productId:id,>>>>>>>u can use this route http://localhost:3000/product/getBySerialNum  to take serial num and get id
+           productSerialNumber:Number,
           quantity: number,
           configuration: {
             cpu:string,
