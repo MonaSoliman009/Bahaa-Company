@@ -7,6 +7,7 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const product = require("./routes/products");
 var  {productSchema  }= require("./models/product");
+var  {notification  }= require("./models/notification");
 
 const testPhaseRoutes = require("./routes/testPhase");
 const employee = require("./routes/employee");
@@ -77,24 +78,51 @@ io.on("connection", (socket) => {
     console.log("disconnect");
   });
 /////////////////////////////////////////////////////////////////////////
-  socket.on("startTest", async (productserialNumber,id) => {
+  socket.on("startTest", async (productserialNumber,productId,testerId,Date) => {
   let productt=  await productSchema.find(
       { serialNumber: productserialNumber },
-      function (err, data) {
+      async (err, data)=> {
         if (err) {
           console.log(err);
         } else {
-          if(productt.status=="New"||productt.status=="Under Test Phase"){
-            productSchema.updateOne({ serialNumber: productt.serialNumber},  {
-              $set: {status: 'Tested Now'} ,
-          })
-             
-          
-          }else{
 
+
+
+          if(productt.quantity!=0){
+            if(productt.status=="New"||productt.status=="Under Test Phase"){
+              productSchema.updateOne({ serialNumber: productt.serialNumber},{
+                $set: {status: 'Tested Now'} ,
+            })
+                
+            let new_notification = new notification({
+              productId: productId,
+              tester: testerId,
+              currentDate: Date,
+            });
+            await new_notification.save();
+
+            io.emit("Notification", new_notification)
+
+            }else{
+  
+              io.emit("allPost", {message:"you cannot test this product"})
+            }
+           
+
+          }else{
+            io.emit("allPost", {message:"Not exit"})
 
           }
-         
+     
+
+
+
+
+
+
+
+
+
         }
       }
     );

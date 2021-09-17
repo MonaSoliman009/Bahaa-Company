@@ -179,3 +179,10 @@ http://localhost:3000/product/getBySerialNum (POST)
 interface>>>>>
 
 serialNumber:number (serial number for the product)
+
+
+/////////////////////////////////////////////////////////////////////////
+
+list all products              (GET)
+
+http://localhost:3000/product/list
