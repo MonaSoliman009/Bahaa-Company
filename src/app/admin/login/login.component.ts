@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private ser: AuthService
+    private ser: AuthService,
+    private service: DataService
   ) {}
   get formControls() {
     console.log(this.loginForm.controls);
@@ -40,6 +42,8 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
 
     this.ser.login(this.loginForm.value).subscribe((response) => {
+      console.log('response', response);
+      this.service.changeMessage(response.accountant);
       console.log('response', response);
       console.log(response);
 

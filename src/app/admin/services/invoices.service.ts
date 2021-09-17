@@ -13,8 +13,8 @@ export class InvoicesService {
   listSaleInvoice(): Observable<any> {
     return this.http.get('http://localhost:3000/sale/list ');
   }
-  addPurchuseInvoice(id) {
-    return this.http.post('http://localhost:3000/purchase/add/', +id);
+  addPurchuseInvoice(id, product: any): Observable<any> {
+    return this.http.post(`http://localhost:3000/purchase/add/${id} `, product);
   }
   listPurshuseInvoice(): Observable<any> {
     return this.http.get('http://localhost:3000/purchase/list');
