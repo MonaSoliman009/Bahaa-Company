@@ -90,6 +90,16 @@ var product =mongoose.model("product", new mongoose.Schema({
     required: true,
     default: "New",
   },
+  tested: {
+    type: Boolean,
+    required: true,
+    default:false,
+  },
+  maintened:{
+    type: Boolean,
+    required: true,
+    default: false,
+  }
 }));
 exports.product = product;
 
