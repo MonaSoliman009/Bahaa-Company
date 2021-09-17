@@ -44,7 +44,7 @@ http://localhost:3000/owner/approve/accountant/:id (send accountant id in url)
 http://localhost:3000/owner/list/accountants/approved
 
 ////////////////////////////////////////////////////////////////////////////
-//list approved accountants(GET)
+//list approved employees(GET)
 http://localhost:3000/owner/list/employees/approved
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -180,9 +180,8 @@ interface>>>>>
 
 serialNumber:number (serial number for the product)
 
-
 /////////////////////////////////////////////////////////////////////////
 
-list all products              (GET)
+list all products (GET)
 
 http://localhost:3000/product/list
