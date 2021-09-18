@@ -7,6 +7,8 @@ var repairedOutsideStoreProducts = mongoose.model(
     product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "product",
+      required: true
+
     },
 
     shopName: {
@@ -24,6 +26,8 @@ var repairedOutsideStoreProducts = mongoose.model(
     deliveryMan:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Employee",
+        required: true
+
     },
     cost:{
         type: Number,

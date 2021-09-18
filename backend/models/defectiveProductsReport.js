@@ -1,16 +1,25 @@
 var mongoose = require("mongoose");
 var joi = require("joi");
+const Schema = mongoose.Schema;
 
-var defectiveProductsReport = mongoose.model(
-  "defectiveProductsReport",
-  new mongoose.Schema({
-    products: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "product",
-    }],
+var defectiveProductsReport =new Schema({
+    product: {
+      type: Number,
+      required: true,
+    }
 
  
-  })
+  }
 );
+defectiveProductsReport.virtual("ProductDetails", {
+  ref: "product", // The model to use
+  localField: "product", // Find people where `localField`
+  foreignField: "serialNumber", // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: false,
+});
+defectiveProductsReport.set("toObject", { virtuals: true });
 
-exports.defectiveProductsReport = defectiveProductsReport;
+// exports.defectiveProductsReport = defectiveProductsReport;
+module.exports = mongoose.model('defectiveProductsReport', defectiveProductsReport)

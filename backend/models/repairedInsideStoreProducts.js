@@ -1,30 +1,43 @@
 var mongoose = require("mongoose");
-var joi = require("joi");
+const Schema = mongoose.Schema;
 
-var repairedInsideStorePhase = mongoose.model(
-  "repairedInsideStorePhase",
-  new mongoose.Schema({
-    product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "product",
+var repairedInsideStorePhase = new Schema({
+ 
+    productSerialNumber: {
+      type: Number,
+      required: true,
+      required: true,
     },
 
-    SpareParts: [
+    SpareParts: 
       {
         isAdded: { type: Boolean, required: true },
-        sparePart: { type: Number, required: true },
-      },
-    ],
-  })
+        sparePartNumber: [{ type: Number }],
+      }
+    ,
+    lastDealingWith: {
+      type: mongoose.Schema.Types.ObjectId,
+      enum: ["accountant", "owner", "employee"],
+    },
+}
 );
-repairedInsideStorePhase.virtual('SparePartsDetails', {
-  ref: 'spareParts', // The model to use
-  localField: 'SpareParts.sparePart', // Find people where `localField`
+repairedInsideStorePhase.virtual("SparePartsDetails", {
+  ref: "spareParts", // The model to use
+  localField: "SpareParts.sparePartNumber", // Find people where `localField`
+  foreignField: "serialNumber", // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: false,
+});
+repairedInsideStorePhase.virtual('productDetails', {
+  ref: 'product', // The model to use
+  localField: 'productSerialNumber', // Find people where `localField`
   foreignField: 'serialNumber', // is equal to `foreignField`
   // If `justOne` is true, 'members' will be a single doc as opposed to
   // an array. `justOne` is false by default.
   justOne: false,
-  match: { isActive: true }
+
 });
-repairedInsideStorePhase.set('toJSON', { virtuals: true })
-exports.repairedInsideStorePhase = repairedInsideStorePhase;
+repairedInsideStorePhase.set("toObject", { virtuals: true });
+// exports.repairedInsideStorePhase = repairedInsideStorePhase;
+module.exports = mongoose.model('repairedInsideStorePhase', repairedInsideStorePhase)
