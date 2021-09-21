@@ -66,4 +66,13 @@ router.get("/list", parseUrlencoded, async (req, res) => {
   });;
 });
 
+router.get("/list/:id",async(req,res)=>{
+  saleInvoice.findOne({_id:req.params.id}).populate("serials").exec(function(error, bands) {
+    if(error){
+      console.log(error)
+    }
+    res.json(bands);
+
+  });;
+})
 module.exports = router;

@@ -18,7 +18,8 @@ var repairedInsideStorePhase = new Schema({
     lastDealingWith: {
       type: mongoose.Schema.Types.ObjectId,
       enum: ["accountant", "owner", "employee"],
-    },
+      required: true
+    }
 }
 );
 repairedInsideStorePhase.virtual("SparePartsDetails", {
