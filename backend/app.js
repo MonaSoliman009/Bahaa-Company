@@ -10,6 +10,7 @@ var { product } = require("./models/product");
 var notification = require("./models/notification");
 var TestPhase = require("./models/test Phase");
 var repairedInsideStorePhase = require("./models/repairedInsideStoreProducts");
+var repairedOutsideStoreProducts=require("./models/repairedOutsideStoreProducts");
 var spareParts=require("./models/spareParts");
 var goodProductsReport= require("./models/goodProductsReport");
 const testPhaseRoutes = require("./routes/testPhase");
@@ -458,9 +459,7 @@ io.on("connection", (socket) => {
     }
   );
 
-  socket.on(
-    "submitMaintenanceInsideStore",
-    async (productserialNumber, maintainererId,sparePartsData, MaintenanceData,repaired) => {
+  socket.on( "submitMaintenanceInsideStore",async (productserialNumber, maintainererId,sparePartsData, MaintenanceData,repaired) => {
       var d = new Date();
       let productt = await product.findOne({
         serialNumber: productserialNumber,
@@ -535,6 +534,114 @@ io.on("connection", (socket) => {
       }
     }
   );
+
+
+  socket.on(
+    "startMaintenanceOutsideStore", async (productserialNumber, maintainererId) => {
+      var d = new Date();
+      let productt = await product.findOne({
+        serialNumber: productserialNumber,
+      });
+      if (productt) {
+        if (productt.quantity != 0) {
+          if (productt.status == "Ready For Maintenance") {
+            console.log("hi");
+            await product.updateOne(
+              { serialNumber: productt.serialNumber },
+              {
+                $set: { status: "Maintained Now" },
+              }
+            );
+
+            let new_notification = new notification({
+              productSerialNumber: productserialNumber,
+              tester: maintainererId,
+              currentDate: d,
+              message: "Started Maintainence",
+            });
+            await new_notification.save();
+            console.log("done");
+            io.emit("Maintenance", {
+              message: "Maintainence Started successfully",
+            });
+          } else {
+            io.emit("Maintainence", {
+              message: "you cannot Maintened this product",
+            });
+          }
+        }
+      } else {
+        io.emit("Maintainence", { message: "Product Not exit" });
+      }
+    }
+  );
+
+  socket.on( "submitMaintenanceOutsideStore",async (productserialNumber, maintainererId, MaintenanceData,repaired) => {
+    var d = new Date();
+    let productt = await product.findOne({
+      serialNumber: productserialNumber,
+    });
+    if (productt) {
+      if (productt.quantity != 0) {
+        if (productt.status == "Maintained Now") {
+          await product.updateOne(
+            { serialNumber: productt.serialNumber },
+            {
+              $set: { status: "Completed", maintened: true },
+            }
+          );
+
+          let new_notification = new notification({
+            productSerialNumber: productserialNumber,
+            tester: maintainererId,
+            currentDate: d,
+            message: "Finished Maintainence",
+          });
+          await new_notification.save();
+
+       
+          let new_repairedOutsideStoreProducts= new repairedOutsideStoreProducts({
+            product: productserialNumber,
+            shopName:MaintenanceData.shopName ,
+            recipient:MaintenanceData.recipient ,
+            deliveryMan:MaintenanceData.deliveryMan,
+            cost:MaintenanceData.cost,
+            lastDealingWith:maintainererId
+          });
+          await new_repairedOutsideStoreProducts.save();
+          console.log("done");
+          if(repaired){
+            
+            let new_goodProductsReport = new goodProductsReport({
+              product: productserialNumber,
+             
+            });
+            await new_goodProductsReport.save();
+
+
+          }else{
+            
+            let new_defectiveProductsReport= new defectiveProductsReport({
+              product: productserialNumber,
+             
+            });
+            await new_defectiveProductsReport.save();
+          }
+          io.emit("Maintenance", {
+            message: "Maintainence Finished successfully",
+          });
+        } else {
+          io.emit("Maintainence", {
+            message: "you cannot Maintened this product",
+          });
+        }
+      }
+    } else {
+      io.emit("Maintainence", { message: "Product Not exit" });
+    }
+  }
+);
+
 });
 
 server.listen(3000, function () {

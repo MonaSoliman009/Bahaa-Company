@@ -65,5 +65,14 @@ router.get("/list", parseUrlencoded, async (req, res) => {
   });
   res.json(result);
 });
+router.get("/list/:id",async(req,res)=>{
+  PurchaseInvoice.findOne({_id:req.params.id}).populate({path: "purchaseCart.productId",
+  model: "product" || "accessories"}).exec(function(error, bands) {
+    if(error){
+      console.log(error)
+    }
+    res.json(bands);
 
+  });;
+})
 module.exports = router;

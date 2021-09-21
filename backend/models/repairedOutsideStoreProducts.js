@@ -1,39 +1,49 @@
 var mongoose = require("mongoose");
-var joi = require("joi");
+const Schema = mongoose.Schema;
 
-var repairedOutsideStoreProducts = mongoose.model(
-  "repairedOutsideStoreProducts",
-  new mongoose.Schema({
+var repairedOutsideStoreProducts =new Schema({
     product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "product",
-      required: true
-
+      type: Number,
+      required: true,
     },
 
     shopName: {
       type: String,
       required: true,
-      minlength:2
      
     },
     recipient: {
         type: String,
         required: true,
-        unique: true,
-
+       
     },
     deliveryMan:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Employee",
-        required: true
+      type: String,
+     required: true
 
     },
     cost:{
         type: Number,
         required: true
+    },
+    lastDealingWith: {
+      type: mongoose.Schema.Types.ObjectId,
+      enum: ["accountant", "owner", "employee"],
+      required: true
     }
-  })
+  }
 );
 
-exports.repairedOutsideStoreProducts = repairedOutsideStoreProducts;
+repairedOutsideStoreProducts.virtual('productDetails', {
+  ref: 'product', // The model to use
+  localField: 'product', // Find people where `localField`
+  foreignField: 'serialNumber', // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: false,
+
+});
+repairedOutsideStoreProducts.set("toObject", { virtuals: true });
+
+// exports.repairedOutsideStoreProducts = repairedOutsideStoreProducts;
+module.exports = mongoose.model('repairedOutsideStoreProducts', repairedOutsideStoreProducts)
