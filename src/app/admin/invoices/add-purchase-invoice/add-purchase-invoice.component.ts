@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 
 import { InvoicesService } from '../../services/invoices.service';
@@ -12,28 +12,45 @@ import { InvoicesService } from '../../services/invoices.service';
 export class AddPurchaseInvoiceComponent implements OnInit {
   purchuseInvoiceForm: FormGroup;
   newSection: any = [0];
-  newSection2: any = [0];
   id: any;
+  today: any;
   constructor(
     private serInvoices: InvoicesService,
 
     private service: DataService
   ) {
     this.purchuseInvoiceForm = new FormGroup({
-      serialNumber: new FormControl(''),
-      model: new FormControl(''),
-      addedAt: new FormControl(''),
-
+      purchaseNumber: new FormControl(''),
+      purchaseDate: new FormControl(''),
+      supplier: new FormControl(''),
+      products: new FormArray([
+        new FormGroup({
+          serialNumber: new FormControl(''),
+          model: new FormControl(''),
+          addedAt: new FormControl(''),
+          quantity: new FormControl(''),
+          price: new FormControl(''),
+        }),
+      ]),
       quantity: new FormControl(''),
-      price: new FormControl(''),
     });
   }
 
   ngOnInit(): void {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    this.today = mm + '/' + dd + '/' + yyyy;
+    console.log(this.today);
     this.service.currentMessage.subscribe((id) => {
       this.id = id;
       console.log('id for ', id);
     });
+  }
+  get Products() {
+    return this.purchuseInvoiceForm.get('products') as FormArray;
   }
   onSubmit() {
     console.log(this.id);
@@ -50,7 +67,5 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   addNewSection() {
     this.newSection.push(2);
   }
-  addNewSection2() {
-    this.newSection2.push(2);
-  }
+
 }

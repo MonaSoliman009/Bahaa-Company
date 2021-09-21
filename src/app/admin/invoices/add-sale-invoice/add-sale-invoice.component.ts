@@ -12,6 +12,7 @@ import { InvoicesService } from '../../services/invoices.service';
 })
 export class AddSaleInvoiceComponent implements OnInit {
   newSection: any = [0];
+  today: any;
   saleInvoiceForm: FormGroup;
 
   constructor(
@@ -39,6 +40,18 @@ export class AddSaleInvoiceComponent implements OnInit {
       seller_id: new FormControl(''),
     });
   }
+  ngOnInit(): void {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    this.today = mm + '/' + dd + '/' + yyyy;
+    console.log(this.today);
+    this.saleInvoiceForm.patchValue({
+      date:this.today
+    });
+  }
   get Products() {
     return this.saleInvoiceForm.get('Products') as FormArray;
   }
@@ -56,7 +69,7 @@ export class AddSaleInvoiceComponent implements OnInit {
   //         hard: [''],
   //       }),
   //     },
-  ngOnInit(): void {}
+
   onSubmit() {
     console.log('value of form', this.saleInvoiceForm.value);
     this.serInvoices
