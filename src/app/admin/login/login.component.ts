@@ -43,13 +43,17 @@ export class LoginComponent implements OnInit {
 
     this.ser.login(this.loginForm.value).subscribe((response) => {
       console.log('response', response);
-      this.service.changeMessage(response.accountant);
+
       console.log('response', response);
       console.log(response);
 
       localStorage.setItem('token', response.token as string);
       localStorage.setItem('name', response.name as string);
-
+      localStorage.setItem('response', response.accountant as string);
+      localStorage.setItem('emp', response?.employee as string);
+      let info = localStorage.getItem('response');
+      console.log('data', info);
+      this.service.changeMessage(info);
       // if (response.name === 'accountant') {
       //   // this.router.navigate(['/home/volunteer', response.volunteer]);
       //   localStorage.setItem('id', response.accountant as string);
