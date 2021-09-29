@@ -7,7 +7,8 @@ const notification=new Schema({
       },
       tester : {//currently working //or done by
         type: mongoose.Schema.Types.ObjectId,
-        enum: ["employee", "owner","accountant"],
+        enum: ['employee', 'owner','accountant'],
+        defunct: 'employee',
         required: true
       }, 
       currentDate:{

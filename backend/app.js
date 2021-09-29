@@ -9,10 +9,12 @@ const products = require("./routes/products");
 var { product } = require("./models/product");
 var notification = require("./models/notification");
 var TestPhase = require("./models/test Phase");
+var employeeReport = require("./models/employeeReport");
+
 var repairedInsideStorePhase = require("./models/repairedInsideStoreProducts");
-var repairedOutsideStoreProducts=require("./models/repairedOutsideStoreProducts");
-var spareParts=require("./models/spareParts");
-var goodProductsReport= require("./models/goodProductsReport");
+var repairedOutsideStoreProducts = require("./models/repairedOutsideStoreProducts");
+var spareParts = require("./models/spareParts");
+var goodProductsReport = require("./models/goodProductsReport");
 const testPhaseRoutes = require("./routes/testPhase");
 const employee = require("./routes/employee");
 const accountant = require("./routes/accountant");
@@ -21,7 +23,7 @@ var owner = require("./routes/owner");
 var PurchaseInvoice = require("./routes/purchase");
 var saleInvoice = require("./routes/sale");
 const soldProductsReport = require("./routes/soldProductsReport");
-var defectiveProductsReport=require("./models/defectiveProductsReport")
+var defectiveProductsReport = require("./models/defectiveProductsReport");
 const cors = require("cors");
 var mongosanatize = require("express-mongo-sanitize");
 var xss = require("xss-clean");
@@ -101,7 +103,7 @@ io.on("connection", (socket) => {
           let new_notification = new notification({
             productSerialNumber: productserialNumber,
             tester: testerId,
-            currentDate: d,
+            currentDate: d.toString(),
             message: "Started testing",
           });
           await new_notification.save();
@@ -125,7 +127,7 @@ io.on("connection", (socket) => {
     notification
       .find({})
       .populate("productDetails")
-      .populate("tester.employee" || "tester.owner" || "tester.accountant")
+      .populate("tester.employee || tester.owner || tester.accountant")
       .exec(function (error, data) {
         if (error) {
           // "employee", "owner","accountant"
@@ -158,7 +160,7 @@ io.on("connection", (socket) => {
             let new_notification = new notification({
               productSerialNumber: productserialNumber,
               tester: testerId,
-              currentDate: d,
+              currentDate: d.toString(),
               message: "Finished Testing",
             });
             await new_notification.save();
@@ -236,8 +238,16 @@ io.on("connection", (socket) => {
               lastDealingWith: testerId,
               ProductSerial: productserialNumber,
             });
-
             await new_TestPhase.save();
+
+            let new_employeeReport = new employeeReport({
+              employee: testerId,
+              finishedProduct: productserialNumber,
+              finishedAt: d.toString(),
+              status: "Testing",
+            });
+            await new_employeeReport.save();
+
             io.emit("success", { message: "Saved Successfully" });
           } else {
             await product.updateOne(
@@ -358,6 +368,15 @@ io.on("connection", (socket) => {
                 new: true,
               }
             );
+            let new_employeeReport = new employeeReport({
+              employee: testerId,
+              finishedProduct: {
+                product: productserialNumber,
+                finishedAt: d.toString(),
+                status: "Tested",
+              },
+            });
+            await new_employeeReport.save();
             io.emit("success", doc);
           } else {
             await product.updateOne(
@@ -439,7 +458,7 @@ io.on("connection", (socket) => {
             let new_notification = new notification({
               productSerialNumber: productserialNumber,
               tester: maintainererId,
-              currentDate: d,
+              currentDate: d.toString(),
               message: "Started Maintainence",
             });
             await new_notification.save();
@@ -459,7 +478,15 @@ io.on("connection", (socket) => {
     }
   );
 
-  socket.on( "submitMaintenanceInsideStore",async (productserialNumber, maintainererId,sparePartsData, MaintenanceData,repaired) => {
+  socket.on(
+    "submitMaintenanceInsideStore",
+    async (
+      productserialNumber,
+      maintainererId,
+      sparePartsData,
+      MaintenanceData,
+      repaired
+    ) => {
       var d = new Date();
       let productt = await product.findOne({
         serialNumber: productserialNumber,
@@ -477,24 +504,23 @@ io.on("connection", (socket) => {
             let new_notification = new notification({
               productSerialNumber: productserialNumber,
               tester: maintainererId,
-              currentDate: d,
+              currentDate: d.toString(),
               message: "Finished Maintainence",
             });
             await new_notification.save();
 
-            for(var i=0;i<sparePartsData.length;i++) {
+            for (var i = 0; i < sparePartsData.length; i++) {
               console.log("done");
 
               let new_spareParts = new spareParts({
                 serialNumber: sparePartsData[i].serialNumber,
                 insideProduct: {
                   isInside: sparePartsData[i].insideProduct.isInside,
-                  product:sparePartsData[i].insideProduct.product
+                  product: sparePartsData[i].insideProduct.product,
                 },
-                AddedBy:maintainererId
+                AddedBy: maintainererId,
               });
               await new_spareParts.save();
-
             }
             let new_repairedInsideStorePhase = new repairedInsideStorePhase({
               productSerialNumber: productserialNumber,
@@ -503,20 +529,23 @@ io.on("connection", (socket) => {
             });
             await new_repairedInsideStorePhase.save();
             console.log("done");
-            if(repaired){
-              
+
+            let new_employeeReport = new employeeReport({
+              employee: maintainererId,
+              finishedProduct: productserialNumber,
+              finishedAt: d.toString(),
+              status: "Maintenance Inside",
+            });
+            await new_employeeReport.save();
+            if (repaired) {
+            
               let new_goodProductsReport = new goodProductsReport({
                 product: productserialNumber,
-               
               });
               await new_goodProductsReport.save();
-
-
-            }else{
-              
-              let new_defectiveProductsReport= new defectiveProductsReport({
+            } else {
+              let new_defectiveProductsReport = new defectiveProductsReport({
                 product: productserialNumber,
-               
               });
               await new_defectiveProductsReport.save();
             }
@@ -535,9 +564,9 @@ io.on("connection", (socket) => {
     }
   );
 
-
   socket.on(
-    "startMaintenanceOutsideStore", async (productserialNumber, maintainererId) => {
+    "startMaintenanceOutsideStore",
+    async (productserialNumber, maintainererId) => {
       var d = new Date();
       let productt = await product.findOne({
         serialNumber: productserialNumber,
@@ -556,10 +585,11 @@ io.on("connection", (socket) => {
             let new_notification = new notification({
               productSerialNumber: productserialNumber,
               tester: maintainererId,
-              currentDate: d,
+              currentDate: d.toString(),
               message: "Started Maintainence",
             });
             await new_notification.save();
+
             console.log("done");
             io.emit("Maintenance", {
               message: "Maintainence Started successfully",
@@ -576,72 +606,75 @@ io.on("connection", (socket) => {
     }
   );
 
-  socket.on( "submitMaintenanceOutsideStore",async (productserialNumber, maintainererId, MaintenanceData,repaired) => {
-    var d = new Date();
-    let productt = await product.findOne({
-      serialNumber: productserialNumber,
-    });
-    if (productt) {
-      if (productt.quantity != 0) {
-        if (productt.status == "Maintained Now") {
-          await product.updateOne(
-            { serialNumber: productt.serialNumber },
-            {
-              $set: { status: "Completed", maintened: true },
+  socket.on(
+    "submitMaintenanceOutsideStore",
+    async (productserialNumber, maintainererId, MaintenanceData, repaired) => {
+      var d = new Date();
+      let productt = await product.findOne({
+        serialNumber: productserialNumber,
+      });
+      if (productt) {
+        if (productt.quantity != 0) {
+          if (productt.status == "Maintained Now") {
+            await product.updateOne(
+              { serialNumber: productt.serialNumber },
+              {
+                $set: { status: "Completed", maintened: true },
+              }
+            );
+
+            let new_notification = new notification({
+              productSerialNumber: productserialNumber,
+              tester: maintainererId,
+              currentDate: d.toString(),
+              message: "Finished Maintainence",
+            });
+            await new_notification.save();
+
+            let new_repairedOutsideStoreProducts =
+              new repairedOutsideStoreProducts({
+                product: productserialNumber,
+                shopName: MaintenanceData.shopName,
+                recipient: MaintenanceData.recipient,
+                deliveryMan: MaintenanceData.deliveryMan,
+                cost: MaintenanceData.cost,
+                lastDealingWith: maintainererId,
+              });
+            await new_repairedOutsideStoreProducts.save();
+            let new_employeeReport = new employeeReport({
+              employee: maintainererId,
+              finishedProduct: productserialNumber,
+              finishedAt: d.toString(),
+              status: "Maintenance Outside",
+            });
+            await new_employeeReport.save();
+            console.log("done");
+            if (repaired) {
+             
+              let new_goodProductsReport = new goodProductsReport({
+                product: productserialNumber,
+              });
+              await new_goodProductsReport.save();
+            } else {
+              let new_defectiveProductsReport = new defectiveProductsReport({
+                product: productserialNumber,
+              });
+              await new_defectiveProductsReport.save();
             }
-          );
-
-          let new_notification = new notification({
-            productSerialNumber: productserialNumber,
-            tester: maintainererId,
-            currentDate: d,
-            message: "Finished Maintainence",
-          });
-          await new_notification.save();
-
-       
-          let new_repairedOutsideStoreProducts= new repairedOutsideStoreProducts({
-            product: productserialNumber,
-            shopName:MaintenanceData.shopName ,
-            recipient:MaintenanceData.recipient ,
-            deliveryMan:MaintenanceData.deliveryMan,
-            cost:MaintenanceData.cost,
-            lastDealingWith:maintainererId
-          });
-          await new_repairedOutsideStoreProducts.save();
-          console.log("done");
-          if(repaired){
-            
-            let new_goodProductsReport = new goodProductsReport({
-              product: productserialNumber,
-             
+            io.emit("Maintenance", {
+              message: "Maintainence Finished successfully",
             });
-            await new_goodProductsReport.save();
-
-
-          }else{
-            
-            let new_defectiveProductsReport= new defectiveProductsReport({
-              product: productserialNumber,
-             
+          } else {
+            io.emit("Maintainence", {
+              message: "you cannot Maintened this product",
             });
-            await new_defectiveProductsReport.save();
           }
-          io.emit("Maintenance", {
-            message: "Maintainence Finished successfully",
-          });
-        } else {
-          io.emit("Maintainence", {
-            message: "you cannot Maintened this product",
-          });
         }
+      } else {
+        io.emit("Maintainence", { message: "Product Not exit" });
       }
-    } else {
-      io.emit("Maintainence", { message: "Product Not exit" });
     }
-  }
-);
-
+  );
 });
 
 server.listen(3000, function () {

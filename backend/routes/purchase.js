@@ -10,11 +10,13 @@ var { product } = require("../models/product");
 var {accessories}= require("../models/accessories");
 router.post("/add/:id", parseUrlencoded, async (req, res)=> {
   var arr = [];
+  var d = new Date();
+
   for (var i = 0; i < req.body.products.length; i++) {
     let productt = new product({
       serialNumber: req.body.products[i].serialNumber,
       model: req.body.products[i].model,
-      addedAt: req.body.products[i].addedAt,
+      addedAt: d.toString(),
       quantity: req.body.products[i].quantity,
       price: req.body.products[i].price,
       purchaseSerialNumber: req.body.purchaseNumber,
@@ -49,7 +51,7 @@ router.post("/add/:id", parseUrlencoded, async (req, res)=> {
   console.log(arr)
   let PurchaseInvoicee = new PurchaseInvoice({
     purchaseNumber: req.body.purchaseNumber,
-    purchaseDate: req.body.purchaseDate,
+    purchaseDate:d.toString(),
     supplier: req.body.supplier,
     purchaseCart: arr,
   });

@@ -11,10 +11,12 @@ var { product } = require("../models/product");
 var mongoose = require("mongoose");
 
 router.post("/add", parseUrlencoded, async (req, res)=> {
+  var d = new Date();
+
   let saleInvoicee = new saleInvoice({
     customerName: req.body.customerName,
     price: req.body.price,
-    date: req.body.date,
+    date: d.toString(),
     Products: req.body.Products,
     seller: req.body.seller,
   });
@@ -33,6 +35,16 @@ router.post("/add", parseUrlencoded, async (req, res)=> {
       
     });
     soldProductsReportt.save();
+    // let new_employeeReport = new employeeReport({
+
+    //   employee:req.body.seller,
+    //   finishedProduct: productserialNumber,
+    //   finishedAt:d.toString(),
+    //   status:"sold"
+        
+
+    // })  
+    // await new_employeeReport.save();
     product.findOneAndUpdate({serialNumber:req.body.Products[i].productSerialNumber },{$inc: {quantity: -req.body.Products[i].quantity}},function(err,updated){
       if(err){
         console.log(err)
