@@ -23,6 +23,8 @@ var owner = require("./routes/owner");
 var PurchaseInvoice = require("./routes/purchase");
 var saleInvoice = require("./routes/sale");
 const soldProductsReport = require("./routes/soldProductsReport");
+const employeeReportRoute = require("./routes/employeeReport");
+
 var defectiveProductsReport = require("./models/defectiveProductsReport");
 const cors = require("cors");
 var mongosanatize = require("express-mongo-sanitize");
@@ -77,6 +79,7 @@ app.use("/product", products);
 app.use("/purchase", PurchaseInvoice);
 app.use("/sale", saleInvoice);
 app.use("/soldProducts", soldProductsReport);
+app.use("/employeeReport", employeeReportRoute);
 
 io.on("connection", (socket) => {
   console.log("new user connected");
