@@ -34,6 +34,7 @@ import { NgForm } from '@angular/forms';
     SidemenuComponent,
     HeaderComponent,
     PageHeaderComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -42,6 +43,7 @@ import { NgForm } from '@angular/forms';
     NgSelect2Module,
     // InMemoryWebApiModule.forRoot(DataService),
     ModalModule.forRoot(),
+    
   ],
   exports: [NgForm],
 })

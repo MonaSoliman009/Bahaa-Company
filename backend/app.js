@@ -111,17 +111,17 @@ io.on("connection", (socket) => {
           });
           await new_notification.save();
 
-          io.emit("Notification", {
+          io.emit("startTest", {
             message: "Test Started successfully",
           });
         } else {
           console.log("hii");
 
-          io.emit("allPost", { message: "you cannot test this product" });
+          io.emit("startTest", { message: "you cannot test this product" });
         }
       }
     } else {
-      io.emit("Testing", { message: "Product Not exit" });
+      io.emit("startTest", { message: "Product Not exit" });
     }
   });
 
@@ -251,7 +251,7 @@ io.on("connection", (socket) => {
             });
             await new_employeeReport.save();
 
-            io.emit("success", { message: "Saved Successfully" });
+            io.emit("submitTest", { message: "Saved Successfully" });
           } else {
             await product.updateOne(
               { serialNumber: productt.serialNumber },
@@ -344,7 +344,7 @@ io.on("connection", (socket) => {
 
             await new_TestPhase.save();
 
-            io.emit("success", { message: "Saved Successfully" });
+            io.emit("submitTest", { message: "Saved Successfully" });
           }
         } else if (productt.tested == true) {
           if (finished) {
@@ -380,7 +380,7 @@ io.on("connection", (socket) => {
               },
             });
             await new_employeeReport.save();
-            io.emit("success", doc);
+            io.emit("submitTest", doc);
           } else {
             await product.updateOne(
               { serialNumber: productt.serialNumber },
@@ -405,11 +405,11 @@ io.on("connection", (socket) => {
                 new: true,
               }
             );
-            io.emit("success", doc);
+            io.emit("submitTest", doc);
           }
         }
       } else {
-        io.emit("Testing", { message: "Product Not exit" });
+        io.emit("submitTest", { message: "Product Not exit" });
       }
     }
   );
@@ -419,7 +419,7 @@ io.on("connection", (socket) => {
       if (err) {
         console.log(err);
       } else {
-        io.emit("DeletingTest", data);
+        io.emit("DeletingProductTest", data);
       }
     });
   });
@@ -433,12 +433,12 @@ io.on("connection", (socket) => {
         } else {
           console.log(data);
 
-          io.emit("getTestById", data);
+          io.emit("GetProductTest", data);
         }
       });
   });
 
-  //////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
 
   socket.on(
     "startMaintenanceInsideStore",
@@ -466,21 +466,21 @@ io.on("connection", (socket) => {
             });
             await new_notification.save();
             console.log("done");
-            io.emit("Maintenance", {
+            io.emit("startMaintenanceInsideStore", {
               message: "Maintainence Started successfully",
             });
           } else {
-            io.emit("Maintainence", {
+            io.emit("startMaintenanceInsideStore", {
               message: "you cannot Maintened this product",
             });
           }
         }
       } else {
-        io.emit("Maintainence", { message: "Product Not exit" });
+        io.emit("startMaintenanceInsideStore", { message: "Product Not exit" });
       }
     }
   );
-
+  ////////////////////////////////////////////////////////////////////////////////////////
   socket.on(
     "submitMaintenanceInsideStore",
     async (
@@ -511,20 +511,22 @@ io.on("connection", (socket) => {
               message: "Finished Maintainence",
             });
             await new_notification.save();
+            if (sparePartsData) {
+              for (var i = 0; i < sparePartsData.length; i++) {
+                console.log("done");
 
-            for (var i = 0; i < sparePartsData.length; i++) {
-              console.log("done");
-
-              let new_spareParts = new spareParts({
-                serialNumber: sparePartsData[i].serialNumber,
-                insideProduct: {
-                  isInside: sparePartsData[i].insideProduct.isInside,
-                  product: sparePartsData[i].insideProduct.product,
-                },
-                AddedBy: maintainererId,
-              });
-              await new_spareParts.save();
+                let new_spareParts = new spareParts({
+                  serialNumber: sparePartsData[i].serialNumber,
+                  insideProduct: {
+                    isInside: sparePartsData[i].insideProduct.isInside,
+                    product: sparePartsData[i].insideProduct.product,
+                  },
+                  AddedBy: maintainererId,
+                });
+                await new_spareParts.save();
+              }
             }
+
             let new_repairedInsideStorePhase = new repairedInsideStorePhase({
               productSerialNumber: productserialNumber,
               SpareParts: MaintenanceData,
@@ -541,7 +543,6 @@ io.on("connection", (socket) => {
             });
             await new_employeeReport.save();
             if (repaired) {
-            
               let new_goodProductsReport = new goodProductsReport({
                 product: productserialNumber,
               });
@@ -552,21 +553,21 @@ io.on("connection", (socket) => {
               });
               await new_defectiveProductsReport.save();
             }
-            io.emit("Maintenance", {
+            io.emit("submitMaintenanceInsideStore", {
               message: "Maintainence Finished successfully",
             });
           } else {
-            io.emit("Maintainence", {
+            io.emit("submitMaintenanceInsideStore", {
               message: "you cannot Maintened this product",
             });
           }
         }
       } else {
-        io.emit("Maintainence", { message: "Product Not exit" });
+        io.emit("submitMaintenanceInsideStore", { message: "Product Not exit" });
       }
     }
   );
-
+  ///////////////////////////////////////////////////////////////////////////////////////////
   socket.on(
     "startMaintenanceOutsideStore",
     async (productserialNumber, maintainererId) => {
@@ -594,21 +595,21 @@ io.on("connection", (socket) => {
             await new_notification.save();
 
             console.log("done");
-            io.emit("Maintenance", {
+            io.emit("startMaintenanceOutsideStore", {
               message: "Maintainence Started successfully",
             });
           } else {
-            io.emit("Maintainence", {
+            io.emit("startMaintenanceOutsideStore", {
               message: "you cannot Maintened this product",
             });
           }
         }
       } else {
-        io.emit("Maintainence", { message: "Product Not exit" });
+        io.emit("startMaintenanceOutsideStore", { message: "Product Not exit" });
       }
     }
   );
-
+  //////////////////////////////////////////////////////////////////////////////////////////
   socket.on(
     "submitMaintenanceOutsideStore",
     async (productserialNumber, maintainererId, MaintenanceData, repaired) => {
@@ -653,7 +654,6 @@ io.on("connection", (socket) => {
             await new_employeeReport.save();
             console.log("done");
             if (repaired) {
-             
               let new_goodProductsReport = new goodProductsReport({
                 product: productserialNumber,
               });
@@ -664,17 +664,17 @@ io.on("connection", (socket) => {
               });
               await new_defectiveProductsReport.save();
             }
-            io.emit("Maintenance", {
+            io.emit("submitMaintenanceOutsideStore", {
               message: "Maintainence Finished successfully",
             });
           } else {
-            io.emit("Maintainence", {
+            io.emit("submitMaintenanceOutsideStore", {
               message: "you cannot Maintened this product",
             });
           }
         }
       } else {
-        io.emit("Maintainence", { message: "Product Not exit" });
+        io.emit("submitMaintenanceOutsideStore", { message: "Product Not exit" });
       }
     }
   );

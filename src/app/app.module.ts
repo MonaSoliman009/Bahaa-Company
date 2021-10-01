@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,8 +30,10 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     NgbModule,
     Daterangepicker,
     NgSelect2Module,
+    Ng2SearchPipeModule
+
   ],
-  exports: [NgForm],
+  exports: [NgForm,Ng2SearchPipeModule],
   providers: [],
   bootstrap: [AppComponent],
 })
