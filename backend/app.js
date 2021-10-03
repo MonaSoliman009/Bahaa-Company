@@ -24,6 +24,8 @@ var PurchaseInvoice = require("./routes/purchase");
 var saleInvoice = require("./routes/sale");
 const soldProductsReport = require("./routes/soldProductsReport");
 const employeeReportRoute = require("./routes/employeeReport");
+const goodProductRoute = require("./routes/goodProductsRoute");
+const defectiveProductsRoute = require("./routes/defectiveProductsRoute");
 
 var defectiveProductsReport = require("./models/defectiveProductsReport");
 const cors = require("cors");
@@ -80,6 +82,8 @@ app.use("/purchase", PurchaseInvoice);
 app.use("/sale", saleInvoice);
 app.use("/soldProducts", soldProductsReport);
 app.use("/employeeReport", employeeReportRoute);
+app.use("/goodProductsReport", goodProductRoute);
+app.use("/defectiveProductsReport", defectiveProductsRoute);
 
 io.on("connection", (socket) => {
   console.log("new user connected");
@@ -544,7 +548,7 @@ io.on("connection", (socket) => {
             await new_employeeReport.save();
             if (repaired) {
               let new_goodProductsReport = new goodProductsReport({
-                product: productserialNumber,
+                productSerialNumber: productserialNumber,
               });
               await new_goodProductsReport.save();
             } else {
@@ -655,7 +659,7 @@ io.on("connection", (socket) => {
             console.log("done");
             if (MaintenanceData.repaired=="true") {
               let new_goodProductsReport = new goodProductsReport({
-                product: productserialNumber,
+                productSerialNumber: productserialNumber,
               });
               await new_goodProductsReport.save();
             } else {

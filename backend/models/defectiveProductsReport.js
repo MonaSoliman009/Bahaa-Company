@@ -19,7 +19,7 @@ defectiveProductsReport.virtual("ProductDetails", {
   // an array. `justOne` is false by default.
   justOne: false,
 });
-defectiveProductsReport.set("toObject", { virtuals: true });
+defectiveProductsReport.set("toJSON", { virtuals: true });
 
 // exports.defectiveProductsReport = defectiveProductsReport;
 module.exports = mongoose.model('defectiveProductsReport', defectiveProductsReport)

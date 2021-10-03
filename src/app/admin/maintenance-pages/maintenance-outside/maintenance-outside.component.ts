@@ -53,7 +53,6 @@ export class MaintenanceOutsideComponent implements OnInit {
   onSubmit(){
     this.submitted=true;
      if (this.form.valid) {
-      this.started = true;
 
       this._MaintenanceService.startMaitenanceOutsideStore(this.form.value.serialNumber, localStorage.getItem("emp")).subscribe((res: any) => {
         console.log(res)
