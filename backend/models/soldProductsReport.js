@@ -1,9 +1,8 @@
 var mongoose = require("mongoose");
 var joi = require("joi");
+const Schema = mongoose.Schema;
 
-var soldProductsReport = mongoose.model(
-  "soldProductsReport",
-  new mongoose.Schema({
+var soldProductsReport = new Schema({
     product: 
       {
         productSerialNumber: {
@@ -15,7 +14,6 @@ var soldProductsReport = mongoose.model(
       }
     
   })
-);
 soldProductsReport.virtual("ProductDetails", {
   ref: "product", // The model to use
   localField: "product.productSerialNumber", // Find people where `localField`
@@ -26,4 +24,5 @@ soldProductsReport.virtual("ProductDetails", {
 });
 soldProductsReport.set("toJSON", { virtuals: true });
 
-exports.soldProductsReport = soldProductsReport;
+// exports.soldProductsReport = soldProductsReport;
+module.exports = mongoose.model('soldProductsReport', soldProductsReport)
