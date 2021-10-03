@@ -35,65 +35,93 @@
                 </div>
                 </div>
                 <div class="text-right">
-                  <button type="button" class="btn btn-primary" (click)="onStart()" >Start Maintenance</button>
+                  <button type="button" *ngIf="!started" class="btn btn-primary" (click)="onStart()" >Start Maintenance</button>
                 </div>
-                </form>
-                <form *ngIf="started">
+                </form >
+                <form *ngIf="started" [formGroup]="MaintenanceInsideForm">
                 <div class="form-group " >
                     <label class="d-block">Spare Parts Added:</label>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" [(ngModel)]="type"  type="radio" [value]="1" name="gender"  >
+                      <input class="form-check-input" formControlName="isAdded" [(ngModel)]="type" 
+                       type="radio" value="true" name="isAdded"  [ngClass]="{
+                        'is-invalid':
+                          submitted2 && MaintenanceInsideForm.controls.isAdded.errors
+                      }" >
                       <label class="form-check-label" for="gender_male">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" [(ngModel)]="type" type="radio" [value]="0" name="gender" >
+                      <input class="form-check-input" formControlName="isAdded" [(ngModel)]="type"
+                       type="radio" value="false" name="isAdded"  [ngClass]="{
+                        'is-invalid':
+                          submitted2 && MaintenanceInsideForm.controls.isAdded.errors
+                      }">
                       <label class="form-check-label" for="gender_female">No</label>
                     </div>
+                    <div
+                    class="alert alert-danger my-1 p-2 fadeInDown animated"
+                    *ngIf="submitted2 && MaintenanceInsideForm.controls.isAdded.errors"
+                  >
+                    Please Choose Yes or No
                   </div>
-                  <div *ngIf="type == 1">
+                  </div>
+                  <div *ngIf="type == 'true'">
                   <div class="form-group" >
                     <label class="d-block">Existence:</label>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" [(ngModel)]="existence" type="radio" [value]="3" name="Existence"  >
+                      <input class="form-check-input" [(ngModel)]="existence" type="radio" formControlName="Existence"
+                       value="true" name="Existence"  [ngClass]="{
+                        'is-invalid':
+                          submitted2 && MaintenanceInsideForm.controls.Existence.errors
+                      }" >
                       <label class="form-check-label" >Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" [(ngModel)]="existence" type="radio" [value]="4" name="Existence"  >
+                      <input class="form-check-input" [(ngModel)]="existence" formControlName="Existence" 
+                      type="radio" value="false" name="Existence"  [ngClass]="{
+                        'is-invalid':
+                          submitted2 && MaintenanceInsideForm.controls.Existence.errors
+                      }"  >
                       <label class="form-check-label" >No</label>
                     </div>
+                    <div
+                    class="alert alert-danger my-1 p-2 fadeInDown animated"
+                    *ngIf="submitted2 && MaintenanceInsideForm.controls.Existence.errors"
+                  >
+                    Please Choose Yes or No
                   </div>
-                  <div *ngIf="existence == 3">
+                  </div>
+                  <div *ngIf="existence == 'true'">
 
                     <div class="form-group"*ngFor = "let element of newSection" >
                       <label>Part Serial Number:</label>
-                      <input type="email" class="form-control">
+                      <input type="text" class="form-control">
                     
                     </div>
                     <div class="text-right mb-5">
                       <button type="button" class="btn btn-primary" (click)="addNewSection()" >Add Another Part</button>
                     </div>
                   </div>
-                  <div *ngIf="existence == 4">
-                 <div *ngFor = "let element of newPart">
+                  <div *ngIf="existence == 'false'">
+                 <div *ngFor = "let element of newPart;let x=index">
                 <div class="form-group" >
                   <label>Part Serial Number:</label>
-                  <input type="email" class="form-control">
+                  <input type="text" class="form-control">
                 
                 </div>
-                <div class="form-group" >
+                <!-- <div class="form-group" >
                   <label class="d-block">Inside Product:</label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="gender_male" value="option1">
-                    <label class="form-check-label" for="gender_male">Yes</label>
+                    <input class="form-check-input" type="radio" value="{{x}}" formControlName="inside"  [(ngModel)]="Inside" name="{{x}}" >
+                    <label class="form-check-label">Yes</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="gender_female" value="option2">
-                    <label class="form-check-label" for="gender_female">No</label>
+                    <input class="form-check-input" type="radio" value="{{x+2}}" formControlName="inside" [(ngModel)]="Inside" name="{{-x}}" >
+                    <label class="form-check-label" >No</label>
                   </div>
-                </div>
-                <div class="form-group" >
+                </div> -->
+                <div class="form-group" *ngIf="Inside == x" >
                   <label>Product Number:</label>
-                  <input type="email" class="form-control">
+                  <input type="text" class="form-control">
                 
                 </div>
               </div>
@@ -103,8 +131,33 @@
               </div>
               
               </div>
+              <div class="form-group" >
+                <label class="d-block">Repaired:</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input"  type="radio" formControlName="repaired"
+                   value="true" name="repaired"  [ngClass]="{
+                    'is-invalid':
+                      submitted2 && MaintenanceInsideForm.controls.repaired.errors
+                  }" >
+                  <label class="form-check-label" >Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input"  formControlName="repaired" 
+                  type="radio" value="false" name="repaired"  [ngClass]="{
+                    'is-invalid':
+                      submitted2 && MaintenanceInsideForm.controls.repaired.errors
+                  }"  >
+                  <label class="form-check-label" >No</label>
+                </div>
+                <div
+                class="alert alert-danger my-1 p-2 fadeInDown animated"
+                *ngIf="submitted2 && MaintenanceInsideForm.controls.repaired.errors"
+              >
+                Please Choose Yes or No
+              </div>
+              </div>
               <div class="text-right">
-                <button   type="submit" class="btn btn-primary">Submit</button>
+                <button  (click)="onSubmit()" type="submit" class="btn btn-primary">Submit</button>
               </div>
               </form>
             </div>

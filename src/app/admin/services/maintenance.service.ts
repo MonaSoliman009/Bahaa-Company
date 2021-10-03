@@ -28,6 +28,14 @@ export class MaintenanceService {
   })
     return message
   }
-
+  submitMaintenanceInsideStore(productserialNumber, maintainererId,sparePartsData,MaintenanceData,repaired){
+    this.socket.emit("startMaintenanceInsideStore",productserialNumber, maintainererId,sparePartsData,MaintenanceData,repaired)
+    let message =new Observable(observer=>{
+      this.socket.on("startMaintenanceInsideStore",comment=>{
+        observer.next(comment)
+      })
+  })
+    return message
+  }
 
 }

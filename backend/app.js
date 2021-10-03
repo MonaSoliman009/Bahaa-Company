@@ -471,7 +471,7 @@ io.on("connection", (socket) => {
             });
           } else {
             io.emit("startMaintenanceInsideStore", {
-              message: "you cannot Maintened this product",
+              message: "you cannot Maintened this product Now",
             });
           }
         }
