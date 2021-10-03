@@ -339,7 +339,8 @@ MaintenanceData:
 "shopName": String,
 "recipient": String
 "deliveryMan": String
-"cost": number
+"cost": number,
+repaired:Boolean
+
 }
 
-repaired:Boolean

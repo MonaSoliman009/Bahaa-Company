@@ -9,49 +9,122 @@
                   <h4 class="card-title">Maintenance Outside Store Form:</h4>
                 </div>
                 <div class="card-body">
-                  <form action="#">
+                  <form [formGroup]="form">
                     <div class="form-group row">
-                      <label class="col-form-label col-md-2">Serial Number:</label>
+                      <label class="col-form-label col-md-2"> Serial Number:</label>
                       <div class="col-md-10">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" placeholder="Enter Product Serial Number"
+                         formControlName="serialNumber"[ngClass]="{
+                          'is-invalid': submitted && form.controls.serialNumber.errors
+                        }">
+                        <div
+                        class="alert alert-danger my-1 p-2 fadeInDown animated"
+                        *ngIf="submitted && form.controls.serialNumber.errors"
+                      >
+                       Enter Valid serial Number
                       </div>
-                      
+                      </div>
+                 
                     </div>
                     <div class="text-right">
-                      <button type="button" class="btn btn-primary" (click)="processStarted()" *ngIf="!started">Start Maintenance</button>
+                      <button type="button" class="btn btn-primary mb-3"(click)="onSubmit()" *ngIf="!started">Start Maintenance</button>
                     </div>
-                    <div class="form-group row" *ngIf="started">
+                  </form>
+                    <div *ngIf="started">
+                      <form [formGroup]="maintenanceForm">
+                    <div class="form-group row" >
                       <label class="col-form-label col-md-2">Shop Name:</label>
                       <div class="col-md-10">
-                        <input type="password" class="form-control">
+                        <input type="text" class="form-control"placeholder="Please Enter Shop Name"formControlName="shopName" [ngClass]="{
+                          'is-invalid': submitted2 && maintenanceForm.controls.shopName.errors
+                        }">
+                        <div
+                        class="alert alert-danger my-1 p-2 fadeInDown animated"
+                        *ngIf="submitted2 && maintenanceForm.controls.shopName.errors"
+                      >
+                       Field is required
+                      </div>
                       </div>
                     </div>
                  
                
-                    <div class="form-group row" *ngIf="started">
+                    <div class="form-group row" >
                       <label class="col-form-label col-md-2">Recipient:</label>
                       <div class="col-md-10">
-                        <input type="text" class="form-control" >
+                        <input type="text" class="form-control"placeholder="Please Enter Recipient"formControlName="recipient" [ngClass]="{
+                          'is-invalid': submitted2 && maintenanceForm.controls.recipient.errors
+                        }" >
+                        <div
+                        class="alert alert-danger my-1 p-2 fadeInDown animated"
+                        *ngIf="submitted2 && maintenanceForm.controls.recipient.errors"
+                      >
+                       Field is required
+                      </div>
                       </div>
                     </div>
                   
-                    <div class="form-group row" *ngIf="started">
+                    <div class="form-group row" >
                         <label class="col-form-label col-md-2">Delivery Man:</label>
                         <div class="col-md-10">
-                          <input type="text" class="form-control" >
+                          <input type="text" class="form-control" placeholder="Please Enter Delivery Man"formControlName="deliveryMan" [ngClass]="{
+                            'is-invalid': submitted2 && maintenanceForm.controls.deliveryMan.errors
+                          }" >
+                          <div
+                          class="alert alert-danger my-1 p-2 fadeInDown animated"
+                          *ngIf="submitted2 && maintenanceForm.controls.deliveryMan.errors"
+                        >
+                         Field is required
+                        </div>
                         </div>
                       </div>
                   
-                      <div class="form-group row" *ngIf="started">
+                      <div class="form-group row" >
                         <label class="col-form-label col-md-2">Cost:</label>
                         <div class="col-md-10">
-                          <input type="number" class="form-control" >
+                          <input type="number" class="form-control" placeholder="Please Enter Cost"formControlName="cost" [ngClass]="{
+                            'is-invalid': submitted2 && maintenanceForm.controls.cost.errors
+                          }" >
+                          <div
+                          class="alert alert-danger my-1 p-2 fadeInDown animated"
+                          *ngIf="submitted2 && maintenanceForm.controls.cost.errors"
+                        >
+                         Field is required
+                        </div>
                         </div>
                       </div>
-                      <div class="text-right" *ngIf="started">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                      <div class="form-group" >
+                        <label class="d-block">Repaired:</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input"  type="radio" 
+                           value="true" name="repaired"formControlName="repaired" [ngClass]="{
+                            'is-invalid':
+                              submitted2 && maintenanceForm.controls.repaired.errors
+                          }"  >
+                          <label class="form-check-label" >Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input"   
+                          type="radio" value="false" name="repaired"formControlName="repaired" [ngClass]="{
+                            'is-invalid':
+                              submitted2 && maintenanceForm.controls.repaired.errors
+                          }"    >
+                          <label class="form-check-label" >No</label>
+                        </div>
+                        <div
+                        class="alert alert-danger my-1 p-2 fadeInDown animated"
+                        *ngIf="submitted2 && maintenanceForm.controls.repaired.errors"
+                      >
+                        Please Choose Yes or No
                       </div>
-                  </form>
+                      </div>
+                      <div class="text-right">
+                        <button  type="submit" (click)="submitMaitenanceOutside()" class="btn btn-primary">Submit</button>
+                      </div>
+                    </form>
+                    </div>
+
+
+                 
                 </div>
               </div>
              

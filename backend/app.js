@@ -612,7 +612,7 @@ io.on("connection", (socket) => {
   //////////////////////////////////////////////////////////////////////////////////////////
   socket.on(
     "submitMaintenanceOutsideStore",
-    async (productserialNumber, maintainererId, MaintenanceData, repaired) => {
+    async (productserialNumber, maintainererId, MaintenanceData) => {
       var d = new Date();
       let productt = await product.findOne({
         serialNumber: productserialNumber,
@@ -653,7 +653,7 @@ io.on("connection", (socket) => {
             });
             await new_employeeReport.save();
             console.log("done");
-            if (repaired) {
+            if (MaintenanceData.repaired=="true") {
               let new_goodProductsReport = new goodProductsReport({
                 product: productserialNumber,
               });

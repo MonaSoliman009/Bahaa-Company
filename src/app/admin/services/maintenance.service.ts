@@ -37,5 +37,24 @@ export class MaintenanceService {
   })
     return message
   }
+  startMaitenanceOutsideStore(productserialNumber, maintainererId){
+    this.socket.emit("startMaintenanceOutsideStore",productserialNumber, maintainererId)
+    let message =new Observable(observer=>{
+      this.socket.on("startMaintenanceOutsideStore",comment=>{
+        observer.next(comment)
+      })
+  })
+    return message
+  }
+
+  submitMaintenanceOutsideStore(productserialNumber,maintainererId,MaintenanceData){
+    this.socket.emit("submitMaintenanceOutsideStore",productserialNumber,maintainererId,MaintenanceData)
+    let message =new Observable(observer=>{
+      this.socket.on("submitMaintenanceOutsideStore",comment=>{
+        observer.next(comment)
+      })
+  })
+    return message
+  }
 
 }
