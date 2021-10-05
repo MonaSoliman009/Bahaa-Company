@@ -29,4 +29,28 @@ export class ReportsService {
     return this.http.get('http://localhost:3000/soldProducts/list/'+_id);
 
   }
+  dailyEmployeeReportTesting(_id,date){
+    return this.http.get(`http://localhost:3000/employeeReport/tested/${_id}/${date}`);
+
+  }
+  monthlyEmployeeReportTesting(_id,month){
+    return this.http.get(`http://localhost:3000/employeeReport/monthly/tested/${_id}/${month}`);
+
+  }
+  dailyEmployeeReportmaintainedInside(_id,date){
+    return this.http.get(`http://localhost:3000/employeeReport/maintainedInside/${_id}/${date}`);
+
+  }
+  monthlyEmployeeReportmaintainedInside(_id,month){
+    return this.http.get(`http://localhost:3000/employeeReport/monthly/maintainedInside/${_id}/${month}`);
+
+  }
+  dailyEmployeeReportmaintainedOutside(_id,date){
+    return this.http.get(`http://localhost:3000/employeeReport/maintainedOutside/${_id}/${date}`);
+
+  }
+  monthlyEmployeeReportmaintainedOutside(_id,month){
+    return this.http.get(`http://localhost:3000/employeeReport/monthly/maintainedOutside/${_id}/${month}`);
+
+  }
 }
