@@ -9,6 +9,7 @@ var soldProductsReport = new Schema({
           type: Number,
           ref: "product",
           required: true,
+          unique: true
         },
         quantity: { type: Number, required: true },
       }

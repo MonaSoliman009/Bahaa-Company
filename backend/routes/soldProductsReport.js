@@ -15,4 +15,12 @@ router.get("/list", parseUrlencoded, async (req, res) => {
     });
 });
 
+router.get("/list/:id", parseUrlencoded, async (req, res) => {
+
+
+  soldProductsReport.findOne({_id:req.params.id}).populate("ProductDetails").then((result) => {
+      res.json(result);
+    });
+});
+
 module.exports = router;

@@ -1,0 +1,28 @@
+<div class="row pricing-box">
+    <div class="col-md-8 col-lg-8 col-xl-8 m-auto">
+        <div class="card">
+            <div class="card-body">
+                <div class="pricing-header">
+                    <h3 style="color: #ff0080">Product Details</h3>
+
+                    <!-- <h4>{{goodProductDetails.ProductDetails[0].serialNumber}}</h4> -->
+                    <!-- <p>Monthly Price</p> -->
+                </div>
+                <div class="pricing-card-price">
+                    <h3 class="heading2 price">{{goodProductDetails?.ProductDetails[0].model}}</h3>
+                    <h3 class="heading2 price">{{goodProductDetails?.ProductDetails[0].serialNumber}}</h3>
+
+                    <p>Added At: <span>{{convertedDate}}</span></p>
+                </div>
+                <ul class="pricing-options">
+                    <li><i class="far fa-check-circle"></i> {{goodProductDetails?.ProductDetails[0].status}}</li>
+                    <li><i class="fas fa-laptop"></i>Quantity:{{goodProductDetails?.ProductDetails[0].quantity}}</li>
+                </ul>
+                <a [routerLink]="'/admin/reports/good-products'" class="btn btn-primary btn-block">Back</a>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</div>

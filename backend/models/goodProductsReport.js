@@ -6,6 +6,7 @@ var goodProductsReport = new Schema({
   productSerialNumber: {
       type: Number,
       required: true,
+      unique: true
     },
   }
 );
