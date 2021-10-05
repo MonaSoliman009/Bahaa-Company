@@ -7,7 +7,8 @@ var parseUrlencoded = bodyParser.urlencoded({
 });
 var  employeeReport  = require("../models/employeeReport");
 router.get("/tested/:id", parseUrlencoded, async (req, res) => {
-    let result = await employeeReport.find({employee:req.params.id,status:"Testing"}).populate("employee").populate("ProductDetails");
+  
+      let result = await employeeReport.find({employee:req.params.id,status:"Testing" }).populate("employee").populate("ProductDetails");
     res.json(result);
   
 
@@ -18,8 +19,12 @@ router.get("/tested/:id", parseUrlencoded, async (req, res) => {
   
     
   });
-  router.get("/maintainedOutside/:id", parseUrlencoded, async (req, res) => {
-    let result = await employeeReport.find({employee:req.params.id,status:"Maintenance Outside"}).populate("employee").populate("ProductDetails");
+  router.get("/maintainedOutside/:id/:date", parseUrlencoded, async (req, res) => {
+    var d=new Date(req.params.date);
+  console.log(d)
+  console.log(d.toISOString())
+  var x=finishedAt.toISOString().slice(0, 10)
+    let result = await employeeReport.find({employee:req.params.id,status:"Maintenance Outside",x:req.params.date}).populate("employee").populate("ProductDetails");
     res.json(result);
   
   

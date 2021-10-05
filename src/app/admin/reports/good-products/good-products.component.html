@@ -24,84 +24,28 @@
                   <table class="table table-hover table-center mb-0 datatable">
                     <thead>
                       <tr>
-                        <th>#</th>
+                       
                         <th>Serial Number</th>
+                        <th>Model</th>
                         <th>Quantity</th>
-                        <th>Price</th>
-                        <th>LastDealingWith</th>
-                        <th>Amount</th>
                         <th>Status</th>
-                        <th>Updated</th>
+                        <th>View Details</th>
+                         <!--<th>Status</th>
+                        <th>Updated</th> -->
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let allReport of allReports">
-                        <td>{{ allReport.id }}</td>
-                        <td>{{ allReport.date | date: "dd MMM yyyy" }}</td>
-                        <td>
-                          <span class="table-avatar">
-                            <a
-                              href="javascript:void(0);"
-                              class="avatar avatar-sm mr-2"
-                            >
-                              <img
-                                class="avatar-img rounded-circle"
-                                alt=""
-                                src="{{ allReport.user_img }}"
-                              />
-                            </a>
-                            <a href="javascript:void(0);">{{
-                              allReport.user_name
-                            }}</a>
-                          </span>
+                      <tr *ngFor="let product of goodProducts">
+                        <td>{{product.ProductDetails[0].serialNumber}}</td>
+                        <td>{{product.ProductDetails[0].model}}</td>
+                        <td>{{product.ProductDetails[0].quantity}}</td>
+                        <td>{{product.ProductDetails[0].status}}</td>
+
+                        <td class="text-right">
+                          <a class="table-action-btn btn btn-sm bg-success-light" (click)="viewProductDetails(product._id)">
+                            View all details
+                          </a>
                         </td>
-                        <td>
-                          <span class="table-avatar">
-                            <a
-                              href="javascript:void(0);"
-                              class="avatar avatar-sm mr-2"
-                            >
-                              <img
-                                class="avatar-img rounded-circle"
-                                alt=""
-                                src="{{ allReport.provider_img }}"
-                              />
-                            </a>
-                            <a href="javascript:void(0);">{{
-                              allReport.provider_name
-                            }}</a>
-                          </span>
-                        </td>
-                        <td>{{ allReport.service }}</td>
-                        <td>{{ allReport.amount }}</td>
-                        <td>
-                          <label
-                            *ngIf="allReport.status === 'Pending'"
-                            class="badge badge-dark"
-                            >Pending</label
-                          >
-                          <label
-                            *ngIf="allReport.status === 'Inprogress'"
-                            class="badge badge-info"
-                            >Inprogress</label
-                          >
-                          <label
-                            *ngIf="allReport.status === 'Complete Request'"
-                            class="badge badge-primary"
-                            >Complete Request</label
-                          >
-                          <label
-                            *ngIf="allReport.status === 'Rejected by User'"
-                            class="badge badge-warning"
-                            >Rejected by User</label
-                          >
-                          <label
-                            *ngIf="allReport.status === 'Cancelled by Provider'"
-                            class="badge badge-danger"
-                            >Cancelled by Provider</label
-                          >
-                        </td>
-                        <td>{{ allReport.updated }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -111,7 +55,7 @@
           </div>
         </div>
       </div>
-      <div role="tabpanel" id="pending" class="tab-pane fade">
+      <!-- <div role="tabpanel" id="pending" class="tab-pane fade">
         <div class="row">
           <div class="col-md-12">
             <div class="card">
@@ -499,7 +443,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <!-- /Tab Content -->
   </div>

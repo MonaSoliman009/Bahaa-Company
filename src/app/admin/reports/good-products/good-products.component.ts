@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CommonServiceService } from 'src/app/common-service.service';
+import { ReportsService } from '../../services/reports.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-good-products',
@@ -8,101 +11,41 @@ import { CommonServiceService } from 'src/app/common-service.service';
   styleUrls: ['./good-products.component.css']
 })
 export class GoodProductsComponent implements OnInit {
-  modalRef: BsModalRef;
-  allReports: any = [];
-  pendingReports: any = [];
-  inprogressReports: any = [];
-  completedReports: any = [];
-  rejectedReports: any = [];
-  canceledReports: any = [];
-  errorMessage: string;
-  dtOptions: DataTables.Settings = {};
-
-  constructor( public commonService: CommonServiceService,
-    private modalService: BsModalService) { }
-
+ 
+   goodProducts: any;
+  constructor(private _ReportsService:ReportsService,private router: Router ) { }
+  alertWithFail() {
+    Swal.fire('Failed', "Try Again Later", 'error').then(
+      (res) => {
+        location.reload();
+      }
+    );
+  }
   ngOnInit(): void {
-    this.getAllReports();
-    this.getPendingReports();
-    this.getInprogressReports();
-    this.getCompletedReports();
-    this.getRejectedReports();
-    this.getCanceledReports();
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      processing: true
-    };
-  }
-  getAllReports() {
-    this.commonService.getAllReports().subscribe(
-      (res) => {
-        this.allReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
-      },
-      (error) => (this.errorMessage = <any>error)
-    );
+  this.getGoodProductsReport()
   }
 
-  getPendingReports() {
-    this.commonService.getPendingReports().subscribe(
-      (res) => {
-        this.pendingReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
-      },
-      (error) => (this.errorMessage = <any>error)
-    );
-  }
+getGoodProductsReport(){
+  this._ReportsService.listGoodProductsReport().subscribe((res)=>{
+    console.log(res);
+    this.goodProducts=res;
+    
+    $(function () {
+      $('table').DataTable();
+    });
+  },(error)=>{
+    // console.log(error)
+    this.alertWithFail()
 
-  getInprogressReports() {
-    this.commonService.getInprogressReports().subscribe(
-      (res) => {
-        this.inprogressReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
-      },
-      (error) => (this.errorMessage = <any>error)
-    );
-  }
+  })
+}
 
-  getCompletedReports() {
-    this.commonService.getCompletedReports().subscribe(
-      (res) => {
-        this.completedReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
-      },
-      (error) => (this.errorMessage = <any>error)
-    );
-  }
 
-  getRejectedReports() {
-    this.commonService.getRejectedReports().subscribe(
-      (res) => {
-        this.rejectedReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
-      },
-      (error) => (this.errorMessage = <any>error)
-    );
-  }
 
-  getCanceledReports() {
-    this.commonService.getCanceledReports().subscribe(
-      (res) => {
-        this.canceledReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
-      },
-      (error) => (this.errorMessage = <any>error)
-    );
-  }
+viewProductDetails(x){
+  this.router.navigate(["admin/reports/good-products-details", x])
+}
+
+ 
+
 }

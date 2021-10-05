@@ -6,6 +6,7 @@ var defectiveProductsReport =new Schema({
     product: {
       type: Number,
       required: true,
+      unique: true,
     }
 
  
