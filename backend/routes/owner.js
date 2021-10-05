@@ -141,6 +141,15 @@ if(result){
 
   
 
+});
+router.get("/employee/:id",async (req, resp) =>{
+ 
+  let result = await employee.findOne({ _id: req.params.id });
+  resp.json(result)
+
+
+  
+
 })
 router.delete("/accountant/delete/:id", async (req, resp)=> {
   let result = await accountant.findOne({ _id: req.params.id });
