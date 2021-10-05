@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
 import { ReportsService } from '../../services/reports.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-employee-monthly-report',
@@ -17,7 +18,13 @@ export class EmployeeMonthlyReportComponent implements OnInit {
   maintainedInsideProducts: any;
   maintainedOutsideProducts: any;
   constructor(private route: ActivatedRoute, private _ReportsService: ReportsService,private _EmployeeService:EmployeeService) { }
-
+  alertWithFail() {
+    Swal.fire('Failed', "Try Again Later", 'error').then(
+      (res) => {
+        location.reload();
+      }
+    );
+  }
   ngOnInit(): void {
     this.d = new Date();
     this.currentMonth = this.d.getMonth()+1;
@@ -37,7 +44,8 @@ export class EmployeeMonthlyReportComponent implements OnInit {
     
     },(error)=>{
       console.log(error);
-    
+      this.alertWithFail()
+
     })
    }
 
@@ -47,6 +55,8 @@ export class EmployeeMonthlyReportComponent implements OnInit {
       console.log(res);
     }, (error) => {
       console.log(error)
+      this.alertWithFail()
+
     })
   }
   getDailymaintainedInside(_id, month) {
@@ -55,6 +65,8 @@ export class EmployeeMonthlyReportComponent implements OnInit {
       console.log(res);
     }, (error) => {
       console.log(error)
+      this.alertWithFail()
+
     })
   }
 
@@ -64,6 +76,8 @@ export class EmployeeMonthlyReportComponent implements OnInit {
       console.log(res);
     }, (error) => {
       console.log(error)
+      this.alertWithFail()
+
     })
   }
 }

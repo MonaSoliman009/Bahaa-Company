@@ -38,7 +38,7 @@
 									<h3 class="heading2 price">{{product?.ProductDetails[0].model}}</h3>
 									<h3 class="heading2 price">{{product?.ProductDetails[0].serialNumber}}</h3>
 				
-									<p>Added At: <span>{{convertedDate}}</span></p>
+									<p>Added At: <span>{{product?.ProductDetails[0].addedAt | date:'medium' }}</span></p>
 								</div>
 								<ul class="pricing-options">
 									<li><i class="far fa-check-circle"></i> {{product?.ProductDetails[0].status}}</li>
@@ -63,7 +63,7 @@
 									<h3 class="heading2 price">{{product?.ProductDetails[0].model}}</h3>
 									<h3 class="heading2 price">{{product?.ProductDetails[0].serialNumber}}</h3>
 				
-									<p>Added At: <span>{{convertedDate}}</span></p>
+									<p>Added At: <span>{{product?.ProductDetails[0].addedAt | date:'medium' }}</span></p>
 								</div>
 								<ul class="pricing-options">
 									<li><i class="far fa-check-circle"></i> {{product?.ProductDetails[0].status}}</li>
@@ -88,7 +88,7 @@
 									<h3 class="heading2 price">{{product?.ProductDetails[0].model}}</h3>
 									<h3 class="heading2 price">{{product?.ProductDetails[0].serialNumber}}</h3>
 				
-									<p>Added At: <span>{{convertedDate}}</span></p>
+									<p>Added At: <span>{{product?.ProductDetails[0].addedAt | date:'medium' }}</span></p>
 								</div>
 								<ul class="pricing-options">
 									<li><i class="far fa-check-circle"></i> {{product?.ProductDetails[0].status}}</li>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
 import { ReportsService } from '../../services/reports.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-employee-daily-report',
@@ -18,7 +19,13 @@ export class EmployeeDailyReportComponent implements OnInit {
   employee:any
 
   constructor(private route: ActivatedRoute, private _ReportsService: ReportsService,private _EmployeeService:EmployeeService) { }
-
+  alertWithFail() {
+    Swal.fire('Failed', "Try Again Later", 'error').then(
+      (res) => {
+        location.reload();
+      }
+    );
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.code = params.get("_id");
@@ -38,6 +45,7 @@ this._EmployeeService.getEmployeeById(_id).subscribe((res)=>{
 
 },(error)=>{
   console.log(error);
+  this.alertWithFail()
 
 })
   }
@@ -47,6 +55,8 @@ this._EmployeeService.getEmployeeById(_id).subscribe((res)=>{
       console.log(res);
     }, (error) => {
       console.log(error)
+      this.alertWithFail()
+
     })
   }
   getDailymaintainedInside(_id, date) {
@@ -55,6 +65,8 @@ this._EmployeeService.getEmployeeById(_id).subscribe((res)=>{
       console.log(res);
     }, (error) => {
       console.log(error)
+      this.alertWithFail()
+
     })
   }
   getDailymaintainedOutside(_id, date) {
@@ -63,6 +75,8 @@ this._EmployeeService.getEmployeeById(_id).subscribe((res)=>{
       console.log(res);
     }, (error) => {
       console.log(error)
+      this.alertWithFail()
+
     })
   }
 }
