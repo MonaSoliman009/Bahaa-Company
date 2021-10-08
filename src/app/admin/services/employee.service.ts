@@ -25,4 +25,9 @@ export class EmployeeService {
       `http://localhost:3000/owner/employee/delete/${id}`
     );
   }
+
+  getEmployeeById(_id){
+    return this.http.get(`http://localhost:3000/owner/employee/${_id}`);
+
+  }
 }

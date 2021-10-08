@@ -1,1 +1,108 @@
-<p>employee-monthly-report works!</p>
+
+<!-- Page Content -->                
+<div class="row">                    
+    <div class="col-12">
+        <div class="pricing-header">
+            <h2 style="color:#e60073" class="mb-4">{{employee?.name}}</h2>
+            
+            <!-- <p>{{testedProducts.length+maintainedInsideProducts.length+maintainedOutsideProducts.length}}</p> -->
+        </div>
+        <!-- Tab Menu -->
+        <nav class="user-tabs">
+			<ul class="nav nav-tabs menu-tabs">
+				<li class="nav-item">
+				<a class="nav-link active" href="#TestedProducts" data-toggle="tab">Tested Products</a>
+				</li>
+				<li class="nav-item">
+				<a class="nav-link" href="#MaintainedInsideProducts" data-toggle="tab">Maintained Inside Products</a>
+				</li>
+				<li class="nav-item">
+				<a class="nav-link" href="#MaintainedOutsideProducts" data-toggle="tab">Maintained Outside Products</a>
+				</li>
+				
+				</ul>
+        </nav>
+        <!-- /Tab Menu -->
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <div role="tabpanel" id="TestedProducts" class="tab-pane fade show active">
+				<div class="row">
+					<div class="col-md-8 col-lg-6 col-xl-5" *ngFor="let product of testedProducts">
+                        <div class="card">
+							<div class="card-body">
+								<div class="pricing-header">
+				
+									<!-- <h4>{{goodProductDetails.ProductDetails[0].serialNumber}}</h4> -->
+									<!-- <p>Monthly Price</p> -->
+								</div>
+								<div class="pricing-card-price">
+									<h3 class="heading2 price">{{product?.ProductDetails[0].model}}</h3>
+									<h3 class="heading2 price">{{product?.ProductDetails[0].serialNumber}}</h3>
+				
+									<p>Added At: <span>{{product?.ProductDetails[0].addedAt | date:'medium' }}</span></p>
+								</div>
+								<ul class="pricing-options">
+									<li><i class="far fa-check-circle"></i> {{product?.ProductDetails[0].status}}</li>
+									<li><i class="fas fa-laptop"></i>Quantity:{{product?.ProductDetails[0].quantity}}</li>
+								</ul>
+							</div>
+						</div>
+                    </div>
+				</div>				         
+			</div>
+            <div role="tabpanel" id="MaintainedInsideProducts" class="tab-pane fade">
+				<div class="row">
+					<div class="col-md-8 col-lg-6 col-xl-5" *ngFor="let product of maintainedInsideProducts">
+                        <div class="card">
+							<div class="card-body">
+								<div class="pricing-header">
+				
+									<!-- <h4>{{goodProductDetails.ProductDetails[0].serialNumber}}</h4> -->
+									<!-- <p>Monthly Price</p> -->
+								</div>
+								<div class="pricing-card-price">
+									<h3 class="heading2 price">{{product?.ProductDetails[0].model}}</h3>
+									<h3 class="heading2 price">{{product?.ProductDetails[0].serialNumber}}</h3>
+				
+									<p>Added At: <span>{{product?.ProductDetails[0].addedAt | date:'medium' }}</span></p>
+								</div>
+								<ul class="pricing-options">
+									<li><i class="far fa-check-circle"></i> {{product?.ProductDetails[0].status}}</li>
+									<li><i class="fas fa-laptop"></i>Quantity:{{product?.ProductDetails[0].quantity}}</li>
+								</ul>
+							</div>
+						</div>
+                    </div>
+				</div>              
+			</div>
+			<div role="tabpanel" id="MaintainedOutsideProducts" class="tab-pane fade">
+				<div class="row">
+					<div class="col-md-8 col-lg-6 col-xl-5" *ngFor="let product of maintainedOutsideProducts">
+                        <div class="card">
+							<div class="card-body">
+								<div class="pricing-header">
+				
+									<!-- <h4>{{goodProductDetails.ProductDetails[0].serialNumber}}</h4> -->
+									<!-- <p>Monthly Price</p> -->
+								</div>
+								<div class="pricing-card-price">
+									<h3 class="heading2 price">{{product?.ProductDetails[0].model}}</h3>
+									<h3 class="heading2 price">{{product?.ProductDetails[0].serialNumber}}</h3>
+				
+									<p>Added At: <span>{{product?.ProductDetails[0].addedAt | date:'medium' }}</span></p>
+								</div>
+								<ul class="pricing-options">
+									<li><i class="far fa-check-circle"></i> {{product?.ProductDetails[0].status}}</li>
+									<li><i class="fas fa-laptop"></i>Quantity:{{product?.ProductDetails[0].quantity}}</li>
+								</ul>
+							</div>
+						</div>
+                    </div>
+				</div>                
+			</div>
+		
+        </div>
+        <!-- /Tab Content -->
+    </div>
+</div>	
+<!-- /Page Content -->

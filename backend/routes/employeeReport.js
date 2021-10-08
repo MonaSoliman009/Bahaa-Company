@@ -81,7 +81,6 @@ router.get("/tested/:id/:date", parseUrlencoded, async (req, res) => {
   console.log(d)
   var arr=[]
     let result = await employeeReport.find({employee:req.params.id,status:"Maintenance Outside"}).populate("employee").populate("ProductDetails");
-    console.log(result[0].finishedAt)
     if(result){
       for(var i=0;i<result.length;i++){
         if(result[i].finishedAt.toLocaleDateString()==d.toLocaleDateString()){
@@ -100,7 +99,6 @@ router.get("/tested/:id/:date", parseUrlencoded, async (req, res) => {
   console.log(d)
   var arr=[]
     let result = await employeeReport.find({employee:req.params.id,status:"Maintenance Outside"}).populate("employee").populate("ProductDetails");
-    console.log(result[0].finishedAt)
     if(result){
       for(var i=0;i<result.length;i++){
         if(result[i].finishedAt.getMonth()+1==req.params.month){

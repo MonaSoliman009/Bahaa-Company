@@ -18,7 +18,6 @@ export class MaintenanceService {
       })
   }
 
-
   startMaitenanceInsideStore(productserialNumber, maintainererId){
     this.socket.emit("startMaintenanceInsideStore",productserialNumber, maintainererId)
     let message =new Observable(observer=>{
