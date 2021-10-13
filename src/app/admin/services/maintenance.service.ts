@@ -8,13 +8,13 @@ import {io}  from 'socket.io-client';
 export class MaintenanceService {
   private url="http://localhost:3000";
   socket:any;
-  constructor() { 
+  constructor() {
 
     this.socket=io(this.url);
     this.socket.on("connect",()=>{
         console.log("connect")
 
-        
+
       })
   }
 

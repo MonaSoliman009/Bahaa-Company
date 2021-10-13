@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { getWeekYearWithOptions } from 'date-fns/fp';
 import { AuthService } from '../services/auth.service';
 import { DataService } from '../services/data.service';
 
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   selectedPosition: any;
   selectedVlaue: any;
+  response: any;
   //isLoading = false;
   selected(id) {
     console.log('selected', id);
@@ -31,6 +33,8 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
   ngOnInit(): void {
+
+      console.log('response', this.response);
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -42,11 +46,12 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
 
     this.ser.login(this.loginForm.value).subscribe((response) => {
+this.response=response
       console.log('response', response);
-
-      console.log('response', response);
+this.service.changelogin(this.response)
+      console.log('response', this.response);
       console.log(response);
-
+localStorage.setItem('data', JSON.stringify(response.data) as string);
       localStorage.setItem('token', response.token as string);
       localStorage.setItem('name', response.name as string);
       localStorage.setItem('response', response.accountant as string);

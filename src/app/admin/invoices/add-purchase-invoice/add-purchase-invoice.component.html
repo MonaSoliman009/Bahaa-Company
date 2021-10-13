@@ -3,7 +3,7 @@
   <div class="col-sm-12">
     <div class="card">
       <div class="card-header">
-        <h5 class="card-title">Add Sale Invoice Form</h5>
+        <h5 class="card-title">Add Purchase Invoice Form</h5>
       </div>
       <div class="card-body">
         <div class="row">
@@ -26,38 +26,27 @@
                     required
                   />
                 </div>
-                <div class="col-md-4 mb-3">
-                  <label>Purchase Date</label>
+
+
+                 <div class="col-md-4 mb-3">
+                  <label>Supplier</label>
                   <input
-                    type="number"
+                    type="text"
                     class="form-control"
-                    id="purchaseDate"
-                    placeholder="purchase Date"
-                    formControlName="purchaseDate"
+                    id="purchaseNumber"
+                    placeholder="supplier"
+                    formControlName="supplier"
                     required
                   />
-                </div>
-
-                <div class="col-sm-6 col-md-3">
-                  <div class="form-group">
-                    <label>Supplier</label>
-                    <div class="cal-icon">
-                      <input
-                        class="form-control"
-                        placeholder="supplier"
-                        type="text"
-                        formControlName="supplier"
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
 
               <div class="card-header col-md-4 mb-3">
                 <h5 class="card-title">Products</h5>
               </div>
-              <ng-container formArrayName="Products">
-                <div *ngFor="let product of Products.controls; index as i">
+
+              <ng-container formArrayName="products" >
+                <div   *ngFor="let product of Products.controls; index as i">
                   <div class="form-row">
                     <ng-container
                       [formGroupName]="i"
@@ -74,6 +63,17 @@
                           required
                         />
                       </div>
+                        <div class="col-md-4 mb-3">
+                        <label for="validationCustom02">Model</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="validationCustom02"
+                          placeholder="model"
+                          formControlName="model"
+                          required
+                        />
+                      </div>
                       <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Quantity</label>
                         <input
@@ -84,7 +84,19 @@
                           formControlName="quantity"
                           required
                         />
-                        <div class="valid-feedback">Looks good!</div>
+
+                      </div>
+                       <div class="col-md-4 mb-3">
+                        <label for="validationCustom02">Price</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="validationCustom02"
+                          placeholder="price.."
+                          formControlName="price"
+                          required
+                        />
+
                       </div>
                     </ng-container>
                   </div>

@@ -37,15 +37,15 @@ router.post("/getBySerialNum", parseUrlencoded, async function (req, res) {
     serialNumber: req.body.serialNumber
   });
 
- 
-  res.json(productt);
+
+  return res.json(productt);
 });
 router.get("/list", parseUrlencoded, async function (req, res) {
 
   let productts = await product.find({
   });
 
- 
+
   res.json(productts);
 });
 
@@ -114,7 +114,7 @@ router.get("/list", parseUrlencoded, async function (req, res) {
 //     Product.updateOne({ _id: req.params.id }, product).then(result => {
 //       res.status(200).json({ message: "Update successful!" });
 //     });
-//   });  
+//   });
 
 // //Fetching Products with pagination
 // router.get("", (req, res, next) => {
@@ -134,15 +134,15 @@ router.get("/list", parseUrlencoded, async function (req, res) {
 //       res.status(200).json({
 //         message: "Products fetched successfully!",
 //         products: fetchedProducts,
-//         maxProducts: count 
+//         maxProducts: count
 //       });
 
 //     })
-     
-//     }); 
-    
-    
-// //Fetching Product  
+
+//     });
+
+
+// //Fetching Product
 // router.get("/:id", (req, res, next) => {
 //     Product.findById(req.params.id).then(product => {
 //       if (product) {
@@ -153,12 +153,12 @@ router.get("/list", parseUrlencoded, async function (req, res) {
 //     });
 //   });
 
-// //Deleting Product  
+// //Deleting Product
 // router.delete("/:id",checkAuth, (req, res, next) => {
 //     Product.deleteOne({ _id: req.params.id }).then(result => {
 //       console.log(result);
 //       res.status(200).json({ message: "Product deleted!" });
 //     });
-//   });  
+//   });
 
 module.exports = router;

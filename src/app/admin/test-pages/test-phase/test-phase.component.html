@@ -16,23 +16,24 @@
         <h4 class="card-title">Test Phase Form</h4>
       </div>
       <div class="card-body">
-        <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
+
           <div class="form-group">
             <label>Product Serial Number:</label>
-            <input type="text" class="form-control" [(ngModel)]="Serial" />
+            <input type="text" class="form-control" #Serial/>
           </div>
           <div class="text-right">
             <button
               type="button"
               class="btn btn-primary"
-              (click)="StartTest()"
-              *ngIf="!started"
+              (click)="StartTest() ;Getserial()"
+
             >
               Start Test
             </button>
           </div>
-
-          <div class="form-group" *ngIf="started">
+<ng-container *ngIf="started">
+<form [formGroup]="testForm" (ngSubmit)="onSubmit()">
+          <div class="form-group" >
             <label class="d-block">Power:</label>
             <div class="form-check form-check-inline">
               <input
@@ -60,19 +61,20 @@
           <!--  -->
           <ng-container formGroupName="condition">
             <ng-container formGroupName="aPart">
-              <div class="card-header col-md-4 mb-3" *ngIf="started">
+              <div class="card-header col-md-4 mb-3" >
                 <h5 class="card-title">A Part</h5>
               </div>
-              <div class="form-group" *ngIf="started">
+              <div class="form-group" >
                 <label class="d-block">Available:</label>
                 <div class="form-check form-check-inline">
                   <input
                     class="form-check-input"
                     type="radio"
                     formControlName="avaliable"
-                    name="avaliable"
+                    name="avaliable_yes"
                     id="avaliable_yes"
                     [value]="true"
+                     (click)="setRadio('avaliable_yes')"
                   />
                   <label class="form-check-label" for="avaliable_yes"
                     >Yes</label
@@ -83,14 +85,17 @@
                     class="form-check-input"
                     type="radio"
                     formControlName="avaliable"
-                    name="avaliable"
+                    name="avaliable_no"
                     id="avaliable_no"
                     [value]="false"
+                    (click)="setRadio('avaliable_no')"
                   />
                   <label class="form-check-label" for="avaliable_no">No</label>
                 </div>
               </div>
-              <div class="form-group" *ngIf="started">
+              <ng-container *ngIf="isSelected('avaliable_yes')">
+
+              <div class="form-group" >
                 <label class="d-block">Has Scratch:</label>
 
                 <div class="form-check form-check-inline">
@@ -118,7 +123,7 @@
                   <label class="form-check-label" for="hasScratch_no">No</label>
                 </div>
               </div>
-              <div class="form-group" *ngIf="started">
+              <div class="form-group" >
                 <label class="d-block">Broken:</label>
 
                 <div class="form-check form-check-inline">
@@ -144,7 +149,7 @@
                   <label class="form-check-label" for="broken_no">No</label>
                 </div>
               </div>
-              <div class="form-group" *ngIf="started">
+              <div class="form-group" >
                 <label class="d-block">Dent:</label>
 
                 <div class="form-check form-check-inline">
@@ -170,41 +175,45 @@
                   <label class="form-check-label" for="broken_no">No</label>
                 </div>
               </div>
-              <div class="form-group" *ngIf="started">
+              <div class="form-group" >
                 <label>Location:</label>
                 <input type="text" class="form-control" />
               </div>
+              </ng-container>
             </ng-container>
-            <div class="card-header col-md-4 mb-3" *ngIf="started">
+            <div class="card-header col-md-4 mb-3" >
               <h5 class="card-title">B Part</h5>
             </div>
             <ng-container formGroupName="cPart">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
                   formControlName="avaliable"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_bpart_yes"
+                  id="avaliable_bpart_yes"
                   [value]="true"
+                   (click)="setRadio('avaliable_bpart_yes')"
                 />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
+                <label class="form-check-label" for="avaliable_bpart_yes">Yes</label>
               </div>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
                   formControlName="avaliable"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_bpart_no"
+                  id="avaliable_bpart_no"
                   [value]="false"
+                    (click)="setRadio('avaliable_bpart_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_bpart_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+                <ng-container *ngIf="isSelected('avaliable_bpart_yes')">
+            <div class="form-group" >
               <label class="d-block">Has Scratch:</label>
 
               <div class="form-check form-check-inline">
@@ -230,7 +239,7 @@
                 <label class="form-check-label" for="hasScratch_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Broken:</label>
 
               <div class="form-check form-check-inline">
@@ -256,7 +265,7 @@
                 <label class="form-check-label" for="broken_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Dent:</label>
 
               <div class="form-check form-check-inline">
@@ -282,25 +291,27 @@
                 <label class="form-check-label" for="broken_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label>Location:</label>
               <input type="text" class="form-control" />
             </div>
             </ng-container>
-            <div class="card-header col-md-4 mb-3" *ngIf="started">
+            </ng-container>
+            <div class="card-header col-md-4 mb-3" >
               <h5 class="card-title">C Part</h5>
             </div>
              <ng-container formGroupName="bPart">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
                   formControlName="avaliable"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_cpart_yes"
+                  id="avaliable_cpart_yes"
                   [value]="true"
+                   (click)="setRadio('avaliable_cpart_yes')"
                 />
                 <label class="form-check-label" for="avaliable_yes">Yes</label>
               </div>
@@ -309,14 +320,16 @@
                   class="form-check-input"
                   type="radio"
                   formControlName="avaliable"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_cpart_no"
+                  id="avaliable_cpart_no"
                   [value]="false"
+                (click)="setRadio('avaliable_cpart_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_cpart_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+             <ng-container *ngIf="isSelected('avaliable_cpart_yes')">
+            <div class="form-group" >
               <label class="d-block">Has Scratch:</label>
 
               <div class="form-check form-check-inline">
@@ -342,7 +355,7 @@
                 <label class="form-check-label" for="hasScratch_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Broken:</label>
 
               <div class="form-check form-check-inline">
@@ -368,7 +381,7 @@
                 <label class="form-check-label" for="broken_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Dent:</label>
 
               <div class="form-check form-check-inline">
@@ -395,41 +408,45 @@
               </div>
             </div>
 
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label>Location:</label>
               <input type="text" class="form-control" />
             </div>
             </ng-container>
-            <div class="card-header col-md-4 mb-3" *ngIf="started">
+            </ng-container>
+            <div class="card-header col-md-4 mb-3" >
               <h5 class="card-title">D Part</h5>
             </div>
             <ng-container formGroupName="dPart">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
                   formControlName="avaliable"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_dpart_yes"
+                  id="avaliable_dpart_yes"
                   [value]="true"
+                    (click)="setRadio('avaliable_dpart_yes')"
                 />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
+                <label class="form-check-label" for="avaliable_dpart_yes">Yes</label>
               </div>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
                   formControlName="avaliable"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_dpart_no"
+                  id="avaliable_dpart_no"
                   [value]="false"
+                   (click)="setRadio('avaliable_dpart_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_dpart_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <ng-container *ngIf="isSelected('avaliable_dpart_yes')">
+            <div class="form-group" >
               <label class="d-block">Has Scratch:</label>
 
               <div class="form-check form-check-inline">
@@ -455,7 +472,7 @@
                 <label class="form-check-label" for="hasScratch_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Broken:</label>
 
               <div class="form-check form-check-inline">
@@ -481,7 +498,7 @@
                 <label class="form-check-label" for="broken_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Dent:</label>
 
               <div class="form-check form-check-inline">
@@ -507,18 +524,19 @@
                 <label class="form-check-label" for="broken_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label>Location:</label>
               <input type="text" class="form-control" />
             </div>
             </ng-container>
+            </ng-container>
             <!--  -->
           </ng-container>
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h5 class="card-title">Configuration</h5>
           </div>
           <ng-container formGroupName="configuration">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label>CPU:</label>
               <input
                 type="text"
@@ -528,7 +546,7 @@
                 formControlName="cpu"
               />
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label>Generation:</label>
               <input
                 type="number"
@@ -538,7 +556,7 @@
                 formControlName="generation"
               />
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label>RAM:</label>
               <input
                 type="number"
@@ -548,7 +566,7 @@
                 formControlName="ram"
               />
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label>HDD:</label>
               <input
                 type="text"
@@ -559,36 +577,39 @@
               />
             </div>
           </ng-container>
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h5 class="card-title">Battery</h5>
           </div>
           <ng-container formGroupName="battery">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
                   formControlName="avaliable"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_battry_yes"
+                  id="avaliable_battry_yes"
                   [value]="true"
+                   (click)="setRadio('avaliable_battry_yes')"
                 />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
+                <label class="form-check-label" for="avaliable_battry_yes">Yes</label>
               </div>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
                   formControlName="avaliable"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_battry_no"
+                  id="avaliable_battry_no"
                   [value]="false"
+                      (click)="setRadio('avaliable_battry_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_battry_no">No</label>
               </div>
             </div>
-             <div class="form-group" *ngIf="started">
+            <ng-container *ngIf="isSelected('avaliable_battry_yes')">
+             <div class="form-group" >
               <label>BatteryHealth:</label>
               <input
                 type="text"
@@ -598,38 +619,41 @@
                   formControlName="batteryHealth"
               />
             </div>
-
+</ng-container>
           </ng-container>
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h5 class="card-title">LCD</h5>
           </div>
           <ng-container formGroupName="lcd">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_lcd_yes"
+                  id="avaliable_lcd_yes"
                   [value]="true"
                   formControlName="avaliable"
+                  (click)="setRadio('avaliable_lcd_yes')"
                 />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
+                <label class="form-check-label" for="avaliable_lcd_yes">Yes</label>
               </div>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_lcd_no"
+                  id="avaliable_lcd_no"
                   [value]="false"
                   formControlName="avaliable"
+                  (click)="setRadio('avaliable_lcd_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_lcd_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+             <ng-container *ngIf="isSelected('avaliable_lcd_yes')">
+            <div class="form-group" >
               <label>Status:</label>
               <input
                 type="text"
@@ -639,7 +663,7 @@
                 formControlName="status"
               />
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Has Scratch:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -666,7 +690,7 @@
                 <label class="form-check-label" for="hasScratch_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Has Spots:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -692,7 +716,7 @@
                 <label class="form-check-label" for="hasSpots_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Has Lines:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -717,7 +741,7 @@
                 <label class="form-check-label" for="hasLine_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Has pixels:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -742,7 +766,7 @@
                 <label class="form-check-label" for="hasPixel_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Broken:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -768,37 +792,41 @@
                 <!-- <label class="form-check-label" for="gender_female">No</label> -->
               </div>
             </div>
+             </ng-container>
           </ng-container>
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h5 class="card-title">Bazel</h5>
           </div>
           <ng-container formGroupName="bazel">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_bazel_yes"
+                  id="avaliable_bazel_yes"
                   [value]="true"
                   formControlName="avaliable"
+                  (click)="setRadio('avaliable_bazel_yes')"
                 />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
+                <label class="form-check-label" for="avaliable_bazel_yes">Yes</label>
               </div>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_bazel_no"
+                  id="avaliable_bazel_no"
                   [value]="false"
                   formControlName="avaliable"
+                    (click)="setRadio('avaliable_bazel_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_bazel_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <ng-container *ngIf="isSelected('avaliable_bazel_yes')">
+            <div class="form-group" >
               <label class="d-block">Broken:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -823,42 +851,46 @@
                 <label class="form-check-label" for="broken_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label>Location:</label>
               <input type="text" class="form-control" />
             </div>
+            </ng-container>
           </ng-container>
 
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h5 class="card-title">Keyboard</h5>
           </div>
           <ng-container formGroupName="keyboard">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_keyboard_yes"
+                  id="avaliable_keyboard_yes"
                   [value]="true"
                   formControlName="avaliable"
+                  (click)="setRadio('avaliable_keyboard_yes')"
                 />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
+                <label class="form-check-label" for="avaliable_keyboard_yes">Yes</label>
               </div>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_keyboard_no"
+                  id="avaliable_keyboard_no"
                   [value]="false"
                   formControlName="avaliable"
+                      (click)="setRadio('avaliable_keyboard_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_keyboard_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <ng-container *ngIf="isSelected('avaliable_keyboard_yes')">
+            <div class="form-group" >
               <label class="d-block">Working:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -883,38 +915,42 @@
                 <label class="form-check-label" for="working_no">No</label>
               </div>
             </div>
+            </ng-container>
           </ng-container>
 
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h5 class="card-title">DVD</h5>
           </div>
           <ng-container formGroupName="dvd">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_dvd_yes"
+                  id="avaliable_dvd_yes"
                   [value]="true"
                   formControlName="avaliable"
+                  (click)="setRadio('avaliable_dvd_yes')"
                 />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
+                <label class="form-check-label" for="avaliable_dvd_yes">Yes</label>
               </div>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_dvd_no"
+                  id="avaliable_dvd_no"
                   [value]="false"
                   formControlName="avaliable"
+                    (click)="setRadio('avaliable_dvd_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_dvd_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <ng-container *ngIf="isSelected('avaliable_dvd_yes')">
+            <div class="form-group" >
               <label class="d-block">Working:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -939,23 +975,25 @@
                 <label class="form-check-label" for="working_no">No</label>
               </div>
             </div>
+            </ng-container>
           </ng-container>
 
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h5 class="card-title">Speakers</h5>
           </div>
 
           <ng-container formGroupName="speakers">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_speaker_yes"
+                  id="avaliable_speaker_yes"
                   [value]="true"
                   formControlName="avaliable"
+                    (click)="setRadio('avaliable_speaker_yes')"
                 />
                 <label class="form-check-label" for="avaliable_yes">Yes</label>
               </div>
@@ -963,15 +1001,17 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_speaker_no"
+                  id="avaliable_speaker_no"
                   [value]="false"
                   formControlName="avaliable"
+                   (click)="setRadio('avaliable_speaker_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_speaker_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <ng-container *ngIf="isSelected('avaliable_speaker_yes')">
+            <div class="form-group" >
               <label class="d-block">Working:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -996,38 +1036,42 @@
                 <label class="form-check-label" for="working_no">No</label>
               </div>
             </div>
+            </ng-container>
           </ng-container>
 
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h5 class="card-title">Camera</h5>
           </div>
           <ng-container formGroupName="camera">
-            <div class="form-group" *ngIf="started">
+            <div class="form-group" >
               <label class="d-block">Available:</label>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_yes"
+                  name="avaliable_camera_yes"
+                  id="avaliable_camera_yes"
                   [value]="true"
                   formControlName="avaliable"
+                  (click)="setRadio('avaliable_camera_yes')"
                 />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
+                <label class="form-check-label" for="avaliable_camera_yes">Yes</label>
               </div>
               <div class="form-check form-check-inline">
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="avaliable"
-                  id="avaliable_no"
+                  name="avaliable_camera_no"
+                  id="avaliable_camera_no"
                   [value]="false"
                   formControlName="avaliable"
+                  (click)="setRadio('avaliable_camera_no')"
                 />
-                <label class="form-check-label" for="avaliable_no">No</label>
+                <label class="form-check-label" for="avaliable_camera_no">No</label>
               </div>
             </div>
-            <div class="form-group" *ngIf="started">
+            <ng-container *ngIf="isSelected('avaliable_camera_yes')">
+            <div class="form-group" >
               <label class="d-block">Working:</label>
               <div class="form-check form-check-inline">
                 <input
@@ -1052,27 +1096,28 @@
                 <label class="form-check-label" for="working_no">No</label>
               </div>
             </div>
+            </ng-container>
           </ng-container>
 
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h6 class="card-title">Has VGAor Intel</h6>
           </div>
-          <div class="form-check form-check-inline" *ngIf="started">
+          <div class="form-check form-check-inline" >
             <input
               class="form-check-input"
               type="radio"
-              name="hasVGAorIntel"
+              name="hasVGAorIntel_yes"
               id="hasVGAorIntel_yes"
               [value]="true"
               formControlName="hasVGAorIntel"
             />
             <label class="form-check-label" for="hasVGAorIntel_yes">Yes</label>
           </div>
-          <div class="form-check form-check-inline" *ngIf="started">
+          <div class="form-check form-check-inline" >
             <input
               class="form-check-input"
               type="radio"
-              name="hasVGAorIntel"
+              name="hasVGAorIntel_no"
               id="hasVGAorIntel_no"
               [value]="false"
               formControlName="hasVGAorIntel"
@@ -1080,35 +1125,40 @@
             <label class="form-check-label" for="hasVGAorIntel_no">No</label>
           </div>
 
-          <div class="card-header col-md-4 mb-3" *ngIf="started">
+          <div class="card-header col-md-4 mb-3" >
             <h5 class="card-title">Finished</h5>
           </div>
-          <div class="form-check form-check-inline" *ngIf="started">
+          <div class="form-check form-check-inline" >
             <input
               class="form-check-input"
               type="radio"
               name="finished"
               id="finished_yes"
-              [(ngModel)]="finished"
+
               [value]="true"
+                 (change)="onItemChange($event)"
             />
             <label class="form-check-label" for="avaliable_yes">Yes</label>
           </div>
-          <div class="form-check form-check-inline" *ngIf="started">
+          <div class="form-check form-check-inline" >
             <input
               class="form-check-input"
               type="radio"
               name="finished"
               id="finished_no"
-                [(ngModel)]="finished"
-              [value]="false"
+
+                 [value]="false"
+                (change)="onItemChange($event)"
+
             />
             <label class="form-check-label" for="avaliable_no">No</label>
           </div>
-          <div class="text-right" *ngIf="started">
-            <button type="submit" class="btn btn-primary">Submit</button>
+          <div class="text-right" >
+            <button type="submit" class="btn btn-primary" >Submit</button>
           </div>
+
         </form>
+         </ng-container>
       </div>
     </div>
   </div>

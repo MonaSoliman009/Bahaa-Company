@@ -21,39 +21,27 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   ) {
     this.purchuseInvoiceForm = new FormGroup({
       purchaseNumber: new FormControl(''),
-      purchaseDate: new FormControl(''),
+
       supplier: new FormControl(''),
       products: new FormArray([
         new FormGroup({
           serialNumber: new FormControl(''),
           model: new FormControl(''),
-          addedAt: new FormControl(''),
+
           quantity: new FormControl(''),
           price: new FormControl(''),
         }),
       ]),
-      quantity: new FormControl(''),
     });
   }
 
-  ngOnInit(): void {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-
-    this.today = mm + '/' + dd + '/' + yyyy;
-    console.log(this.today);
-    this.service.currentMessage.subscribe((id) => {
-      this.id = id;
-      console.log('id for ', id);
-    });
-  }
+  ngOnInit(): void {}
   get Products() {
     return this.purchuseInvoiceForm.get('products') as FormArray;
   }
   onSubmit() {
-    console.log(this.id);
+    this.id = localStorage.getItem('response');
+    console.log('idt', this.id);
 
     console.log('form', this.purchuseInvoiceForm.value);
 
@@ -61,11 +49,28 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       .addPurchuseInvoice(this.id, this.purchuseInvoiceForm.value)
       .subscribe((res) => {
         console.log('form', this.purchuseInvoiceForm.value);
-        console.log('added', res);
+        console.log('response', res);
       });
+  }
+  adddNewSection() {
+    // console.log(array);
+    this.Products.push(
+      new FormGroup({
+        productId: new FormControl(''),
+        quantity: new FormControl(''),
+        configuration: new FormGroup({
+          cpu: new FormControl(''),
+          withCharger: new FormControl(''),
+
+          ram: new FormControl(''),
+
+          hard: new FormControl(''),
+        }),
+      })
+    );
+    this.newSection.push();
   }
   addNewSection() {
     this.newSection.push(2);
   }
-
 }

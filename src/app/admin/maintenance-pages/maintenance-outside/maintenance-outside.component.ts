@@ -94,5 +94,5 @@ export class MaintenanceOutsideComponent implements OnInit {
       console.log(this.maintenanceForm.value)
     }
    }
- 
+
 }

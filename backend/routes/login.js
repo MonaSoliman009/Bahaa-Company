@@ -25,7 +25,7 @@ var  {accountant}= require("../models/accountant");
     let ownerr = await owner.findOne({
       email: req.body.email
     });
-  
+
     if (!ownerr) {
       let accountantt = await accountant.findOne({
         email: req.body.email, approved:true
@@ -34,7 +34,7 @@ var  {accountant}= require("../models/accountant");
         var validepassword = await bcrypt.compare(req.body.password, accountantt.password);
         if (!validepassword) {
           return res.status(400).send("invalid email or password.");
-  
+
         } else {
           var token = jwt.sign({
             _id: accountantt._id,
@@ -45,9 +45,10 @@ var  {accountant}= require("../models/accountant");
           res.header("x_auth_token_accountant", token).status(200).json({
             "accountant": accountantt._id,
             "token": token,
-            "name": "accountant"
+            "name": "accountant",
+            "data":accountantt
           });
-  
+
         }
       } else {
         let employeee = await employee.findOne({
@@ -57,7 +58,7 @@ var  {accountant}= require("../models/accountant");
           validepassword = await bcrypt.compare(req.body.password, employeee.password);
           if (!validepassword) {
             return res.status(400).send("invalid email or password.");
-  
+
           } else {
             var token = jwt.sign({
               _id: employeee._id,
@@ -67,23 +68,23 @@ var  {accountant}= require("../models/accountant");
             })
             res.header("x_auth_token_employee", token).status(200).json({
               "employee": employeee._id,
-  
+
               "token": token,
               "name": "employee"
             });
           }
-  
+
         } else {
           return res.status(400).send("invalid email or password.");
-  
+
         }
       }
-  
+
     } else {
       validepassword = await bcrypt.compare(req.body.password, ownerr.password);
       if (!validepassword) {
         return res.status(400).send("invalid email or password.");
-  
+
       } else {
         var token = jwt.sign({
           _id: ownerr._id,
@@ -99,8 +100,8 @@ var  {accountant}= require("../models/accountant");
         });
       }
     }
-  
-  
+
+
   })
 
 

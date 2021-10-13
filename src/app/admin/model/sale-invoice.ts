@@ -1,7 +1,7 @@
 export class SaleInvoice {
   customerName: string;
   price: number;
-  date: Date;
+
   Products: Array<{
     productId: string;
     quantity: number;
@@ -12,5 +12,5 @@ export class SaleInvoice {
       hard: String;
     };
   }>;
-  seller_id: string;
+  seller: string;
 }

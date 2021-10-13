@@ -6,22 +6,22 @@
                     <li class="nav-item home_tab">
                         <a class="nav-link active" data-toggle="tab" href="#profile_settings" role="tab" aria-selected="false">
                             Profile Settings
-                        </a> 
+                        </a>
                     </li>
                     <li class="nav-item home_add">
                         <a class="nav-link" data-toggle="tab" href="#change_password" role="tab" aria-selected="false">
                             Change password
-                        </a> 
+                        </a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                
+
                     <!-- Profile Tab -->
                     <div class="tab-pane fade show active" id="profile_settings" role="tabpanel">
                         <form>
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" class="form-control" value="admin" disabled>
+                                <input type="text" class="form-control" [value]="user.name" disabled>
                             </div>
                             <div class="form-group">
                                 <label>Profile Image</label>
@@ -42,7 +42,7 @@
                         </form>
                     </div>
                     <!-- /Profile Tab -->
-                    
+
                     <!-- Password Tab -->
                     <div class="tab-pane fade" id="change_password" role="tabpanel">
                         <form>
@@ -64,7 +64,7 @@
                         </form>
                     </div>
                     <!-- /Password Tab -->
-                    
+
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import { Observable } from 'rxjs';
@@ -7,13 +8,14 @@ import { Observable } from 'rxjs';
 export class TestPhaseService {
   private url = 'http://localhost:3000';
   socket: any;
-  constructor() {
+  // HttpClient: any;
+  constructor(private http:HttpClient) {
     this.socket = io(this.url);
     this.socket.on('connect', () => {
       console.log('connect');
     });
   }
-  startTest(productserialNumber, testerId) {
+  startTest(productserialNumber :number, testerId:string) {
     this.socket.emit('startTest', productserialNumber, testerId);
     let message = new Observable((observer) => {
       this.socket.on('startTest', (comment) => {
@@ -22,13 +24,13 @@ export class TestPhaseService {
     });
     return message;
   }
-  submitTest(finished, productserialNumber, testerId, testData) {
+  submitTest(finished, productserialNumber,testData, testerId ) {
     this.socket.emit(
       'submitTest',
       finished,
-      testerId,
       productserialNumber,
-      testData
+      testData,
+      testerId
     );
     let message = new Observable((observer) => {
       this.socket.on('submitTest', (comment) => {
@@ -36,5 +38,9 @@ export class TestPhaseService {
       });
     });
     return message;
+  }
+  getProductBySerialnumer(seri):Observable<any>{
+    return this.http.post('http://localhost:3000/product/getBySerialNum', seri)
+
   }
 }
