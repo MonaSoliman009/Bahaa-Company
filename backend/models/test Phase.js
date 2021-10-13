@@ -8,27 +8,27 @@ const TestPhase = new Schema({
   condition: {
     aPart: {
       avaliable: { type: Boolean, required: true },
-      hasScratch: { type: Boolean, required: true },
-      broken: { type: Boolean, required: true },
-      dent: { type: Boolean, required: true },
+      hasScratch: { type: Boolean },
+      broken: { type: Boolean },
+      dent: { type: Boolean },
     },
     bPart: {
       avaliable: { type: Boolean, required: true },
-      hasScratch: { type: Boolean, required: true },
-      broken: { type: Boolean, required: true },
-      dent: { type: Boolean, required: true },
+      hasScratch: { type: Boolean },
+      broken: { type: Boolean },
+      dent: { type: Boolean },
     },
     cPart: {
       avaliable: { type: Boolean, required: true },
-      hasScratch: { type: Boolean, required: true },
-      broken: { type: Boolean, required: true },
-      dent: { type: Boolean, required: true },
+      hasScratch: { type: Boolean },
+      broken: { type: Boolean },
+      dent: { type: Boolean},
     },
     dPart: {
       avaliable: { type: Boolean, required: true },
-      hasScratch: { type: Boolean, required: true },
-      broken: { type: Boolean, required: true },
-      dent: { type: Boolean, required: true },
+      hasScratch: { type: Boolean},
+      broken: { type: Boolean },
+      dent: { type: Boolean},
     },
     location: [
       {
@@ -45,16 +45,16 @@ const TestPhase = new Schema({
   },
   battery: {
     avaliable: { type: Boolean, required: true },
-    batteryHealth: { type: String, required: true },
+    batteryHealth: { type: String},
   },
   lcd: {
     avaliable: { type: Boolean, required: true },
     status: { type: String, required: true },
-    hasScratch: { type: Boolean, required: true },
-    hasSpots: { type: Boolean, required: true },
-    hasLine: { type: Boolean, required: true },
-    hasPixel: { type: Boolean, required: true },
-    broken: { type: Boolean, required: true },
+    hasScratch: { type: Boolean },
+    hasSpots: { type: Boolean},
+    hasLine: { type: Boolean},
+    hasPixel: { type: Boolean },
+    broken: { type: Boolean},
   },
   bazel: {
     avaliable: { type: Boolean, required: true },
