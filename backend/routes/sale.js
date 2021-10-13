@@ -6,7 +6,7 @@ var parseUrlencoded = bodyParser.urlencoded({
   extended: true,
 });
 var  saleInvoice  = require("../models/saleInvoice");
-var { soldProductsReport } = require("../models/soldProductsReport");
+var soldProductsReport  = require("../models/soldProductsReport");
 var { product } = require("../models/product");
 var mongoose = require("mongoose");
 
