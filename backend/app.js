@@ -157,6 +157,7 @@ io.on("connection", (socket) => {
         if (productt.tested == false) {
           console.log(testData.power);
           if (finished) {
+            
             await product.updateOne(
               { serialNumber: productt.serialNumber },
               {
@@ -377,11 +378,11 @@ io.on("connection", (socket) => {
             );
             let new_employeeReport = new employeeReport({
               employee: testerId,
-              finishedProduct: {
+              finishedProduct: productserialNumber,
                 product: productserialNumber,
                 finishedAt: d.toString(),
                 status: "Tested",
-              },
+              
             });
             await new_employeeReport.save();
             io.emit("submitTest", doc);
