@@ -13,6 +13,7 @@ export class TestPhaseComponent implements OnInit {
   testForm: FormGroup;
   serialnumberForm: FormGroup;
   Serial: any;
+  FalsyValue = false;
   finished: any;
   testerId: string;
   private selectedLink: string;
@@ -102,7 +103,6 @@ export class TestPhaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     let info = localStorage.getItem('response');
     console.log('local', info);
     this.testerId = info;
@@ -173,9 +173,9 @@ export class TestPhaseComponent implements OnInit {
         }
       });
   }
-   onItemChange(value) {
+  onItemChange(value) {
     console.log(' Value is : ', value);
-   this.finished = value.target.value;
+    this.finished = value.target.value;
   }
   onSubmit() {
     // this.locations.push(1);
@@ -184,9 +184,102 @@ export class TestPhaseComponent implements OnInit {
     if (this.testForm.valid) {
       console.log('serial number befor submit', this.Serial);
       console.log('finished befor submit', this.finished);
+      console.log(
+        'dpart',
+        this.testForm.controls['condition'].value.dPart.avaliable
+      );
 
       console.log('tester befor submit', this.testerId);
+      if (this.testForm.controls['condition'].value.dPart.avaliable == false) {
+        this.testForm.controls['condition'].patchValue({
+          dPart: {
+            hasScratch: false,
+            broken: false,
+            dent: false,
+          },
+        });
+      }
+      if (this.testForm.controls['condition'].value.aPart.avaliable == false) {
+        this.testForm.controls['condition'].patchValue({
+          aPart: {
+            hasScratch: false,
+            broken: false,
+            dent: false,
+          },
+        });
+      }
 
+      if (this.testForm.controls['condition'].value.bPart.avaliable == false) {
+        this.testForm.controls['condition'].patchValue({
+          bPart: {
+            hasScratch: false,
+            broken: false,
+            dent: false,
+          },
+        });
+      }
+      if (this.testForm.controls['condition'].value.cPart.avaliable == false) {
+        this.testForm.controls['condition'].patchValue({
+          cPart: {
+            hasScratch: false,
+            broken: false,
+            dent: false,
+          },
+        });
+      }
+      if (this.testForm.controls['lcd'].value.avaliable == false) {
+        console.log('lcd', this.testForm.controls['lcd'].value.avaliable);
+
+        this.testForm.controls['lcd'].patchValue({
+          hasScratch: false,
+          hasSpots: false,
+          hasLine: false,
+          hasPixel: false,
+          broken: false,
+        });
+      }
+      if (this.testForm.controls['bazel'].value.avaliable == false) {
+        console.log('bazel', this.testForm.controls['bazel'].value.avaliable);
+
+        this.testForm.controls['bazel'].patchValue({
+          broken: false,
+        });
+      }
+      if (this.testForm.controls['keyboard'].value.avaliable == false) {
+        console.log(
+          'keyboard',
+          this.testForm.controls['keyboard'].value.avaliable
+        );
+
+        this.testForm.controls['keyboard'].patchValue({
+          working: false,
+        });
+      }
+      if (this.testForm.controls['dvd'].value.avaliable == false) {
+        console.log('dvd', this.testForm.controls['dvd'].value.avaliable);
+
+        this.testForm.controls['dvd'].patchValue({
+          working: false,
+        });
+      }
+      if (this.testForm.controls['speakers'].value.avaliable == false) {
+        console.log(
+          'speakers',
+          this.testForm.controls['speakers'].value.avaliable
+        );
+
+        this.testForm.controls['speakers'].patchValue({
+          working: false,
+        });
+      }
+      if (this.testForm.controls['camera'].value.avaliable == false) {
+        console.log('camera', this.testForm.controls['camera'].value.avaliable);
+
+        this.testForm.controls['camera'].patchValue({
+          working: false,
+        });
+      }
+      console.log('last', this.testForm.value);
       this.testSer
         .submitTest(
           this.finished,
