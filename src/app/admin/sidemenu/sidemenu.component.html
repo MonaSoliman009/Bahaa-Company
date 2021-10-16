@@ -78,6 +78,32 @@
           </ul>
         </li> -->
         <li class="menu-title">
+          <span>Product</span>
+        </li>
+
+        <li class="submenu">
+          <a href="#"
+            ><i class="fas fa-cog"></i> <span>Product</span>
+            <span class="menu-arrow"></span
+          ></a>
+          <ul style="display: none">
+            <li [className]="page === 'addProduct' ? 'active' : ''">
+              <a [routerLink]="'/admin/product/addProduct'">Add New One</a>
+            </li>
+            <!-- <li [className]="page === 'outside'? 'active' : ''"><a [routerLink]="'/admin/maintenance/outside'">Outside Store</a></li> -->
+          </ul>
+        </li>
+
+
+
+
+
+
+
+
+
+
+        <li class="menu-title">
           <span>Test Phase</span>
         </li>
 
