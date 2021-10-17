@@ -110,6 +110,14 @@ model: String,
 quantity:number,
 price:number,
 }
+],
+
+accessories:[
+  {
+      type: String,
+      price:Number,
+      quantity:Number,
+    }
 ]
 
 ///////////////////////////

@@ -18,10 +18,12 @@ router.post("/add/:id", parseUrlencoded, async function (req, res) {
     return res.status(400).send("product aleready exit");
 
   }
+  var d = new Date();
+
    productt = new product({
     serialNumber: req.body.serialNumber,
     model: req.body.model,
-    addedAt: req.body.addedAt,
+    addedAt: d.toString(),
     quantity: req.body.quantity,
     price: req.body.price,
     purchaseSerialNumber: req.body.purchaseSerialNumber,
