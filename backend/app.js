@@ -134,11 +134,13 @@ io.on("connection", (socket) => {
     notification
       .find({})
       .populate("productDetails")
-      .populate("tester.employee || tester.owner || tester.accountant")
+      .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
       .exec(function (error, data) {
         if (error) {
           // "employee", "owner","accountant"
           console.log(error);
+          io.emit("getAllNotifications", error);
+
         }
         console.log(data);
 
@@ -172,7 +174,7 @@ io.on("connection", (socket) => {
               message: "Finished Testing",
             });
             await new_notification.save();
-
+            socket.emit('getAllNotifications', new_notification);
             let new_TestPhase = new TestPhase({
               power: testData.power,
               condition: {
@@ -272,6 +274,7 @@ io.on("connection", (socket) => {
               message: "Finished Part Of Testing",
             });
             await new_notification.save();
+            socket.emit('getAllNotifications', new_notification);
 
             let new_TestPhase = new TestPhase({
               power: testData.power,
@@ -368,6 +371,7 @@ io.on("connection", (socket) => {
               message: "Finished Testing",
             });
             await new_notification.save();
+            socket.emit('getAllNotifications', new_notification);
 
             let doc = await TestPhase.updateOne(
               { ProductSerial: productserialNumber },
@@ -402,6 +406,7 @@ io.on("connection", (socket) => {
               message: "Finished Part Of Testing",
             });
             await new_notification.save();
+            socket.emit('getAllNotifications', new_notification);
 
             let doc = await TestPhase.updateOne(
               { ProductSerial: productserialNumber },
@@ -470,6 +475,8 @@ io.on("connection", (socket) => {
               message: "Started Maintainence",
             });
             await new_notification.save();
+            socket.emit('getAllNotifications', new_notification);
+
             console.log("done");
             io.emit("startMaintenanceInsideStore", {
               message: "Maintainence Started successfully",
@@ -516,6 +523,8 @@ io.on("connection", (socket) => {
               message: "Finished Maintainence",
             });
             await new_notification.save();
+            socket.emit('getAllNotifications', new_notification);
+
             if (sparePartsData) {
               for (var i = 0; i < sparePartsData.length; i++) {
                 console.log("done");
@@ -598,6 +607,7 @@ io.on("connection", (socket) => {
               message: "Started Maintainence",
             });
             await new_notification.save();
+            socket.emit('getAllNotifications', new_notification);
 
             console.log("done");
             io.emit("startMaintenanceOutsideStore", {
@@ -639,6 +649,7 @@ io.on("connection", (socket) => {
               message: "Finished Maintainence",
             });
             await new_notification.save();
+            socket.emit('getAllNotifications', new_notification);
 
             let new_repairedOutsideStoreProducts =
               new repairedOutsideStoreProducts({

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from '../services/notification.service';
+import {io}  from 'socket.io-client';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +11,32 @@ export class HeaderComponent implements OnInit {
   showDropdown = true;
   public bellCollapsed = true;
   public userCollapsed = true;
+  socket:any;
+  public data: any;
+  private url="http://localhost:3000";
 
-  constructor() { }
+  constructor(private _NotificationService:NotificationService) { 
+
+    this.socket=io(this.url);
+    this.socket.on("connect",()=>{
+        console.log("connect")
+
+
+      })
+  }
 
   ngOnInit(): void {
+    this.socket.emit("getAllNotifications")
+
+this.getNotifications()
+    
+  }
+  getNotifications() {
+   this.socket.on('getAllNotifications', data => {
+      this.data = data;
+      console.log(this.data)
+    });
+    
   }
   bell() {
     this.bellCollapsed = !this.bellCollapsed;

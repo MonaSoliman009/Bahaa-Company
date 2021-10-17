@@ -7,8 +7,7 @@ const notification=new Schema({
       },
       tester : {//currently working //or done by
         type: mongoose.Schema.Types.ObjectId,
-        enum: ['employee', 'owner','accountant'],
-        defunct: 'employee',
+       
         required: true
       }, 
       currentDate:{
@@ -30,5 +29,32 @@ notification.virtual('productDetails', {
   justOne: false,
 
 });
-notification.set('toObject', { virtuals: true })
+notification.virtual('notificationOwner', {
+  ref: 'owner', // The model to use
+  localField: 'tester', // Find people where `localField`
+  foreignField: '_id', // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: false,
+
+});
+notification.virtual('notificationEmployee', {
+  ref: 'employee', // The model to use
+  localField: 'tester', // Find people where `localField`
+  foreignField: '_id', // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: false,
+
+});
+notification.virtual('notificationAccountant', {
+  ref: 'accountant', // The model to use
+  localField: 'tester', // Find people where `localField`
+  foreignField: '_id', // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: false,
+
+});
+notification.set('toJSON', { virtuals: true })
 module.exports = mongoose.model('notification', notification)
