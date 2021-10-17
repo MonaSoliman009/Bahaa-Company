@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const PurchaseInvoice = mongoose.model(
-  "PurchaseInvoice",
-  new mongoose.Schema({
+const PurchaseInvoice =new Schema({
+  
     purchaseNumber: {
       type: Number,
       required: true,
@@ -20,7 +19,6 @@ const PurchaseInvoice = mongoose.model(
         {
           productId: {
             type: mongoose.Schema.Types.ObjectId,
-            enum: ["product", "accessories"],
             required: true,
           },
           quantity: { type: Number, required: true },
@@ -28,6 +26,24 @@ const PurchaseInvoice = mongoose.model(
       ]
     
   })
-);
 
-exports.PurchaseInvoice = PurchaseInvoice;
+PurchaseInvoice.virtual('products', {
+  ref: 'product', // The model to use
+  localField: 'purchaseCart.productId', // Find people where `localField`
+  foreignField: '_id', // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: false,
+
+});
+PurchaseInvoice.virtual('accessories', {
+  ref: 'accessories', // The model to use
+  localField: 'purchaseCart.productId', // Find people where `localField`
+  foreignField: '_id', // is equal to `foreignField`
+  // If `justOne` is true, 'members' will be a single doc as opposed to
+  // an array. `justOne` is false by default.
+  justOne: false,
+
+});
+PurchaseInvoice.set('toJSON', { virtuals: true })
+module.exports = mongoose.model('PurchaseInvoice', PurchaseInvoice)

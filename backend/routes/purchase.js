@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 var parseUrlencoded = bodyParser.urlencoded({
   extended: true,
 });
-var { PurchaseInvoice } = require("../models/purchase invoice");
+var  PurchaseInvoice  = require("../models/purchase invoice");
 var { product } = require("../models/product");
 var {accessories}= require("../models/accessories");
 router.post("/add/:id", parseUrlencoded, async (req, res)=> {
@@ -61,10 +61,7 @@ router.post("/add/:id", parseUrlencoded, async (req, res)=> {
 
 router.get("/list", parseUrlencoded, async (req, res) => {
   console.log("hi");
-  let result = await PurchaseInvoice.find({}).populate({
-    path: "purchaseCart.productId",
-    model: "product" || "accessories",
-  });
+  let result = await PurchaseInvoice.find({}).populate("products").populate("accessories");
   res.json(result);
 });
 router.get("/list/:id",async(req,res)=>{
