@@ -1138,7 +1138,7 @@
               id="finished_yes"
 
               [value]="true"
-                 (change)="onItemChange($event)"
+                 (change)="onItemChange($event);sourceBind(true)"
             />
             <label class="form-check-label" for="avaliable_yes">Yes</label>
           </div>
@@ -1150,7 +1150,7 @@
               id="finished_no"
 
                  [value]="false"
-                (change)="onItemChange($event)"
+                (change)="onItemChange($event);sourceBind(false)"
 
             />
             <label class="form-check-label" for="avaliable_no">No</label>
