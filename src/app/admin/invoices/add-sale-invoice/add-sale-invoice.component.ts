@@ -1,7 +1,7 @@
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Event, Router, NavigationStart } from '@angular/router';
-import { SaleInvoice } from '../../model/sale-invoice';
+import { SaleInvoice } from '../../model/saleInvoice/sale-invoice';
 import { FormBuilder } from '@angular/forms';
 import { InvoicesService } from '../../services/invoices.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -58,8 +58,8 @@ export class AddSaleInvoiceComponent implements OnInit {
   //         hard: [''],
   //       }),
   //     },
-  alertWithFail(res) {
-    Swal.fire('Failed', res, 'error').then((res) => {
+  alertWithSuccess(msg) {
+    Swal.fire('Done', msg, 'success').then((res) => {
       location.reload();
     });
   }
@@ -72,7 +72,7 @@ export class AddSaleInvoiceComponent implements OnInit {
       .addSaleInvoice(this.saleInvoiceForm.value)
       .subscribe((res) => {
         console.log('success');
-this.alertWithFail(res);
+        this.alertWithSuccess(res);
         console.log(res);
       });
   }

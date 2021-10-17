@@ -14,7 +14,7 @@ export class TestPhaseComponent implements OnInit {
   serialnumberForm: FormGroup;
   Serial: any;
   FalsyValue = false;
-  finished: any;
+  finished: boolean;
   testerId: string;
   private selectedLink: string;
   msg: any;
@@ -117,27 +117,12 @@ export class TestPhaseComponent implements OnInit {
     // console.log(name);
 
     if (!this.selectedLink) {
-      // if no radio button is selected, always return false so every nothing is shown
       return false;
     }
 
-    // console.log(name);
-    // console.log(this.laneForm.get('source').value);
     return this.selectedLink === name;
   }
-  // sourceBind(name: string) {
-  //   console.log('delected for source', name);
 
-  //   if (name == 'avaliable_yes') {
-  //     // this.laneForm.patchValue({
-  //     //   source: 1,
-  //     // });
-  //   } else if (name == 0) {
-  //     this.laneForm.patchValue({
-  //       source: 0,
-  //     });
-  //   }
-  // }
   alertWithFail(msg) {
     msg = this.msg;
     Swal.fire('Failed', msg, 'error').then((res) => {
@@ -163,8 +148,6 @@ export class TestPhaseComponent implements OnInit {
       .startTest(this.Getserial(), this.testerId)
       .subscribe((res: any) => {
         console.log('message', res.message);
-        // this.started = true;
-
         if (res.message == 'Test Started successfully') {
           this.started = true;
         } else {
@@ -175,7 +158,17 @@ export class TestPhaseComponent implements OnInit {
   }
   onItemChange(value) {
     console.log(' Value is : ', value);
-    this.finished = value.target.value;
+
+    console.log(' Value is : ', value.target.value);
+  }
+  sourceBind(name: boolean) {
+    console.log('delected for source', name);
+
+    if (name == false) {
+this.finished=false
+    } else if (name == true) {
+this.finished=true
+    }
   }
   onSubmit() {
     // this.locations.push(1);
