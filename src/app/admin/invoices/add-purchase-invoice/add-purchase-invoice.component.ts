@@ -14,11 +14,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   newSection: any = [0];
   id: any;
   today: any;
-  constructor(
-    private serInvoices: InvoicesService,
-
-    private service: DataService
-  ) {
+  constructor(private serInvoices: InvoicesService) {
     this.purchuseInvoiceForm = new FormGroup({
       purchaseNumber: new FormControl(''),
 
@@ -30,6 +26,13 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
           quantity: new FormControl(''),
           price: new FormControl(''),
+        }),
+      ]),
+      accessories: new FormArray([
+        new FormGroup({
+          type: new FormControl(''),
+          price: new FormControl(''),
+          quantity: new FormControl(''),
         }),
       ]),
     });
