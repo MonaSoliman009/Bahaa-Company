@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 import {io}  from 'socket.io-client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit {
   public data: any;
   private url="http://localhost:3000";
 
-  constructor(private _NotificationService:NotificationService) { 
+  constructor(private _NotificationService:NotificationService,private router: Router,) { 
 
     this.socket=io(this.url);
     this.socket.on("connect",()=>{
@@ -49,6 +50,15 @@ this.getNotifications()
     if (!this.bellCollapsed) {
       this.bellCollapsed = true;
     }
+  }
+  logout(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    localStorage.removeItem("id");
+    this.router.navigate(['./login']);
+
+
+
   }
 
 }

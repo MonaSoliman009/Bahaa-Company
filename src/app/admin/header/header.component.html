@@ -270,8 +270,8 @@
         id="collapseExample2"
         [ngbCollapse]="userCollapsed"
       >
-        <a class="dropdown-item" [routerLink]="'/admin/profile'">Profile</a>
-        <a class="dropdown-item" [routerLink]="'/admin/login'">Logout</a>
+        <a class="dropdown-item" href="javascript:void(0);" [routerLink]="'/admin/profile'">Profile</a>
+        <a class="dropdown-item" href="javascript:void(0);" (click)="logout()">Logout</a>
       </div>
     </li>
     <!-- /User Menu -->
