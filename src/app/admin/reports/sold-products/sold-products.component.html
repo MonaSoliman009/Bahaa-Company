@@ -36,10 +36,10 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let product of soldProducts">
-                          <td>{{product.ProductDetails[0].serialNumber}}</td>
-                          <td>{{product.ProductDetails[0].model}}</td>
-                          <td>{{product.ProductDetails[0].quantity}}</td>
-                          <td>{{product.ProductDetails[0].status}}</td>
+                          <td>{{product.ProductDetails[0]?.serialNumber}}</td>
+                          <td>{{product.ProductDetails[0]?.model}}</td>
+                          <td>{{product.ProductDetails[0]?.quantity}}</td>
+                          <td>{{product.ProductDetails[0]?.status}}</td>
   
                           <td class="text-right">
                             <a class="table-action-btn btn btn-sm bg-success-light" (click)="viewProductDetails(product._id)">

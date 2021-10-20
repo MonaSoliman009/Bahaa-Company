@@ -105,7 +105,7 @@ purchaseNumber:number
 supplier:string
 products: [
 {
-serialNumber: string,
+serialNumber: number,
 model: String,
 quantity:number,
 price:number,
