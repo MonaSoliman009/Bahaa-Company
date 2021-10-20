@@ -1,11 +1,24 @@
 <div class="admin-noti-wrapper">
-    <div class="noti-list">
+    <div class="noti-list mb-2" *ngFor="let notification of notificationss?.reverse().reverse()">
         <div class="noti-avatar">
             <img src="assets/img/user.jpg" alt="">
         </div>
         <div class="noti-contents">
-            <h3>uiuii  have been subscribed</h3>
-            <span>31-08-2020 05:26 AM</span>
+            <h3>
+                <span
+                    *ngIf="notification.notificationEmployee.length !== 0">{{notification.notificationEmployee[0].name}}</span>
+                <span
+                    *ngIf="notification.notificationAccountant.length !== 0">{{notification.notificationAccountant[0].name}}</span>
+
+                <!-- <span *ngIf="notification.notificationOwner.length !== 0 ">{{notification.notificationOwner[0].name}}</span> -->
+
+
+
+
+
+                {{notification.message}} on Product {{notification.productDetails[0].serialNumber}}
+            </h3>
+            <span style="color: #ff0080">{{notification.currentDate | date:'medium'}}</span>
         </div>
     </div>
 </div>

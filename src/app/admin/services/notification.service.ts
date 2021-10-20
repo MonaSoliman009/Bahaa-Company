@@ -19,7 +19,19 @@ export class NotificationService {
    }
 
    getAllNotifications() {
-    this.socket.emit("getAllNotifications")
+    this.socket.emit("getAllNotifications");
+    
+    let notifications =new Observable(observer=>{
+      this.socket.on("notifications",notification=>{
+        observer.next(notification);
+
+      }) 
+      })
+      
+      return notifications;
+
+   }
+   newNotifications(){
 
     let notifications =new Observable(observer=>{
       this.socket.on("notification",notification=>{
@@ -29,6 +41,8 @@ export class NotificationService {
       })
       
       return notifications;
-  }
+   }
+
+  
 
 }

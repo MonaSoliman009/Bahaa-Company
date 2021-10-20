@@ -1,4 +1,5 @@
 <!-- Header -->
+
 <div class="header">
   <div class="header-left">
     <a class="logo logo-small">
@@ -18,11 +19,13 @@
       <a
         href="javascript:void(0)"
         class="dropdown-toggle nav-link"
-        (click)="bell()"
+        (click)="bell();this.toggle=false"
         [attr.aria-expanded]="!bellCollapsed"
         aria-controls="collapseExample1"
       >
-        <i class="far fa-bell"></i> <span class="badge badge-pill"></span>
+        <i class="far fa-bell"></i>
+        
+         <span *ngIf="toggle"class="badge badge-pill" ></span>
       </a>
       <div
         class="dropdown-menu dropdown-menu-right notifications"
@@ -31,17 +34,17 @@
       >
         <div class="topnav-dropdown-header">
           <span class="notification-title">Notifications</span>
-          <a
+          <!-- <a
             href="javascript:void(0)"
             class="clear-noti"
             (click)="bellCollapsed = !bellCollapsed"
           >
             Clear All
-          </a>
+          </a> -->
         </div>
         <div class="noti-content">
           <ul class="notification-list">
-            <li
+            <li *ngFor="let notification of notifications"
               class="notification-message"
               (click)="bellCollapsed = !bellCollapsed"
             >
@@ -56,183 +59,23 @@
                   </span>
                   <div class="media-body">
                     <p class="noti-details">
+                      <span class="noti-title" *ngIf="notification.notificationEmployee.length !== 0">{{notification.notificationEmployee[0].name}}</span>
+                      <span  class="noti-title" *ngIf="notification.notificationAccountant.length !== 0">{{notification.notificationAccountant[0].name}}</span>
+      
                       <span class="noti-title"
-                        >Thomas Herzberg have been subscribed</span
+                        > {{notification.message}} on Product {{notification.productDetails[0].serialNumber}}</span
                       >
                     </p>
                     <p class="noti-time">
-                      <span class="notification-time"
-                        >15 Sep 2020 10:20 PM</span
+                      <span class="notification-time" style="color: #ff0080"
+                        >{{notification.currentDate | date:'medium'}}</span
                       >
                     </p>
                   </div>
                 </div>
               </a>
             </li>
-            <li
-              class="notification-message"
-              (click)="bellCollapsed = !bellCollapsed"
-            >
-              <a [routerLink]="'/admin/all-notifications'">
-                <div class="media">
-                  <span class="avatar avatar-sm">
-                    <img
-                      class="avatar-img rounded-circle"
-                      alt=""
-                      src="assets/img/provider/provider-02.jpg"
-                    />
-                  </span>
-                  <div class="media-body">
-                    <p class="noti-details">
-                      <span class="noti-title"
-                        >Matthew Garcia have been subscribed</span
-                      >
-                    </p>
-                    <p class="noti-time">
-                      <span class="notification-time"
-                        >13 Sep 2020 03:56 AM</span
-                      >
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li
-              class="notification-message"
-              (click)="bellCollapsed = !bellCollapsed"
-            >
-              <a [routerLink]="'/admin/all-notifications'">
-                <div class="media">
-                  <span class="avatar avatar-sm">
-                    <img
-                      class="avatar-img rounded-circle"
-                      alt=""
-                      src="assets/img/provider/provider-03.jpg"
-                    />
-                  </span>
-                  <div class="media-body">
-                    <p class="noti-details">
-                      <span class="noti-title"
-                        >Yolanda Potter have been subscribed</span
-                      >
-                    </p>
-                    <p class="noti-time">
-                      <span class="notification-time"
-                        >12 Sep 2020 09:25 PM</span
-                      >
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li
-              class="notification-message"
-              (click)="bellCollapsed = !bellCollapsed"
-            >
-              <a [routerLink]="'/admin/all-notifications'">
-                <div class="media">
-                  <span class="avatar avatar-sm">
-                    <img
-                      class="avatar-img rounded-circle"
-                      alt="User Image"
-                      src="assets/img/provider/provider-04.jpg"
-                    />
-                  </span>
-                  <div class="media-body">
-                    <p class="noti-details">
-                      <span class="noti-title"
-                        >Ricardo Flemings have been subscribed</span
-                      >
-                    </p>
-                    <p class="noti-time">
-                      <span class="notification-time"
-                        >11 Sep 2020 06:36 PM</span
-                      >
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li
-              class="notification-message"
-              (click)="bellCollapsed = !bellCollapsed"
-            >
-              <a [routerLink]="'/admin/all-notifications'">
-                <div class="media">
-                  <span class="avatar avatar-sm">
-                    <img
-                      class="avatar-img rounded-circle"
-                      alt="User Image"
-                      src="assets/img/provider/provider-05.jpg"
-                    />
-                  </span>
-                  <div class="media-body">
-                    <p class="noti-details">
-                      <span class="noti-title"
-                        >Maritza Wasson have been subscribed</span
-                      >
-                    </p>
-                    <p class="noti-time">
-                      <span class="notification-time"
-                        >10 Sep 2020 08:42 AM</span
-                      >
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li
-              class="notification-message"
-              (click)="bellCollapsed = !bellCollapsed"
-            >
-              <a [routerLink]="'/admin/all-notifications'">
-                <div class="media">
-                  <span class="avatar avatar-sm">
-                    <img
-                      class="avatar-img rounded-circle"
-                      alt="User Image"
-                      src="assets/img/provider/provider-06.jpg"
-                    />
-                  </span>
-                  <div class="media-body">
-                    <p class="noti-details">
-                      <span class="noti-title"
-                        >Marya Ruiz have been subscribed</span
-                      >
-                    </p>
-                    <p class="noti-time">
-                      <span class="notification-time">9 Sep 2020 11:01 AM</span>
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li
-              class="notification-message"
-              (click)="bellCollapsed = !bellCollapsed"
-            >
-              <a [routerLink]="'/admin/all-notifications'">
-                <div class="media">
-                  <span class="avatar avatar-sm">
-                    <img
-                      class="avatar-img rounded-circle"
-                      alt="User Image"
-                      src="assets/img/provider/provider-07.jpg"
-                    />
-                  </span>
-                  <div class="media-body">
-                    <p class="noti-details">
-                      <span class="noti-title"
-                        >Richard Hughes have been subscribed</span
-                      >
-                    </p>
-                    <p class="noti-time">
-                      <span class="notification-time">8 Sep 2020 06:23 AM</span>
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </li>
+          
           </ul>
         </div>
         <div class="topnav-dropdown-footer">
@@ -278,3 +121,18 @@
   </ul>
 </div>
 <!-- /Header -->
+<div class="toast  "  style="position:fixed;bottom:20px;left:25px;z-index: 57587587575;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header" style="border-color: #ff0080;">
+      <strong class="mr-auto" style="color: #ff0080;">New Notification</strong>
+      <small style="color: #ff0080;">{{lastNotification?.currentDate| date:'medium'}}</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      <span  *ngIf="lastNotification?.notificationEmployee.length !== 0">{{lastNotification?.notificationEmployee[0].name}}</span>
+     <span   *ngIf="lastNotification?.notificationAccountant.length !== 0">{{lastNotification?.notificationAccountant[0].name}}</span>
+      
+     {{lastNotification?.message}} on Product {{lastNotification?.productDetails[0].serialNumber}}
+    </div>
+  </div>

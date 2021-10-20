@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+declare var $:any;
 
 @Component({
   selector: 'app-header',
@@ -13,18 +14,47 @@ export class HeaderComponent implements OnInit {
   public bellCollapsed = true;
   public userCollapsed = true;
   public data: any;
+  notifications: any;
+  lastNotification:any;
+  flag: boolean = false;
+  toggle: boolean = false;
+  numOfNotifications: number;
+  constructor(private _NotificationService: NotificationService, private router: Router,) {
 
-  constructor(private _NotificationService:NotificationService,private router: Router,) { 
 
-  
-    
+
   }
 
   ngOnInit(): void {
-this._NotificationService.getAllNotifications().subscribe((res)=>{
-  console.log(res)
-})
-    
+   
+   
+    this._NotificationService.getAllNotifications().subscribe((res) => {
+      this.notifications = res;
+      this.notifications.reverse();
+      this.numOfNotifications = this.notifications.length;
+     
+      console.log(this.notifications)
+    })
+
+    this._NotificationService.newNotifications().subscribe((res) => {
+      
+      this.notifications = res;
+      if(this.notifications[this.notifications.length-1].notificationOwner !=[]){
+
+      }else{
+        this.lastNotification=this.notifications[this.notifications.length-1];
+        console.log(this.lastNotification)
+        this.notifications.reverse();
+        this.toggle=true;
+        $('.toast').toast({ delay: 4000 });
+        $('.toast').toast('show');
+      }
+      
+      // this.numOfNotifications = this.notifications.length;
+     
+      console.log(res)
+    })
+
   }
 
   bell() {
@@ -39,7 +69,7 @@ this._NotificationService.getAllNotifications().subscribe((res)=>{
       this.bellCollapsed = true;
     }
   }
-  logout(){
+  logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("name");
     localStorage.removeItem("id");

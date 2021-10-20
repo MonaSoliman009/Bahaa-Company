@@ -115,7 +115,7 @@ io.on("connection", (socket) => {
           });
           await new_notification.save();
       let  newNotification=  await  notification
-          .findOne({_id:new_notification._id})
+          .find({})
           .populate("productDetails")
           .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
         
@@ -145,12 +145,12 @@ io.on("connection", (socket) => {
         if (error) {
           // "employee", "owner","accountant"
           console.log(error);
-          io.emit("notification", error);
+          io.emit("notifications", error);
 
         }
         console.log(data);
 
-        io.emit("notification", data);
+        io.emit("notifications", data);
       });
   });
 
@@ -181,7 +181,7 @@ io.on("connection", (socket) => {
             });
             await new_notification.save();
             let  newNotification=  await  notification
-          .findOne({_id:new_notification._id})
+            .find({})
           .populate("productDetails")
           .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
         
@@ -286,7 +286,7 @@ io.on("connection", (socket) => {
             });
             await new_notification.save();
             let  newNotification=  await  notification
-            .findOne({_id:new_notification._id})
+            .find({})
             .populate("productDetails")
             .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
           
@@ -387,7 +387,12 @@ io.on("connection", (socket) => {
               message: "Finished Testing",
             });
             await new_notification.save();
-            io.emit('notification', new_notification);
+            let  newNotification=  await  notification
+            .find({})
+            .populate("productDetails")
+            .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
+          
+            io.emit('notification', newNotification);
 
             let doc = await TestPhase.updateOne(
               { ProductSerial: productserialNumber },
@@ -422,7 +427,12 @@ io.on("connection", (socket) => {
               message: "Finished Part Of Testing",
             });
             await new_notification.save();
-            io.emit('notification', new_notification);
+            let  newNotification=  await  notification
+            .find({})
+            .populate("productDetails")
+            .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
+          
+            io.emit('notification', newNotification);
 
             let doc = await TestPhase.updateOne(
               { ProductSerial: productserialNumber },
@@ -492,7 +502,7 @@ io.on("connection", (socket) => {
             });
             await new_notification.save();
             let  newNotification=  await  notification
-          .findOne({_id:new_notification._id})
+          .find({})
           .populate("productDetails")
           .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
         
@@ -544,7 +554,7 @@ io.on("connection", (socket) => {
             });
             await new_notification.save();
             let  newNotification=  await  notification
-          .findOne({_id:new_notification._id})
+            .find({})
           .populate("productDetails")
           .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
         
@@ -633,7 +643,7 @@ io.on("connection", (socket) => {
             });
             await new_notification.save();
             let  newNotification=  await  notification
-          .findOne({_id:new_notification._id})
+          .find({})
           .populate("productDetails")
           .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
         
@@ -679,7 +689,7 @@ io.on("connection", (socket) => {
             });
             await new_notification.save();
             let  newNotification=  await  notification
-          .findOne({_id:new_notification._id})
+          .find({})
           .populate("productDetails")
           .populate('notificationOwner').populate('notificationEmployee').populate('notificationAccountant')
         
