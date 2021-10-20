@@ -16,65 +16,1065 @@
         <h4 class="card-title">Test Phase Form</h4>
       </div>
       <div class="card-body">
+        <div class="form-group">
+          <label>Product Serial Number:</label>
+          <input
+            type="text"
+            class="form-control"
+            #Serial
+            [(ngModel)]="search"
+            (keyup)="searchSerial(search)"
+          />
+          <!-- {{allSerialNumbers | filterSerialnumber:search}} -->
+<div    *ngFor="let post of allSerialNumbers | filter:search " >
+   <a (click)="selectedSerial(post)"  *ngIf='!displayRecomendedSerial'>{{post}}</a>
+</div>
 
-          <div class="form-group">
-            <label>Product Serial Number:</label>
-            <input type="text" class="form-control" #Serial/>
-          </div>
-          <div class="text-right">
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="StartTest() ;Getserial()"
 
-            >
-              Start Test
-            </button>
-          </div>
-<ng-container *ngIf="started">
-<form [formGroup]="testForm" (ngSubmit)="onSubmit()">
-          <div class="form-group" >
-            <label class="d-block">Power:</label>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="power"
-                id="power_yes"
-                formControlName="power"
-                [value]="true"
-              />
-              <label class="form-check-label" for="power_yes">Working</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="power"
-                id="power_no"
-                formControlName="power"
-                [value]="false"
-              />
-              <label class="form-check-label" for="power_no">Not working</label>
-            </div>
-          </div>
-          <!--  -->
-          <ng-container formGroupName="condition">
-            <ng-container formGroupName="aPart">
-              <div class="card-header col-md-4 mb-3" >
-                <h5 class="card-title">A Part</h5>
+
+
+        </div>
+        <div class="text-right">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="StartTest(); Getserial()"
+          >
+            Start Test
+          </button>
+        </div>
+        <ng-container *ngIf="started">
+          <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label class="d-block">Power:</label>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="power"
+                  id="power_yes"
+                  formControlName="power"
+                  [value]="true"
+                />
+                <label class="form-check-label" for="power_yes">Working</label>
               </div>
-              <div class="form-group" >
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="power"
+                  id="power_no"
+                  formControlName="power"
+                  [value]="false"
+                />
+                <label class="form-check-label" for="power_no"
+                  >Not working</label
+                >
+              </div>
+            </div>
+            <!--  -->
+            <ng-container formGroupName="condition">
+              <ng-container formGroupName="aPart">
+                <div class="card-header col-md-4 mb-3">
+                  <h5 class="card-title">A Part</h5>
+                </div>
+                <div class="form-group">
+                  <label class="d-block">Available:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="avaliable"
+                      name="avaliable_yes"
+                      id="avaliable_yes"
+                      [value]="true"
+                      (click)="setRadio('avaliable_yes')"
+                    />
+                    <label class="form-check-label" for="avaliable_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="avaliable"
+                      name="avaliable_no"
+                      id="avaliable_no"
+                      [value]="false"
+                      (click)="setRadio('avaliable_no')"
+                    />
+                    <label class="form-check-label" for="avaliable_no"
+                      >No</label
+                    >
+                  </div>
+                </div>
+                <ng-container *ngIf="isSelected('avaliable_yes')">
+                  <div class="form-group">
+                    <label class="d-block">Has Scratch:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="hasScratch"
+                        name="hasScratch"
+                        id="hasScratch_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="hasScratch_yes"
+                        >Yes</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="hasScratch"
+                        name="hasScratch"
+                        id="hasScratch_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="hasScratch_no"
+                        >No</label
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="d-block">Broken:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="broken"
+                        name="broken"
+                        id="broken_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="broken_yes"
+                        >Yes</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="broken"
+                        name="broken"
+                        id="broken_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="broken_no">No</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="d-block">Dent:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="dent"
+                        name="dent"
+                        id="dent_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="dent_yes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="dent"
+                        name="dent"
+                        id="broken_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="broken_no">No</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Location:</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </ng-container>
+              </ng-container>
+              <div class="card-header col-md-4 mb-3">
+                <h5 class="card-title">B Part</h5>
+              </div>
+              <ng-container formGroupName="cPart">
+                <div class="form-group">
+                  <label class="d-block">Available:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="avaliable"
+                      name="avaliable_bpart_yes"
+                      id="avaliable_bpart_yes"
+                      [value]="true"
+                      (click)="setRadio('avaliable_bpart_yes')"
+                    />
+                    <label class="form-check-label" for="avaliable_bpart_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="avaliable"
+                      name="avaliable_bpart_no"
+                      id="avaliable_bpart_no"
+                      [value]="false"
+                      (click)="setRadio('avaliable_bpart_no')"
+                    />
+                    <label class="form-check-label" for="avaliable_bpart_no"
+                      >No</label
+                    >
+                  </div>
+                </div>
+                <ng-container *ngIf="isSelected('avaliable_bpart_yes')">
+                  <div class="form-group">
+                    <label class="d-block">Has Scratch:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="hasScratch"
+                        name="hasScratch"
+                        id="hasScratch_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="hasScratch_yes"
+                        >Yes</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="hasScratch"
+                        name="hasScratch"
+                        id="hasScratch_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="hasScratch_no"
+                        >No</label
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="d-block">Broken:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="broken"
+                        name="broken"
+                        id="broken_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="broken_yes"
+                        >Yes</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="broken"
+                        name="broken"
+                        id="broken_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="broken_no">No</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="d-block">Dent:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="dent"
+                        name="dent"
+                        id="dent_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="dent_yes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="dent"
+                        name="dent"
+                        id="broken_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="broken_no">No</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Location:</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </ng-container>
+              </ng-container>
+              <div class="card-header col-md-4 mb-3">
+                <h5 class="card-title">C Part</h5>
+              </div>
+              <ng-container formGroupName="bPart">
+                <div class="form-group">
+                  <label class="d-block">Available:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="avaliable"
+                      name="avaliable_cpart_yes"
+                      id="avaliable_cpart_yes"
+                      [value]="true"
+                      (click)="setRadio('avaliable_cpart_yes')"
+                    />
+                    <label class="form-check-label" for="avaliable_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="avaliable"
+                      name="avaliable_cpart_no"
+                      id="avaliable_cpart_no"
+                      [value]="false"
+                      (click)="setRadio('avaliable_cpart_no')"
+                    />
+                    <label class="form-check-label" for="avaliable_cpart_no"
+                      >No</label
+                    >
+                  </div>
+                </div>
+                <ng-container *ngIf="isSelected('avaliable_cpart_yes')">
+                  <div class="form-group">
+                    <label class="d-block">Has Scratch:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="hasScratch"
+                        name="hasScratch"
+                        id="hasScratch_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="hasScratch_yes"
+                        >Yes</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="hasScratch"
+                        name="hasScratch"
+                        id="hasScratch_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="hasScratch_no"
+                        >No</label
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="d-block">Broken:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="broken"
+                        name="broken"
+                        id="broken_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="broken_yes"
+                        >Yes</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="broken"
+                        name="broken"
+                        id="broken_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="broken_no">No</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="d-block">Dent:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="dent"
+                        name="dent"
+                        id="dent_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="dent_yes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="dent"
+                        name="dent"
+                        id="broken_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="broken_no">No</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Location:</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </ng-container>
+              </ng-container>
+              <div class="card-header col-md-4 mb-3">
+                <h5 class="card-title">D Part</h5>
+              </div>
+              <ng-container formGroupName="dPart">
+                <div class="form-group">
+                  <label class="d-block">Available:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="avaliable"
+                      name="avaliable_dpart_yes"
+                      id="avaliable_dpart_yes"
+                      [value]="true"
+                      (click)="setRadio('avaliable_dpart_yes')"
+                    />
+                    <label class="form-check-label" for="avaliable_dpart_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="avaliable"
+                      name="avaliable_dpart_no"
+                      id="avaliable_dpart_no"
+                      [value]="false"
+                      (click)="setRadio('avaliable_dpart_no')"
+                    />
+                    <label class="form-check-label" for="avaliable_dpart_no"
+                      >No</label
+                    >
+                  </div>
+                </div>
+                <ng-container *ngIf="isSelected('avaliable_dpart_yes')">
+                  <div class="form-group">
+                    <label class="d-block">Has Scratch:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="hasScratch"
+                        name="hasScratch"
+                        id="hasScratch_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="hasScratch_yes"
+                        >Yes</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="hasScratch"
+                        name="hasScratch"
+                        id="hasScratch_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="hasScratch_no"
+                        >No</label
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="d-block">Broken:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="broken"
+                        name="broken"
+                        id="broken_yes"
+                        [value]="true"
+                      />
+                      <label class="form-check-label" for="broken_yes"
+                        >Yes</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="broken"
+                        name="broken"
+                        id="broken_no"
+                        [value]="false"
+                      />
+                      <label class="form-check-label" for="broken_no">No</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="d-block">Dent:</label>
+
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="dent_yes"
+                        id="dent_yes"
+                        [value]="true"
+                        formControlName="dent"
+                      />
+                      <label class="form-check-label" for="dent_yes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="broken_no"
+                        id="broken_no"
+                        [value]="false"
+                        formControlName="dent"
+                      />
+                      <label class="form-check-label" for="broken_no">No</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Location:</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!--  -->
+            </ng-container>
+            <div class="card-header col-md-4 mb-3">
+              <h5 class="card-title">Configuration</h5>
+            </div>
+            <ng-container formGroupName="configuration">
+              <div class="form-group">
+                <label>CPU:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="cpu"
+                  id="cpu"
+                  formControlName="cpu"
+                />
+              </div>
+              <div class="form-group">
+                <label>Generation:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="generation"
+                  id="generation"
+                  formControlName="generation"
+                />
+              </div>
+              <div class="form-group">
+                <label>RAM:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="ram"
+                  id="ram"
+                  formControlName="ram"
+                />
+              </div>
+              <div class="form-group">
+                <label>HDD:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="hdd"
+                  id="hdd"
+                  formControlName="hdd"
+                />
+              </div>
+            </ng-container>
+            <div class="card-header col-md-4 mb-3">
+              <h5 class="card-title">Battery</h5>
+            </div>
+            <ng-container formGroupName="battery">
+              <div class="form-group">
                 <label class="d-block">Available:</label>
                 <div class="form-check form-check-inline">
                   <input
                     class="form-check-input"
                     type="radio"
                     formControlName="avaliable"
-                    name="avaliable_yes"
-                    id="avaliable_yes"
+                    name="avaliable_battry_yes"
+                    id="avaliable_battry_yes"
                     [value]="true"
-                     (click)="setRadio('avaliable_yes')"
+                    (click)="setRadio('avaliable_battry_yes')"
+                  />
+                  <label class="form-check-label" for="avaliable_battry_yes"
+                    >Yes</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    formControlName="avaliable"
+                    name="avaliable_battry_no"
+                    id="avaliable_battry_no"
+                    [value]="false"
+                    (click)="setRadio('avaliable_battry_no')"
+                  />
+                  <label class="form-check-label" for="avaliable_battry_no"
+                    >No</label
+                  >
+                </div>
+              </div>
+              <ng-container *ngIf="isSelected('avaliable_battry_yes')">
+                <div class="form-group">
+                  <label>BatteryHealth:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="batteryHealth"
+                    id="batteryHealth"
+                    formControlName="batteryHealth"
+                  />
+                </div>
+              </ng-container>
+            </ng-container>
+            <div class="card-header col-md-4 mb-3">
+              <h5 class="card-title">LCD</h5>
+            </div>
+            <ng-container formGroupName="lcd">
+              <div class="form-group">
+                <label class="d-block">Available:</label>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="avaliable_lcd_yes"
+                    id="avaliable_lcd_yes"
+                    [value]="true"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_lcd_yes')"
+                  />
+                  <label class="form-check-label" for="avaliable_lcd_yes"
+                    >Yes</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="avaliable_lcd_no"
+                    id="avaliable_lcd_no"
+                    [value]="false"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_lcd_no')"
+                  />
+                  <label class="form-check-label" for="avaliable_lcd_no"
+                    >No</label
+                  >
+                </div>
+              </div>
+              <ng-container *ngIf="isSelected('avaliable_lcd_yes')">
+                <div class="form-group">
+                  <label>Status:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="status"
+                    id="status"
+                    formControlName="status"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="d-block">Has Scratch:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="hasScratch"
+                      name="hasScratch"
+                      id="hasScratch_yes"
+                      [value]="true"
+                    />
+                    <label class="form-check-label" for="hasScratch_yes"
+                      >Yes
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="hasScratch"
+                      name="hasScratch"
+                      id="hasScratch_no"
+                      [value]="false"
+                    />
+                    <label class="form-check-label" for="hasScratch_no"
+                      >No</label
+                    >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="d-block">Has Spots:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="hasSpots"
+                      name="hasSpots"
+                      id="hasSpots_yes"
+                      [value]="true"
+                    />
+                    <label class="form-check-label" for="hasSpots_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="hasSpots"
+                      name="hasSpots"
+                      id="hasSpots_no
+                      "
+                      [value]="false"
+                    />
+                    <label class="form-check-label" for="hasSpots_no">No</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="d-block">Has Lines:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="hasLine"
+                      formControlName="hasLine"
+                      id="hasLine_yes"
+                      [value]="true"
+                    />
+                    <label class="form-check-label" for="hasLine_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="hasLine"
+                      id="hasLine_no"
+                      formControlName="hasLine"
+                      [value]="false"
+                    />
+                    <label class="form-check-label" for="hasLine_no">No</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="d-block">Has pixels:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="hasPixel"
+                      id="hasPixel_yes"
+                      [value]="true"
+                      formControlName="hasPixel"
+                    />
+                    <label class="form-check-label" for="hasPixel_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="hasPixel"
+                      id="hasPixel_no"
+                      [value]="false"
+                      formControlName="hasPixel"
+                    />
+                    <label class="form-check-label" for="hasPixel_no">No</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="d-block">Broken:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="broken"
+                      id="broken_yes"
+                      [value]="true"
+                      formControlName="broken"
+                    />
+                    <label class="form-check-label" for="broken_yes">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="broken"
+                      id="broken_no"
+                      [value]="false"
+                      formControlName="broken"
+                    />
+
+                    <!-- <label class="form-check-label" for="gender_female">No</label> -->
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+            <div class="card-header col-md-4 mb-3">
+              <h5 class="card-title">Bazel</h5>
+            </div>
+            <ng-container formGroupName="bazel">
+              <div class="form-group">
+                <label class="d-block">Available:</label>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="avaliable_bazel_yes"
+                    id="avaliable_bazel_yes"
+                    [value]="true"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_bazel_yes')"
+                  />
+                  <label class="form-check-label" for="avaliable_bazel_yes"
+                    >Yes</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="avaliable_bazel_no"
+                    id="avaliable_bazel_no"
+                    [value]="false"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_bazel_no')"
+                  />
+                  <label class="form-check-label" for="avaliable_bazel_no"
+                    >No</label
+                  >
+                </div>
+              </div>
+              <ng-container *ngIf="isSelected('avaliable_bazel_yes')">
+                <div class="form-group">
+                  <label class="d-block">Broken:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="broken"
+                      id="broken_yes"
+                      [value]="true"
+                      formControlName="broken"
+                    />
+                    <label class="form-check-label" for="broken_yes">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="broken"
+                      id="broken_no"
+                      [value]="false"
+                      formControlName="broken"
+                    />
+                    <label class="form-check-label" for="broken_no">No</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Location:</label>
+                  <input type="text" class="form-control" />
+                </div>
+              </ng-container>
+            </ng-container>
+
+            <div class="card-header col-md-4 mb-3">
+              <h5 class="card-title">Keyboard</h5>
+            </div>
+            <ng-container formGroupName="keyboard">
+              <div class="form-group">
+                <label class="d-block">Available:</label>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="avaliable_keyboard_yes"
+                    id="avaliable_keyboard_yes"
+                    [value]="true"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_keyboard_yes')"
+                  />
+                  <label class="form-check-label" for="avaliable_keyboard_yes"
+                    >Yes</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="avaliable_keyboard_no"
+                    id="avaliable_keyboard_no"
+                    [value]="false"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_keyboard_no')"
+                  />
+                  <label class="form-check-label" for="avaliable_keyboard_no"
+                    >No</label
+                  >
+                </div>
+              </div>
+              <ng-container *ngIf="isSelected('avaliable_keyboard_yes')">
+                <div class="form-group">
+                  <label class="d-block">Working:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="working"
+                      id="working_yes"
+                      [value]="true"
+                      formControlName="working"
+                    />
+                    <label class="form-check-label" for="working_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="working"
+                      id="working_no"
+                      [value]="false"
+                      formControlName="working"
+                    />
+                    <label class="form-check-label" for="working_no">No</label>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+
+            <div class="card-header col-md-4 mb-3">
+              <h5 class="card-title">DVD</h5>
+            </div>
+            <ng-container formGroupName="dvd">
+              <div class="form-group">
+                <label class="d-block">Available:</label>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="avaliable_dvd_yes"
+                    id="avaliable_dvd_yes"
+                    [value]="true"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_dvd_yes')"
+                  />
+                  <label class="form-check-label" for="avaliable_dvd_yes"
+                    >Yes</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="avaliable_dvd_no"
+                    id="avaliable_dvd_no"
+                    [value]="false"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_dvd_no')"
+                  />
+                  <label class="form-check-label" for="avaliable_dvd_no"
+                    >No</label
+                  >
+                </div>
+              </div>
+              <ng-container *ngIf="isSelected('avaliable_dvd_yes')">
+                <div class="form-group">
+                  <label class="d-block">Working:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="working"
+                      id="working_yes"
+                      [value]="true"
+                      formControlName="working"
+                    />
+                    <label class="form-check-label" for="working_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="working"
+                      id="working_no"
+                      [value]="false"
+                      formControlName="working"
+                    />
+                    <label class="form-check-label" for="working_no">No</label>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+
+            <div class="card-header col-md-4 mb-3">
+              <h5 class="card-title">Speakers</h5>
+            </div>
+
+            <ng-container formGroupName="speakers">
+              <div class="form-group">
+                <label class="d-block">Available:</label>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="avaliable_speaker_yes"
+                    id="avaliable_speaker_yes"
+                    [value]="true"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_speaker_yes')"
                   />
                   <label class="form-check-label" for="avaliable_yes"
                     >Yes</label
@@ -84,30 +1084,65 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    formControlName="avaliable"
-                    name="avaliable_no"
-                    id="avaliable_no"
+                    name="avaliable_speaker_no"
+                    id="avaliable_speaker_no"
                     [value]="false"
-                    (click)="setRadio('avaliable_no')"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_speaker_no')"
                   />
-                  <label class="form-check-label" for="avaliable_no">No</label>
+                  <label class="form-check-label" for="avaliable_speaker_no"
+                    >No</label
+                  >
                 </div>
               </div>
-              <ng-container *ngIf="isSelected('avaliable_yes')">
+              <ng-container *ngIf="isSelected('avaliable_speaker_yes')">
+                <div class="form-group">
+                  <label class="d-block">Working:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="working"
+                      id="working_yes"
+                      [value]="true"
+                      formControlName="working"
+                    />
+                    <label class="form-check-label" for="working_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="working"
+                      id="working_no"
+                      [value]="false"
+                      formControlName="working"
+                    />
+                    <label class="form-check-label" for="working_no">No</label>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
 
-              <div class="form-group" >
-                <label class="d-block">Has Scratch:</label>
-
+            <div class="card-header col-md-4 mb-3">
+              <h5 class="card-title">Camera</h5>
+            </div>
+            <ng-container formGroupName="camera">
+              <div class="form-group">
+                <label class="d-block">Available:</label>
                 <div class="form-check form-check-inline">
                   <input
                     class="form-check-input"
                     type="radio"
-                    formControlName="hasScratch"
-                    name="hasScratch"
-                    id="hasScratch_yes"
+                    name="avaliable_camera_yes"
+                    id="avaliable_camera_yes"
                     [value]="true"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_camera_yes')"
                   />
-                  <label class="form-check-label" for="hasScratch_yes"
+                  <label class="form-check-label" for="avaliable_camera_yes"
                     >Yes</label
                   >
                 </div>
@@ -115,1052 +1150,106 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    formControlName="hasScratch"
-                    name="hasScratch"
-                    id="hasScratch_no"
+                    name="avaliable_camera_no"
+                    id="avaliable_camera_no"
                     [value]="false"
+                    formControlName="avaliable"
+                    (click)="setRadio('avaliable_camera_no')"
                   />
-                  <label class="form-check-label" for="hasScratch_no">No</label>
+                  <label class="form-check-label" for="avaliable_camera_no"
+                    >No</label
+                  >
                 </div>
               </div>
-              <div class="form-group" >
-                <label class="d-block">Broken:</label>
-
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    formControlName="broken"
-                    name="broken"
-                    id="broken_yes"
-                    [value]="true"
-                  />
-                  <label class="form-check-label" for="broken_yes">Yes</label>
+              <ng-container *ngIf="isSelected('avaliable_camera_yes')">
+                <div class="form-group">
+                  <label class="d-block">Working:</label>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="working"
+                      id="working_yes"
+                      [value]="true"
+                      formControlName="working"
+                    />
+                    <label class="form-check-label" for="working_yes"
+                      >Yes</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="working"
+                      id="working_no"
+                      [value]="false"
+                      formControlName="working"
+                    />
+                    <label class="form-check-label" for="working_no">No</label>
+                  </div>
                 </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    formControlName="broken"
-                    name="broken"
-                    id="broken_no"
-                    [value]="false"
-                  />
-                  <label class="form-check-label" for="broken_no">No</label>
-                </div>
-              </div>
-              <div class="form-group" >
-                <label class="d-block">Dent:</label>
-
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    formControlName="dent"
-                    name="dent"
-                    id="dent_yes"
-                    [value]="true"
-                  />
-                  <label class="form-check-label" for="dent_yes">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    formControlName="dent"
-                    name="dent"
-                    id="broken_no"
-                    [value]="false"
-                  />
-                  <label class="form-check-label" for="broken_no">No</label>
-                </div>
-              </div>
-              <div class="form-group" >
-                <label>Location:</label>
-                <input type="text" class="form-control" />
-              </div>
               </ng-container>
             </ng-container>
-            <div class="card-header col-md-4 mb-3" >
-              <h5 class="card-title">B Part</h5>
-            </div>
-            <ng-container formGroupName="cPart">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="avaliable"
-                  name="avaliable_bpart_yes"
-                  id="avaliable_bpart_yes"
-                  [value]="true"
-                   (click)="setRadio('avaliable_bpart_yes')"
-                />
-                <label class="form-check-label" for="avaliable_bpart_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="avaliable"
-                  name="avaliable_bpart_no"
-                  id="avaliable_bpart_no"
-                  [value]="false"
-                    (click)="setRadio('avaliable_bpart_no')"
-                />
-                <label class="form-check-label" for="avaliable_bpart_no">No</label>
-              </div>
-            </div>
-                <ng-container *ngIf="isSelected('avaliable_bpart_yes')">
-            <div class="form-group" >
-              <label class="d-block">Has Scratch:</label>
 
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasScratch"
-                  name="hasScratch"
-                  id="hasScratch_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="hasScratch_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasScratch"
-                  name="hasScratch"
-                  id="hasScratch_no"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="hasScratch_no">No</label>
-              </div>
+            <div class="card-header col-md-4 mb-3">
+              <h6 class="card-title">Has VGAor Intel</h6>
             </div>
-            <div class="form-group" >
-              <label class="d-block">Broken:</label>
-
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="broken"
-                  name="broken"
-                  id="broken_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="broken_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="broken"
-                  name="broken"
-                  id="broken_no"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="broken_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Dent:</label>
-
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="dent"
-                  name="dent"
-                  id="dent_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="dent_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="dent"
-                  name="dent"
-                  id="broken_no"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="broken_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label>Location:</label>
-              <input type="text" class="form-control" />
-            </div>
-            </ng-container>
-            </ng-container>
-            <div class="card-header col-md-4 mb-3" >
-              <h5 class="card-title">C Part</h5>
-            </div>
-             <ng-container formGroupName="bPart">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="avaliable"
-                  name="avaliable_cpart_yes"
-                  id="avaliable_cpart_yes"
-                  [value]="true"
-                   (click)="setRadio('avaliable_cpart_yes')"
-                />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="avaliable"
-                  name="avaliable_cpart_no"
-                  id="avaliable_cpart_no"
-                  [value]="false"
-                (click)="setRadio('avaliable_cpart_no')"
-                />
-                <label class="form-check-label" for="avaliable_cpart_no">No</label>
-              </div>
-            </div>
-             <ng-container *ngIf="isSelected('avaliable_cpart_yes')">
-            <div class="form-group" >
-              <label class="d-block">Has Scratch:</label>
-
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasScratch"
-                  name="hasScratch"
-                  id="hasScratch_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="hasScratch_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasScratch"
-                  name="hasScratch"
-                  id="hasScratch_no"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="hasScratch_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Broken:</label>
-
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="broken"
-                  name="broken"
-                  id="broken_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="broken_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="broken"
-                  name="broken"
-                  id="broken_no"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="broken_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Dent:</label>
-
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="dent"
-                  name="dent"
-                  id="dent_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="dent_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="dent"
-                  name="dent"
-                  id="broken_no"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="broken_no">No</label>
-              </div>
-            </div>
-
-            <div class="form-group" >
-              <label>Location:</label>
-              <input type="text" class="form-control" />
-            </div>
-            </ng-container>
-            </ng-container>
-            <div class="card-header col-md-4 mb-3" >
-              <h5 class="card-title">D Part</h5>
-            </div>
-            <ng-container formGroupName="dPart">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="avaliable"
-                  name="avaliable_dpart_yes"
-                  id="avaliable_dpart_yes"
-                  [value]="true"
-                    (click)="setRadio('avaliable_dpart_yes')"
-                />
-                <label class="form-check-label" for="avaliable_dpart_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="avaliable"
-                  name="avaliable_dpart_no"
-                  id="avaliable_dpart_no"
-                  [value]="false"
-                   (click)="setRadio('avaliable_dpart_no')"
-                />
-                <label class="form-check-label" for="avaliable_dpart_no">No</label>
-              </div>
-            </div>
-            <ng-container *ngIf="isSelected('avaliable_dpart_yes')">
-            <div class="form-group" >
-              <label class="d-block">Has Scratch:</label>
-
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasScratch"
-                  name="hasScratch"
-                  id="hasScratch_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="hasScratch_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasScratch"
-                  name="hasScratch"
-                  id="hasScratch_no"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="hasScratch_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Broken:</label>
-
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="broken"
-                  name="broken"
-                  id="broken_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="broken_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="broken"
-                  name="broken"
-                  id="broken_no"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="broken_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Dent:</label>
-
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-
-                  name="dent_yes"
-                  id="dent_yes"
-                  [value]="true"
-                    formControlName="dent"
-                />
-                <label class="form-check-label" for="dent_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-
-                  name="broken_no"
-                  id="broken_no"
-                  [value]="false"
-                   formControlName="dent"
-                />
-                <label class="form-check-label" for="broken_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label>Location:</label>
-              <input type="text" class="form-control" />
-            </div>
-            </ng-container>
-            </ng-container>
-            <!--  -->
-          </ng-container>
-          <div class="card-header col-md-4 mb-3" >
-            <h5 class="card-title">Configuration</h5>
-          </div>
-          <ng-container formGroupName="configuration">
-            <div class="form-group" >
-              <label>CPU:</label>
+            <div class="form-check form-check-inline">
               <input
-                type="text"
-                class="form-control"
-                name="cpu"
-                id="cpu"
-                formControlName="cpu"
+                class="form-check-input"
+                type="radio"
+                name="hasVGAorIntel_yes"
+                id="hasVGAorIntel_yes"
+                [value]="true"
+                formControlName="hasVGAorIntel"
               />
+              <label class="form-check-label" for="hasVGAorIntel_yes"
+                >Yes</label
+              >
             </div>
-            <div class="form-group" >
-              <label>Generation:</label>
+            <div class="form-check form-check-inline">
               <input
-                type="number"
-                class="form-control"
-                name="generation"
-                id="generation"
-                formControlName="generation"
+                class="form-check-input"
+                type="radio"
+                name="hasVGAorIntel_no"
+                id="hasVGAorIntel_no"
+                [value]="false"
+                formControlName="hasVGAorIntel"
               />
+              <label class="form-check-label" for="hasVGAorIntel_no">No</label>
             </div>
-            <div class="form-group" >
-              <label>RAM:</label>
+
+            <div class="card-header col-md-4 mb-3">
+              <h5 class="card-title">Finished</h5>
+            </div>
+            <div class="form-check form-check-inline">
               <input
-                type="number"
-                class="form-control"
-                name="ram"
-                id="ram"
-                formControlName="ram"
+                class="form-check-input"
+                type="radio"
+                name="finished"
+                id="finished_yes"
+                [value]="true"
+                (change)="onItemChange($event); sourceBind(true)"
               />
+              <label class="form-check-label" for="avaliable_yes">Yes</label>
             </div>
-            <div class="form-group" >
-              <label>HDD:</label>
+            <div class="form-check form-check-inline">
               <input
-                type="text"
-                class="form-control"
-                name="hdd"
-                id="hdd"
-                formControlName="hdd"
+                class="form-check-input"
+                type="radio"
+                name="finished"
+                id="finished_no"
+                [value]="false"
+                (change)="onItemChange($event); sourceBind(false)"
               />
+              <label class="form-check-label" for="avaliable_no">No</label>
             </div>
-          </ng-container>
-          <div class="card-header col-md-4 mb-3" >
-            <h5 class="card-title">Battery</h5>
-          </div>
-          <ng-container formGroupName="battery">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="avaliable"
-                  name="avaliable_battry_yes"
-                  id="avaliable_battry_yes"
-                  [value]="true"
-                   (click)="setRadio('avaliable_battry_yes')"
-                />
-                <label class="form-check-label" for="avaliable_battry_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="avaliable"
-                  name="avaliable_battry_no"
-                  id="avaliable_battry_no"
-                  [value]="false"
-                      (click)="setRadio('avaliable_battry_no')"
-                />
-                <label class="form-check-label" for="avaliable_battry_no">No</label>
-              </div>
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-            <ng-container *ngIf="isSelected('avaliable_battry_yes')">
-             <div class="form-group" >
-              <label>BatteryHealth:</label>
-              <input
-                type="text"
-                class="form-control"
-                  name="batteryHealth"
-                  id="batteryHealth"
-                  formControlName="batteryHealth"
-              />
-            </div>
-</ng-container>
-          </ng-container>
-          <div class="card-header col-md-4 mb-3" >
-            <h5 class="card-title">LCD</h5>
-          </div>
-          <ng-container formGroupName="lcd">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_lcd_yes"
-                  id="avaliable_lcd_yes"
-                  [value]="true"
-                  formControlName="avaliable"
-                  (click)="setRadio('avaliable_lcd_yes')"
-                />
-                <label class="form-check-label" for="avaliable_lcd_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_lcd_no"
-                  id="avaliable_lcd_no"
-                  [value]="false"
-                  formControlName="avaliable"
-                  (click)="setRadio('avaliable_lcd_no')"
-                />
-                <label class="form-check-label" for="avaliable_lcd_no">No</label>
-              </div>
-            </div>
-             <ng-container *ngIf="isSelected('avaliable_lcd_yes')">
-            <div class="form-group" >
-              <label>Status:</label>
-              <input
-                type="text"
-                class="form-control"
-                name="status"
-                id="status"
-                formControlName="status"
-              />
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Has Scratch:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasScratch"
-                  name="hasScratch"
-                  id="hasScratch_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="hasScratch_yes"
-                  >Yes
-                </label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasScratch"
-                  name="hasScratch"
-                  id="hasScratch_no"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="hasScratch_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Has Spots:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasSpots"
-                  name="hasSpots"
-                  id="hasSpots_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="hasSpots_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  formControlName="hasSpots"
-                  name="hasSpots"
-                  id="hasSpots_no
-                      "
-                  [value]="false"
-                />
-                <label class="form-check-label" for="hasSpots_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Has Lines:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="hasLine"
-                  formControlName="hasLine"
-                  id="hasLine_yes"
-                  [value]="true"
-                />
-                <label class="form-check-label" for="hasLine_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="hasLine"
-                  id="hasLine_no"
-                  formControlName="hasLine"
-                  [value]="false"
-                />
-                <label class="form-check-label" for="hasLine_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Has pixels:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="hasPixel"
-                  id="hasPixel_yes"
-                  [value]="true"
-                  formControlName="hasPixel"
-                />
-                <label class="form-check-label" for="hasPixel_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="hasPixel"
-                  id="hasPixel_no"
-                  [value]="false"
-                  formControlName="hasPixel"
-                />
-                <label class="form-check-label" for="hasPixel_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label class="d-block">Broken:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="broken"
-                  id="broken_yes"
-                  [value]="true"
-                  formControlName="broken"
-                />
-                <label class="form-check-label" for="broken_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="broken"
-                  id="broken_no"
-                  [value]="false"
-                  formControlName="broken"
-                />
-
-                <!-- <label class="form-check-label" for="gender_female">No</label> -->
-              </div>
-            </div>
-             </ng-container>
-          </ng-container>
-          <div class="card-header col-md-4 mb-3" >
-            <h5 class="card-title">Bazel</h5>
-          </div>
-          <ng-container formGroupName="bazel">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_bazel_yes"
-                  id="avaliable_bazel_yes"
-                  [value]="true"
-                  formControlName="avaliable"
-                  (click)="setRadio('avaliable_bazel_yes')"
-                />
-                <label class="form-check-label" for="avaliable_bazel_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_bazel_no"
-                  id="avaliable_bazel_no"
-                  [value]="false"
-                  formControlName="avaliable"
-                    (click)="setRadio('avaliable_bazel_no')"
-                />
-                <label class="form-check-label" for="avaliable_bazel_no">No</label>
-              </div>
-            </div>
-            <ng-container *ngIf="isSelected('avaliable_bazel_yes')">
-            <div class="form-group" >
-              <label class="d-block">Broken:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="broken"
-                  id="broken_yes"
-                  [value]="true"
-                  formControlName="broken"
-                />
-                <label class="form-check-label" for="broken_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="broken"
-                  id="broken_no"
-                  [value]="false"
-                  formControlName="broken"
-                />
-                <label class="form-check-label" for="broken_no">No</label>
-              </div>
-            </div>
-            <div class="form-group" >
-              <label>Location:</label>
-              <input type="text" class="form-control" />
-            </div>
-            </ng-container>
-          </ng-container>
-
-          <div class="card-header col-md-4 mb-3" >
-            <h5 class="card-title">Keyboard</h5>
-          </div>
-          <ng-container formGroupName="keyboard">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_keyboard_yes"
-                  id="avaliable_keyboard_yes"
-                  [value]="true"
-                  formControlName="avaliable"
-                  (click)="setRadio('avaliable_keyboard_yes')"
-                />
-                <label class="form-check-label" for="avaliable_keyboard_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_keyboard_no"
-                  id="avaliable_keyboard_no"
-                  [value]="false"
-                  formControlName="avaliable"
-                      (click)="setRadio('avaliable_keyboard_no')"
-                />
-                <label class="form-check-label" for="avaliable_keyboard_no">No</label>
-              </div>
-            </div>
-            <ng-container *ngIf="isSelected('avaliable_keyboard_yes')">
-            <div class="form-group" >
-              <label class="d-block">Working:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="working"
-                  id="working_yes"
-                  [value]="true"
-                  formControlName="working"
-                />
-                <label class="form-check-label" for="working_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="working"
-                  id="working_no"
-                  [value]="false"
-                  formControlName="working"
-                />
-                <label class="form-check-label" for="working_no">No</label>
-              </div>
-            </div>
-            </ng-container>
-          </ng-container>
-
-          <div class="card-header col-md-4 mb-3" >
-            <h5 class="card-title">DVD</h5>
-          </div>
-          <ng-container formGroupName="dvd">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_dvd_yes"
-                  id="avaliable_dvd_yes"
-                  [value]="true"
-                  formControlName="avaliable"
-                  (click)="setRadio('avaliable_dvd_yes')"
-                />
-                <label class="form-check-label" for="avaliable_dvd_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_dvd_no"
-                  id="avaliable_dvd_no"
-                  [value]="false"
-                  formControlName="avaliable"
-                    (click)="setRadio('avaliable_dvd_no')"
-                />
-                <label class="form-check-label" for="avaliable_dvd_no">No</label>
-              </div>
-            </div>
-            <ng-container *ngIf="isSelected('avaliable_dvd_yes')">
-            <div class="form-group" >
-              <label class="d-block">Working:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="working"
-                  id="working_yes"
-                  [value]="true"
-                  formControlName="working"
-                />
-                <label class="form-check-label" for="working_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="working"
-                  id="working_no"
-                  [value]="false"
-                  formControlName="working"
-                />
-                <label class="form-check-label" for="working_no">No</label>
-              </div>
-            </div>
-            </ng-container>
-          </ng-container>
-
-          <div class="card-header col-md-4 mb-3" >
-            <h5 class="card-title">Speakers</h5>
-          </div>
-
-          <ng-container formGroupName="speakers">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_speaker_yes"
-                  id="avaliable_speaker_yes"
-                  [value]="true"
-                  formControlName="avaliable"
-                    (click)="setRadio('avaliable_speaker_yes')"
-                />
-                <label class="form-check-label" for="avaliable_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_speaker_no"
-                  id="avaliable_speaker_no"
-                  [value]="false"
-                  formControlName="avaliable"
-                   (click)="setRadio('avaliable_speaker_no')"
-                />
-                <label class="form-check-label" for="avaliable_speaker_no">No</label>
-              </div>
-            </div>
-            <ng-container *ngIf="isSelected('avaliable_speaker_yes')">
-            <div class="form-group" >
-              <label class="d-block">Working:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="working"
-                  id="working_yes"
-                  [value]="true"
-                  formControlName="working"
-                />
-                <label class="form-check-label" for="working_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="working"
-                  id="working_no"
-                  [value]="false"
-                  formControlName="working"
-                />
-                <label class="form-check-label" for="working_no">No</label>
-              </div>
-            </div>
-            </ng-container>
-          </ng-container>
-
-          <div class="card-header col-md-4 mb-3" >
-            <h5 class="card-title">Camera</h5>
-          </div>
-          <ng-container formGroupName="camera">
-            <div class="form-group" >
-              <label class="d-block">Available:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_camera_yes"
-                  id="avaliable_camera_yes"
-                  [value]="true"
-                  formControlName="avaliable"
-                  (click)="setRadio('avaliable_camera_yes')"
-                />
-                <label class="form-check-label" for="avaliable_camera_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="avaliable_camera_no"
-                  id="avaliable_camera_no"
-                  [value]="false"
-                  formControlName="avaliable"
-                  (click)="setRadio('avaliable_camera_no')"
-                />
-                <label class="form-check-label" for="avaliable_camera_no">No</label>
-              </div>
-            </div>
-            <ng-container *ngIf="isSelected('avaliable_camera_yes')">
-            <div class="form-group" >
-              <label class="d-block">Working:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="working"
-                  id="working_yes"
-                  [value]="true"
-                  formControlName="working"
-                />
-                <label class="form-check-label" for="working_yes">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="working"
-                  id="working_no"
-                  [value]="false"
-                  formControlName="working"
-                />
-                <label class="form-check-label" for="working_no">No</label>
-              </div>
-            </div>
-            </ng-container>
-          </ng-container>
-
-          <div class="card-header col-md-4 mb-3" >
-            <h6 class="card-title">Has VGAor Intel</h6>
-          </div>
-          <div class="form-check form-check-inline" >
-            <input
-              class="form-check-input"
-              type="radio"
-              name="hasVGAorIntel_yes"
-              id="hasVGAorIntel_yes"
-              [value]="true"
-              formControlName="hasVGAorIntel"
-            />
-            <label class="form-check-label" for="hasVGAorIntel_yes">Yes</label>
-          </div>
-          <div class="form-check form-check-inline" >
-            <input
-              class="form-check-input"
-              type="radio"
-              name="hasVGAorIntel_no"
-              id="hasVGAorIntel_no"
-              [value]="false"
-              formControlName="hasVGAorIntel"
-            />
-            <label class="form-check-label" for="hasVGAorIntel_no">No</label>
-          </div>
-
-          <div class="card-header col-md-4 mb-3" >
-            <h5 class="card-title">Finished</h5>
-          </div>
-          <div class="form-check form-check-inline" >
-            <input
-              class="form-check-input"
-              type="radio"
-              name="finished"
-              id="finished_yes"
-
-              [value]="true"
-                 (change)="onItemChange($event);sourceBind(true)"
-            />
-            <label class="form-check-label" for="avaliable_yes">Yes</label>
-          </div>
-          <div class="form-check form-check-inline" >
-            <input
-              class="form-check-input"
-              type="radio"
-              name="finished"
-              id="finished_no"
-
-                 [value]="false"
-                (change)="onItemChange($event);sourceBind(false)"
-
-            />
-            <label class="form-check-label" for="avaliable_no">No</label>
-          </div>
-          <div class="text-right" >
-            <button type="submit" class="btn btn-primary" >Submit</button>
-          </div>
-
-        </form>
-         </ng-container>
+          </form>
+        </ng-container>
       </div>
     </div>
   </div>

@@ -27,6 +27,8 @@ import { FormValidationComponent } from './forms/form-validation/form-validation
 import { BasicTableComponent } from './tables/basic-table/basic-table.component';
 import { DefaultTableComponent } from './tables/default-table/default-table.component';
 import { NgForm } from '@angular/forms';
+// import { FilterSerialnumberPipe } from "./pipes/FilterSerialnumberPipe";
+// import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { NgForm } from '@angular/forms';
     SidemenuComponent,
     HeaderComponent,
     PageHeaderComponent,
-    
+
+
+
   ],
   imports: [
     CommonModule,
@@ -43,7 +47,7 @@ import { NgForm } from '@angular/forms';
     NgSelect2Module,
     // InMemoryWebApiModule.forRoot(DataService),
     ModalModule.forRoot(),
-    
+
   ],
   exports: [NgForm],
 })

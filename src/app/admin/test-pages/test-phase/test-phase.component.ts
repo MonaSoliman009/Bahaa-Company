@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { TestPhaseService } from '../../services/test-phase.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { ProductService } from '../../services/product.service';
 @Component({
   selector: 'app-test-phase',
   templateUrl: './test-phase.component.html',
@@ -16,11 +17,19 @@ export class TestPhaseComponent implements OnInit {
   FalsyValue = false;
   finished: boolean;
   testerId: string;
+  search: string;
+  displayRecomendedSerial=false
+  allSerialNumbers = new Array();
+  AllProduct: any;
   private selectedLink: string;
   msg: any;
   locations = new Array();
   @ViewChild('Serial') serial: ElementRef;
-  constructor(private testSer: TestPhaseService, private service: DataService) {
+  constructor(
+    private testSer: TestPhaseService,
+    private service: DataService,
+    private product: ProductService
+  ) {
     this.serialnumberForm = new FormGroup({
       serialNumber: new FormControl(''),
     });
@@ -103,9 +112,45 @@ export class TestPhaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.product.getAllProduct().subscribe((res) => {
+      console.log('res from serial api', res);
+      this.AllProduct = res;
+      for (let val of this.AllProduct) {
+        console.log(val.serialNumber);
+        let stringSerial = val.serialNumber.toString();
+        console.log(stringSerial);
+
+        this.allSerialNumbers.push(val.serialNumber.toString());
+        console.log('array of serial', this.allSerialNumbers);
+      }
+      console.log('array of serial', this.allSerialNumbers);
+    });
     let info = localStorage.getItem('response');
     console.log('local', info);
     this.testerId = info;
+  }
+  selectedSerial(val)
+  {
+    this.serial.nativeElement.value = val
+this.displayRecomendedSerial=true
+  }
+  selectedItem(item) {
+    console.log(item);
+  }
+  data(val) {
+    return val;
+  }
+  searchSerial(val) {
+    // console.log(data);
+    console.log(this.allSerialNumbers);
+    this.displayRecomendedSerial = false;
+    // let index = this.allSerialNumbers.indexOf(123);
+    // console.log(index);
+
+    let filterd = this.allSerialNumbers.filter(this.data);
+    // filterd.includes(this.search)
+    console.log(filterd);
+    // this.allSerialNumbers=filterd
   }
   processStarted() {
     this.started = true;
@@ -165,9 +210,9 @@ export class TestPhaseComponent implements OnInit {
     console.log('delected for source', name);
 
     if (name == false) {
-this.finished=false
+      this.finished = false;
     } else if (name == true) {
-this.finished=true
+      this.finished = true;
     }
   }
   onSubmit() {
