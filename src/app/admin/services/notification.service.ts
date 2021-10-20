@@ -18,10 +18,17 @@ export class NotificationService {
       })
    }
 
-  //  getnotification(){
-  //   this.socket.on('notification', data => {
-  //     this.data = data;
-  //   });
-    
-  //   }
+   getAllNotifications() {
+    this.socket.emit("getAllNotifications")
+
+    let notifications =new Observable(observer=>{
+      this.socket.on("notification",notification=>{
+        observer.next(notification);
+
+      }) 
+      })
+      
+      return notifications;
+  }
+
 }
