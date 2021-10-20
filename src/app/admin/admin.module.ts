@@ -27,6 +27,7 @@ import { FormValidationComponent } from './forms/form-validation/form-validation
 import { BasicTableComponent } from './tables/basic-table/basic-table.component';
 import { DefaultTableComponent } from './tables/default-table/default-table.component';
 import { NgForm } from '@angular/forms';
+import { FilterPipe } from './pipes/filter.pipe';
 // import { FilterSerialnumberPipe } from "./pipes/FilterSerialnumberPipe";
 // import { FilterPipe } from './pipes/filter.pipe';
 
@@ -36,6 +37,7 @@ import { NgForm } from '@angular/forms';
     SidemenuComponent,
     HeaderComponent,
     PageHeaderComponent,
+    FilterPipe
 
 
 

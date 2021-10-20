@@ -21,8 +21,8 @@ export class ProductService {
 
 
 
-  getProductBrSerialnumber(serial: SetialNumber) {
-    return this.http.post('http://localhost:3000/product/getBySerialNum', serial);
+  getProductBrSerialnumber(serial) {
+    return this.http.post('http://localhost:3000/product/getBySerialNum',{ "serialNumber":serial});
   }
   getAllProduct() {
     return this.http.get('http://localhost:3000/product/list');
