@@ -1,3 +1,4 @@
+import { Accessories } from "./accessories";
 import { Product } from "./product";
 
 export class PurchaseInvoise {
@@ -6,4 +7,5 @@ export class PurchaseInvoise {
 
   products: Array<Product>;
   seller: string;
+  accessories: Array<Accessories>;
 }
