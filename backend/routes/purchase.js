@@ -11,6 +11,7 @@ var {accessories}= require("../models/accessories");
 router.post("/add/:id", parseUrlencoded, async (req, res)=> {
   var arr = [];
   var d = new Date();
+if(req.body.products){
 
   for (var i = 0; i < req.body.products.length; i++) {
     let productt = new product({
@@ -31,6 +32,12 @@ router.post("/add/:id", parseUrlencoded, async (req, res)=> {
     arr.push({ productId: pro.id, quantity: req.body.products[i].quantity });
   }
 
+
+
+}
+
+if(req.body.accessories){
+
   for(var i=0;i< req.body.accessories.length;i++){
     let accessoriess = new accessories({
       type: req.body.accessories[i].type,
@@ -48,6 +55,9 @@ router.post("/add/:id", parseUrlencoded, async (req, res)=> {
     arr.push({ productId: acc.id, quantity: req.body.accessories[i].quantity });
 
   }
+
+}
+
   console.log(arr)
   let PurchaseInvoicee = new PurchaseInvoice({
     purchaseNumber: req.body.purchaseNumber,

@@ -46,7 +46,7 @@ export class AddProductComponent implements OnInit {
     this.submitted=true;
     if (this.form.valid) {
       console.log(this.form.value);
-      this._ProductService.addNewProduct(localStorage.getItem("emp"),this.form.value).subscribe((res)=>{
+      this._ProductService.addNewProduct(localStorage.getItem("id"),this.form.value).subscribe((res)=>{
         console.log(res);
         this.alertWithSuccess()
       },(err)=>{

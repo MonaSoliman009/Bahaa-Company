@@ -96,5 +96,5 @@ TestPhase.virtual("Product", {
   justOne: false,
  
 });
-TestPhase.set("toObject", { virtuals: true });
+TestPhase.set("toJSON", { virtuals: true });
 module.exports = mongoose.model("TestPhase", TestPhase);

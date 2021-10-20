@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { getWeekYearWithOptions } from 'date-fns/fp';
 import { AuthService } from '../services/auth.service';
 import { DataService } from '../services/data.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,13 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+  alertWithFail() {
+    Swal.fire('Failed', "Try Again Later", 'error').then(
+      (res) => {
+        location.reload();
+      }
+    );
+  }
   onSubmit() {
     this.submitted = true;
 
@@ -51,22 +59,27 @@ this.response=response
 this.service.changelogin(this.response)
       console.log('response', this.response);
       console.log(response);
-localStorage.setItem('data', JSON.stringify(response.data) as string);
+// localStorage.setItem('data', JSON.stringify(response.data) as string);
       localStorage.setItem('token', response.token as string);
       localStorage.setItem('name', response.name as string);
-      localStorage.setItem('response', response.accountant as string);
-      localStorage.setItem('emp', response?.employee as string);
-      let info = localStorage.getItem('response');
-      console.log('data', info);
-      this.service.changeMessage(info);
+      localStorage.setItem('id', response.id as string);
+      // localStorage.setItem('emp', response?.employee as string);
+      // let info = localStorage.getItem('response');
+      // console.log('data', info);
+      // this.service.changeMessage(info);
       // if (response.name === 'accountant') {
       //   // this.router.navigate(['/home/volunteer', response.volunteer]);
       //   localStorage.setItem('id', response.accountant as string);
       //   console.log(response.accountant);
 
       // }
+      this.router.navigate(['./admin/dashboard']);
+
+    },(error)=>{
+
+      this.alertWithFail()
+
     });
-    this.router.navigate(['./admin/dashboard']);
   }
   // onSubmit() {
   //   console.log('register');

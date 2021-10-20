@@ -9,8 +9,8 @@
             </a>
           </div>
         </div>
-        <div class="login-header">
-          <h3>Register <span>Truelysell</span></h3>
+        <div class="login-header text-center">
+          <h3>Register <span>To Company</span></h3>
           <p class="text-muted">Access to our dashboard</p>
         </div>
         <div class="form-group row">
@@ -20,7 +20,7 @@
               [(ngModel)]="selectedVlaue"
               (change)="selected(selectedVlaue)"
             >
-              <option value="1">Accountant</option>
+              <option value="1" >Accountant</option>
               <option value="2">Employee</option>
             </select>
           </div>
@@ -146,7 +146,7 @@
         <!-- /Social Login -->
 
         <div class="text-center dont-have mt-4">
-          Already have an account? <a href="login.html">Login</a>
+          Already have an account? <a routerLink="/login">Login</a>
         </div>
       </div>
     </div>

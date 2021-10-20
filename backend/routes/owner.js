@@ -1,10 +1,12 @@
 const express = require("express");
 const multer = require("multer");
 var bcrypt = require("bcryptjs");
-
+const TestPhase = require("../models/test Phase");
+var repairedInsideStorePhase = require("../models/repairedInsideStoreProducts");
+var repairedOutsideStoreProducts = require("../models/repairedOutsideStoreProducts");
 var { accountant, validateAccountant } = require("../models/accountant");
 
-var  {product  }= require("../models/product");
+var { product } = require("../models/product");
 var { employee, validateEmployee } = require("../models/employee");
 var { validateOwner, owner } = require("../models/owner");
 var goodProductsReport = require("../models/goodProductsReport");
@@ -119,57 +121,108 @@ router.get("/account/:id", async (req, res) => {
   res.json(ownerspec);
 });
 
-router.delete("/employee/delete/:id",async (req, resp) =>{
- 
+router.delete("/employee/delete/:id", async (req, resp) => {
+
   let result = await employee.findOne({ _id: req.params.id });
   console.log(result)
-if(result){
-  mongoose.model("employee").findOneAndRemove({
-    _id: req.params.id
-  },
-  function (err, data) {
-    if (err) {
-      resp.json(err.message)
-    }
-  })
-  resp.json("employee deleted")
+  if (result) {
+    mongoose.model("employee").findOneAndRemove({
+      _id: req.params.id
+    },
+      function (err, data) {
+        if (err) {
+          resp.json(err.message)
+        }
+      })
+    resp.json("employee deleted")
 
-}else if(!result){
-  resp.json("Try again")
+  } else if (!result) {
+    resp.json("Try again")
 
-}
+  }
 
-  
+
 
 });
-router.get("/employee/:id",async (req, resp) =>{
- 
+router.get("/employee/:id", async (req, resp) => {
+
   let result = await employee.findOne({ _id: req.params.id });
   resp.json(result)
 
 
-  
+
 
 })
-router.delete("/accountant/delete/:id", async (req, resp)=> {
+router.delete("/accountant/delete/:id", async (req, resp) => {
   let result = await accountant.findOne({ _id: req.params.id });
-  if(result){
+  if (result) {
     mongoose.model("accountant").findOneAndRemove({
       _id: req.params.id
     },
-    function (err, data) {
-      if (!err) {
-      }
-    })
+      function (err, data) {
+        if (!err) {
+        }
+      })
 
-  resp.json("accountant done")
-  
-  }else if(!result){
+    resp.json("accountant done")
+
+  } else if (!result) {
     resp.json("Try again")
-  
+
   }
+
+})
+
+
+router.get("/productsCount", async (req, resp) => {
+  let numOfProducts =await product.count({})
+    resp.json(numOfProducts);
   
 })
+router.get("/usersCount", async (req, resp) => {
+  let numOfEmps =await employee.count({});
+  let numOfAccountants=await accountant.count({});
+
+  resp.json(numOfEmps+numOfAccountants);
+
+});
+
+router.get("/testsCount",async (req, resp) => {
+ let testsCount=await TestPhase.count({});
+ resp.json(testsCount);
+
+})
+
+router.get("/maintainedCount", async (req, resp)=>{
+ var insideCount= await repairedInsideStorePhase.count({});
+ var outsideCount= await repairedOutsideStoreProducts.count({});
+   
+ resp.json(insideCount+outsideCount);
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // router.post("/forget/password", parseUrlencoded, async (req, res) => {
 //   var smtpTransport = nodemailer.createTransport({
@@ -380,7 +433,7 @@ router.delete("/accountant/delete/:id", async (req, resp)=> {
 // });
 
 
-router.get("/purchaseInvoice",  async (req, res) => {
+router.get("/purchaseInvoice", async (req, res) => {
   let purchaseInvoicespec = await PurchaseInvoice.find({});
 
   res.json(purchaseInvoicespec);
@@ -401,7 +454,7 @@ router.post("/update/purchaseInvoice/:id", parseUrlencoded, function (req, res) 
   });
 });
 router.delete("/delete/purchaseInvoice/:id", parseUrlencoded, function (req, res) {
-  PurchaseInvoice.removeById(  req.params.id , function (err) {
+  PurchaseInvoice.removeById(req.params.id, function (err) {
     if (err) {
       console.log(err);
     }

@@ -51,7 +51,13 @@ router.get("/list", parseUrlencoded, async function (req, res) {
   res.json(productts);
 });
 
+router.get("/listLastFive", parseUrlencoded, async function (req, res) {
 
+  let productts = await product.find({}).sort('-addedAt').limit(5);
+
+
+  res.json(productts);
+});
 // //Adding Product
 // router.post("",checkAuth, (req, res, next) => {
 //     const product = new Product({

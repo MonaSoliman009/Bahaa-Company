@@ -54,7 +54,7 @@ export class MaintenanceOutsideComponent implements OnInit {
     this.submitted=true;
      if (this.form.valid) {
 
-      this._MaintenanceService.startMaitenanceOutsideStore(this.form.value.serialNumber, localStorage.getItem("emp")).subscribe((res: any) => {
+      this._MaintenanceService.startMaitenanceOutsideStore(this.form.value.serialNumber, localStorage.getItem("id")).subscribe((res: any) => {
         console.log(res)
         if (res.message == 'Maintainence Started successfully') {
           this.started = true;
@@ -68,14 +68,14 @@ export class MaintenanceOutsideComponent implements OnInit {
         console.log(err)
 
       })
-      console.log(this.form.value.serialNumber, localStorage.getItem("emp"))
+      console.log(this.form.value.serialNumber, localStorage.getItem("id"))
     }
    }
    submitMaitenanceOutside(){
     this.submitted2=true;
     if (this.maintenanceForm.valid) {
 
-      this._MaintenanceService.submitMaintenanceOutsideStore(this.form.value.serialNumber, localStorage.getItem("emp"),this.maintenanceForm.value).subscribe((res: any) => {
+      this._MaintenanceService.submitMaintenanceOutsideStore(this.form.value.serialNumber, localStorage.getItem("id"),this.maintenanceForm.value).subscribe((res: any) => {
         console.log(res)
         if (res.message == 'Maintainence Finished successfully') {
           this.alertWithSuccess(res.message);

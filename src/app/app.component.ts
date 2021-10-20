@@ -58,7 +58,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
     });
   }
   ngOnInit() {
-    setTimeout(() => (this.loadFooter = true), 2000);
+    // setTimeout(() => (this.loadFooter = true), 2000);
   }
   ngAfterViewChecked() {
     this.changeDetector.detectChanges();

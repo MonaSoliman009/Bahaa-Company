@@ -11,4 +11,9 @@ export class ProductService {
     return this.http.post(`http://localhost:3000/product/add/${_id}`,product);
 
   }
+
+  getLastFiveProducts(){
+    return this.http.get("http://localhost:3000/product/listLastFive");
+
+  }
 }
