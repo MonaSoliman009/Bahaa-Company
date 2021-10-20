@@ -76,83 +76,34 @@
 		<!-- Recent Bookings -->
 		<div class="card card-table flex-fill">
 			<div class="card-header">
-				<h4 class="card-title">Recent Bookings</h4>
+				<h4 class="card-title">Recent Products</h4>
 			</div>
 			<div class="card-body admin_dash">
 				<div class="table-responsive">
 					<table class="table table-center">
 						<thead>
 							<tr>
-								<th>Customer</th>
+								<th>Serial Number</th>
+								<th>Model</th>
 								<th>Date</th>
-								<th>Service</th>
 								<th>Status</th>
-								<th>Price</th>
+								<th>Quantity</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="text-nowrap">
-									<img class="avatar-xs rounded-circle" src="assets/img/customer/user-05.jpg" alt="User Image"> Annette Silva
-								</td>
-								<td class="text-nowrap">9 Sep 2020</td>
-								<td>Car Repair Services</td>
+							<tr *ngFor="let product of lastFiveProducts">
+								<td class="text-nowrap">{{product.serialNumber}}</td>
+
+								<td class="text-nowrap">{{product.model}}</td>
+								<td>{{product.addedAt |date: 'dd/MM/yyyy'}}</td>
 								<td>
-									<span class="badge bg-danger inv-badge">Pending</span>
+									<span class="badge bg-success inv-badge">{{product.status}}</span>
 								</td>
 								<td>
-									<div class="font-weight-600">$50</div>
+									<div class="font-weight-600">{{product.quantity}}</div>
 								</td>
 							</tr>
-							<tr>
-								<td class="text-nowrap">
-									<img class="avatar-xs rounded-circle" src="assets/img/customer/user-06.jpg" alt="User Image"> Stephen Wilson</td>
-								<td class="text-nowrap">8 Sep 2020</td>
-								<td>Steam Car Wash</td>
-								<td>
-									<span class="badge bg-danger inv-badge">Pending</span>
-								</td>
-								<td>
-									<div class="font-weight-600">$14</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="text-nowrap">
-									<img class="avatar-xs rounded-circle" src="assets/img/customer/user-07.jpg" alt="User Image"> Ryan Rodriguez</td>
-								<td class="text-nowrap">7 Sep 2020</td>
-								<td>House Cleaning Services</td>
-								<td>
-									<span class="badge bg-danger inv-badge">Pending</span>
-								</td>
-								<td>
-									<div class="font-weight-600">$100</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="text-nowrap">
-									<img class="avatar-xs rounded-circle" src="assets/img/customer/user-08.jpg" alt="User Image"> Lucile Devera
-								</td>
-								<td class="text-nowrap">6 Sep 2020</td>
-								<td>Interior Designing</td>
-								<td>
-									<span class="badge bg-danger inv-badge">Pending</span>
-								</td>
-								<td>
-									<div class="font-weight-600">$5</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="text-nowrap">
-									<img class="avatar-xs rounded-circle" src="assets/img/customer/user-09.jpg" alt="User Image"> Roland Storey</td>
-								<td class="text-nowrap">5 Sep 2020</td>
-								<td>Plumbing Services</td>
-								<td>
-									<span class="badge bg-danger inv-badge">Pending</span>
-								</td>
-								<td>
-									<div class="font-weight-600">$150</div>
-								</td>
-							</tr>
+						
 						</tbody>
 					</table>
 				</div>

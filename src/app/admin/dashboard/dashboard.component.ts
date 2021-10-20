@@ -8,6 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { DataService } from '../services/data.service';
 import { EmployeeService } from '../services/employee.service';
+import { ProductService } from '../services/product.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -15,11 +16,12 @@ import { EmployeeService } from '../services/employee.service';
 })
 
 export class DashboardComponent implements OnInit {
-  constructor(private service: DataService, private _EmployeeService: EmployeeService) { }
+  constructor(private service: DataService, private _EmployeeService: EmployeeService,private _ProductService:ProductService) { }
   nameOfUser: any;
   numOfProducts: any;
   numOfTests: any;
   numOfMaintained: any;
+  lastFiveProducts:any;
   alertWithFail() {
     Swal.fire('Failed', "Try Again Later", 'error').then(
       (res) => {
@@ -53,5 +55,8 @@ export class DashboardComponent implements OnInit {
 
     })
 
+    this._ProductService.getLastFiveProducts().subscribe((res)=>{
+this.lastFiveProducts=res
+    })
   }
 }
