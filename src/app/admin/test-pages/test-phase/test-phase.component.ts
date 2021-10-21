@@ -12,13 +12,13 @@ import { ProductService } from '../../services/product.service';
 export class TestPhaseComponent implements OnInit {
   started: boolean = false;
   testForm: FormGroup;
-  serialnumberForm: FormGroup;
+  startTest: FormGroup;
   Serial: any;
   FalsyValue = false;
   finished: boolean;
   testerId: string;
   search: string;
-  displayRecomendedSerial=false
+  displayRecomendedSerial = false;
   allSerialNumbers = new Array();
   AllProduct: any;
   private selectedLink: string;
@@ -30,8 +30,9 @@ export class TestPhaseComponent implements OnInit {
     private service: DataService,
     private product: ProductService
   ) {
-    this.serialnumberForm = new FormGroup({
-      serialNumber: new FormControl(''),
+    this.startTest = new FormGroup({
+      productserialNumber: new FormControl(''),
+      testerId:new FormControl("")
     });
     this.testForm = new FormGroup({
       power: new FormControl(''),
@@ -129,10 +130,9 @@ export class TestPhaseComponent implements OnInit {
     console.log('local', info);
     this.testerId = info;
   }
-  selectedSerial(val)
-  {
-    this.serial.nativeElement.value = val
-this.displayRecomendedSerial=true
+  selectedSerial(val) {
+    this.serial.nativeElement.value = val;
+    this.displayRecomendedSerial = true;
   }
   selectedItem(item) {
     console.log(item);
@@ -142,15 +142,10 @@ this.displayRecomendedSerial=true
   }
   searchSerial(val) {
     // console.log(data);
-    console.log(this.allSerialNumbers);
+
     this.displayRecomendedSerial = false;
     // let index = this.allSerialNumbers.indexOf(123);
     // console.log(index);
-
-    let filterd = this.allSerialNumbers.filter(this.data);
-    // filterd.includes(this.search)
-    console.log(filterd);
-    // this.allSerialNumbers=filterd
   }
   processStarted() {
     this.started = true;
@@ -183,14 +178,25 @@ this.displayRecomendedSerial=true
     const valueInput = this.serial.nativeElement.value;
     console.log('Serial numer', valueInput);
     this.Serial = valueInput;
-    return valueInput;
+    return +this.Serial;
   }
   StartTest() {
+    this.startTest.patchValue({
+      productserialNumber: this.Getserial(),
+      testerId: this.testerId,
+    });
+    console.log(this.startTest.value);
+
+    console.log('type', typeof this.Getserial());
+
     console.log('serial', this.Getserial());
-    console.log('tester', JSON.stringify(this.testerId));
+    console.log('tester', typeof this.testerId);
 
     this.testSer
-      .startTest(this.Getserial(), this.testerId)
+      .startTest(
+        this.startTest.value.productserialNumber,
+        this.startTest.value.testerId
+      )
       .subscribe((res: any) => {
         console.log('message', res.message);
         if (res.message == 'Test Started successfully') {

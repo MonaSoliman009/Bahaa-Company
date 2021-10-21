@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { TestData } from '../model/testData/test-data';
+import { StartTest } from '../model/start-test';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +17,7 @@ export class TestPhaseService {
       console.log('connect');
     });
   }
-  startTest(productserialNumber: number, testerId: string) {
+  startTest(productserialNumber: number, testerId:string) {
     this.socket.emit('startTest', productserialNumber, testerId);
     let message = new Observable((observer) => {
       this.socket.on('startTest', (comment) => {
@@ -25,7 +26,12 @@ export class TestPhaseService {
     });
     return message;
   }
-  submitTest(finished:boolean, productserialNumber:number, testData: TestData, testerId:string) {
+  submitTest(
+    finished: boolean,
+    productserialNumber: number,
+    testData: TestData,
+    testerId: string
+  ) {
     this.socket.emit(
       'submitTest',
       finished,

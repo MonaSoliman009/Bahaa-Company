@@ -23,7 +23,7 @@
             class="form-control"
             #Serial
             [(ngModel)]="search"
-            (keyup)="searchSerial(search)"
+            (keyup)="searchSerial(search);"
           />
           <!-- {{allSerialNumbers | filterSerialnumber:search}} -->
 <div    *ngFor="let post of allSerialNumbers | filter:search " >
