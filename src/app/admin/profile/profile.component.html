@@ -4,7 +4,8 @@
             <div class="card-body profile-menu">
                 <ul class="nav nav-tabs nav-tabs-solid" role="tablist">
                     <li class="nav-item home_tab">
-                        <a class="nav-link active" data-toggle="tab" href="#profile_settings" role="tab" aria-selected="false">
+                        <a class="nav-link active" data-toggle="tab" href="#profile_settings" role="tab"
+                            aria-selected="false">
                             Profile Settings
                         </a>
                     </li>
@@ -18,26 +19,34 @@
 
                     <!-- Profile Tab -->
                     <div class="tab-pane fade show active" id="profile_settings" role="tabpanel">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" [value]="user?.name" disabled >
+                        </div>
                         <form>
-                            <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" class="form-control" [value]="user.name" disabled>
-                            </div>
+                        
                             <div class="form-group">
                                 <label>Profile Image</label>
                                 <div class="media align-items-center">
                                     <div class="media-left">
-                                        <img class="rounded-circle profile-img avatar-view-img" src="assets/img/user.jpg" alt="" width="100" height="100">
+                                        <img class="rounded-circle profile-img avatar-view-img"
+                                            [src]="(user?.img||user?.image)?(user?.img||user?.image):'assets/img/user.jpg'" alt="" width="100" height="100">
                                     </div>
                                     <div class="media-body">
                                         <div class="uploader">
-                                            <button class="btn btn-secondary btn-sm ml-3">Change profile picture</button>
+                                            <!-- <button class="btn btn-secondary btn-sm ml-3">Change profile
+                                               picture</button> -->
+                                               
+                                               <div class="custom-file col-md-4 ml-2">
+                                                <input (change)="onFileChange($event)"  type="file" class="custom-file-input" id="validatedCustomFile" required>
+                                                <label style="border-color:#ff0080" class="custom-file-label" >change image</label>
+                                              </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4 save-form">
-                                <button class="btn btn-primary save-btn" type="button">Save</button>
+                                <button class="btn btn-primary save-btn" (click)="saveImage()" type="button">Save</button>
                             </div>
                         </form>
                     </div>
