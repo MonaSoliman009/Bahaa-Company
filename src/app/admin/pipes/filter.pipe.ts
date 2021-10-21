@@ -16,12 +16,12 @@ export class FilterPipe implements PipeTransform {
       // // return data
       //       })
       const found = value.filter((v) => v.includes(searchCharactre));
-      console.log(found);
+     
 
 return found
         // return value.find()
     }
-      console.log(value);
+  
 
   }
 

@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Test Phase Form</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Product Serial Number:</label>
+                    <input type="text" class="form-control" #Serial [(ngModel)]="search"
+                        (keyup)="searchSerial(search)" />
+                    <!-- {{allSerialNumbers | filterSerialnumber:search}} -->
+                    <div *ngFor="let post of allSerialNumbers | filter:search ">
+                        <a (click)="selectedSerial(post)" *ngIf='!displayRecomendedSerial'>{{post}}</a>
+                    </div>
+
+                </div>
+
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary" (click)="searchForProduct()">
+                        Search
+                    </button>
+                </div>
+                <div class=" pricing-box" *ngIf="toggle">
+
+                    <div class="col-md-12 col-lg-12 col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                
+                                    <ul class="pricing-options">
+
+                                        <li style="font-size:17px;font-weight:400">Serial Number:<span>
+                                                {{product?.serialNumber}}</span> </li>
+                                        <li style="font-size:17px;font-weight:400">Model:<span>
+                                            {{product?.model}}</span> </li>
+                                            <li style="font-size:17px;font-weight:400" *ngIf="product?.purchaseSerialNumber">it's Purchase invoice is:<span>
+                                                {{product?.purchaseSerialNumber}}</span> </li>
+                                                <li style="font-size:17px;font-weight:400">Quantity:<span>
+                                                    {{product?.quantity}}</span> </li>
+                                                    <li style="font-size:17px;font-weight:400">Status:<span
+                                                        class="badge bg-success inv-badge">{{product?.status}}</span></li>
+                                    </ul>
+                             
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
