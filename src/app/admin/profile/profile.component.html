@@ -54,21 +54,53 @@
 
                     <!-- Password Tab -->
                     <div class="tab-pane fade" id="change_password" role="tabpanel">
-                        <form>
+                        <form [formGroup]="form">
                             <div class="form-group">
                                 <label>Current Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" class="form-control" formControlName="current" [ngClass]="{
+                                    'is-invalid': submitted2 && form.controls.current.errors
+                                  }">
+                                  <div
+                                  class="alert alert-danger my-1 p-2 fadeInDown animated"
+                                  *ngIf="submitted2 && form.controls.current.errors"
+                                >
+                                 Field is required
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>New Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" class="form-control" formControlName="password" [ngClass]="{
+                                    'is-invalid': submitted2 && form.controls.password.errors
+                                  }">
+                                  <div
+                                  class="alert alert-danger my-1 p-2 fadeInDown animated"
+                                  *ngIf="submitted2 && form.controls.password.errors"
+                                >
+                                 Field is required
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Repeat Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" class="form-control" formControlName="rpassword" [ngClass]="{
+                                    'is-invalid': submitted2 && form.controls.rpassword.errors
+                                  }">
+                                  <div
+                                  class="alert alert-danger my-1 p-2 fadeInDown animated"
+                                  *ngIf="submitted2 &&form.controls.rpassword.errors"
+                                >
+                                 Field is required
+                                </div>
+                                <div
+                                class="alert alert-danger my-1 p-2 fadeInDown animated"
+                                *ngIf="submitted2 &&
+                                (form.controls.password.errors ||
+                                  password !== confirmpassword)"
+                              >
+                               password and repeat passwoed should be identical
+                              </div>
                             </div>
                             <div class="mt-4 save-form">
-                                <button class="btn save-btn btn-primary" type="submit">Save</button>
+                                <button class="btn save-btn btn-primary" (click)="onSubmit()" type="submit">Save</button>
                             </div>
                         </form>
                     </div>
