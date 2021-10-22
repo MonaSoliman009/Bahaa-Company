@@ -137,7 +137,7 @@ export class TestPhaseComponent implements OnInit {
   }
   partProblem(val) {
     console.log(val);
-   
+
   }
   selectedSerial(val) {
     this.serial.nativeElement.value = val;
@@ -204,7 +204,7 @@ export class TestPhaseComponent implements OnInit {
     this.testSer
       .startTest(
         this.startTest.value.productserialNumber,
-        this.startTest.value.testerId
+    localStorage.getItem("id")
       )
       .subscribe((res: any) => {
         console.log('message', res.message);
@@ -338,7 +338,7 @@ export class TestPhaseComponent implements OnInit {
           this.finished,
           this.Serial,
           this.testForm.value,
-          this.testerId
+          localStorage.getItem('id')
         )
         .subscribe((data) => {
           console.log(data);

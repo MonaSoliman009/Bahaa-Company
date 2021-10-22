@@ -43,7 +43,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     return this.purchuseInvoiceForm.get('products') as FormArray;
   }
   onSubmit() {
-    this.id = localStorage.getItem('response');
+    this.id = localStorage.getItem('id');
     console.log('idt', this.id);
 
     console.log('form', this.purchuseInvoiceForm.value);
