@@ -1,13 +1,4 @@
-<!-- Page Header -->
-<!-- <div class="page-header">
-        <div class="row">
-          <div class="col">
-            <h3 class="page-title">Inside Store</h3>
 
-          </div>
-        </div>
-      </div> -->
-<!-- /Page Header -->
 
 <div class="row">
   <div class="col-md-9">
@@ -26,8 +17,8 @@
             (keyup)="searchSerial(search);"
           />
           <!-- {{allSerialNumbers | filterSerialnumber:search}} -->
-<div    *ngFor="let post of allSerialNumbers | filter:search " >
-   <a (click)="selectedSerial(post)"  *ngIf='!displayRecomendedSerial'>{{post}}</a>
+<div    *ngFor="let serial of allSerialNumbers | filter:search " >
+   <a (click)="selectedSerial(serial)"  *ngIf='!displayRecomendedSerial'>{{serial}}</a>
 </div>
 
 
@@ -85,12 +76,12 @@
                       class="form-check-input"
                       type="radio"
                       formControlName="avaliable"
-                      name="avaliable_yes"
-                      id="avaliable_yes"
+                      name="avaliable_yes_apart"
+                      id="avaliable_yes_apart"
                       [value]="true"
-                      (click)="setRadio('avaliable_yes')"
+                      (click)="setRadio('avaliable_yes_apart');partName('aPart')"
                     />
-                    <label class="form-check-label" for="avaliable_yes"
+                    <label class="form-check-label" for="avaliable_yes_apart"
                       >Yes</label
                     >
                   </div>
@@ -99,12 +90,12 @@
                       class="form-check-input"
                       type="radio"
                       formControlName="avaliable"
-                      name="avaliable_no"
-                      id="avaliable_no"
+                      name="avaliable_no_apart"
+                      id="avaliable_no_apart"
                       [value]="false"
-                      (click)="setRadio('avaliable_no')"
+                      (click)="setRadio('avaliable_no_apart')"
                     />
-                    <label class="form-check-label" for="avaliable_no"
+                    <label class="form-check-label" for="avaliable_no_apart"
                       >No</label
                     >
                   </div>
@@ -118,11 +109,11 @@
                         class="form-check-input"
                         type="radio"
                         formControlName="hasScratch"
-                        name="hasScratch"
-                        id="hasScratch_yes"
+                        name="hasScratch_apart"
+                        id="hasScratch_yes_apart"
                         [value]="true"
                       />
-                      <label class="form-check-label" for="hasScratch_yes"
+                      <label class="form-check-label" for="hasScratch_yes_apart"
                         >Yes</label
                       >
                     </div>
@@ -131,11 +122,11 @@
                         class="form-check-input"
                         type="radio"
                         formControlName="hasScratch"
-                        name="hasScratch"
-                        id="hasScratch_no"
+                        name="hasScratch_apart"
+                        id="hasScratch_no_apart"
                         [value]="false"
                       />
-                      <label class="form-check-label" for="hasScratch_no"
+                      <label class="form-check-label" for="hasScratch_no_apart"
                         >No</label
                       >
                     </div>
@@ -148,11 +139,11 @@
                         class="form-check-input"
                         type="radio"
                         formControlName="broken"
-                        name="broken"
-                        id="broken_yes"
+                        name="broken_apart"
+                        id="broken_yes_apart"
                         [value]="true"
                       />
-                      <label class="form-check-label" for="broken_yes"
+                      <label class="form-check-label" for="broken_yes_apart"
                         >Yes</label
                       >
                     </div>
@@ -161,11 +152,11 @@
                         class="form-check-input"
                         type="radio"
                         formControlName="broken"
-                        name="broken"
-                        id="broken_no"
+                        name="broken_apart"
+                        id="broken_no_apart"
                         [value]="false"
                       />
-                      <label class="form-check-label" for="broken_no">No</label>
+                      <label class="form-check-label" for="broken_no_apart">No</label>
                     </div>
                   </div>
                   <div class="form-group">
@@ -176,27 +167,27 @@
                         class="form-check-input"
                         type="radio"
                         formControlName="dent"
-                        name="dent"
-                        id="dent_yes"
+                        name="dent_apart"
+                        id="dent_yes_apart"
                         [value]="true"
                       />
-                      <label class="form-check-label" for="dent_yes">Yes</label>
+                      <label class="form-check-label" for="dent_yes_apart">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
                       <input
                         class="form-check-input"
                         type="radio"
                         formControlName="dent"
-                        name="dent"
-                        id="broken_no"
+                        name="dent_apart"
+                        id="broken_no_apart"
                         [value]="false"
                       />
-                      <label class="form-check-label" for="broken_no">No</label>
+                      <label class="form-check-label" for="broken_no_apart">No</label>
                     </div>
                   </div>
                   <div class="form-group">
                     <label>Location:</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" id="partProbleminp" name="partProbleminp" class="form-control" #partProbleminp  />
                   </div>
                 </ng-container>
               </ng-container>

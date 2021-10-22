@@ -4,6 +4,7 @@ import { DataService } from '../../services/data.service';
 import { TestPhaseService } from '../../services/test-phase.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { ProductService } from '../../services/product.service';
+import { Loaction } from '../../model/loaction';
 @Component({
   selector: 'app-test-phase',
   templateUrl: './test-phase.component.html',
@@ -18,12 +19,13 @@ export class TestPhaseComponent implements OnInit {
   finished: boolean;
   testerId: string;
   search: string;
+  // location = new Array();
   displayRecomendedSerial = false;
   allSerialNumbers = new Array();
   AllProduct: any;
   private selectedLink: string;
   msg: any;
-  locations = new Array();
+  locationInterface: Loaction;
   @ViewChild('Serial') serial: ElementRef;
   constructor(
     private testSer: TestPhaseService,
@@ -32,7 +34,7 @@ export class TestPhaseComponent implements OnInit {
   ) {
     this.startTest = new FormGroup({
       productserialNumber: new FormControl(''),
-      testerId:new FormControl("")
+      testerId: new FormControl(''),
     });
     this.testForm = new FormGroup({
       power: new FormControl(''),
@@ -129,6 +131,13 @@ export class TestPhaseComponent implements OnInit {
     let info = localStorage.getItem('response');
     console.log('local', info);
     this.testerId = info;
+  }
+  partName(partName) {
+    console.log(partName);
+  }
+  partProblem(val) {
+    console.log(val);
+   
   }
   selectedSerial(val) {
     this.serial.nativeElement.value = val;
