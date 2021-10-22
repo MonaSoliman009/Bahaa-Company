@@ -49,7 +49,7 @@ const TestPhase = new Schema({
   },
   lcd: {
     avaliable: { type: Boolean, required: true },
-    status: { type: String, required: true },
+    status: { type: String},
     hasScratch: { type: Boolean },
     hasSpots: { type: Boolean},
     hasLine: { type: Boolean},
