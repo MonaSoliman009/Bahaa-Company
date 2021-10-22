@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { OwnerAuthGuard } from 'src/guards/owner-auth.guard';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
         path: 'approval',
         loadChildren: () =>
           import('./approval/approval.module').then((m) => m.ApprovalModule),
+          canActivate:[OwnerAuthGuard]
       },
       {
         path: 'product',

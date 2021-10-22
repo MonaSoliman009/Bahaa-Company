@@ -224,39 +224,39 @@
           </ul>
         </li>
 
-        <li class="menu-title">
+        <li class="menu-title" *ngIf="owner">
           <span>Approve Accounts</span>
         </li>
 
-        <li class="submenu">
+        <li class="submenu" *ngIf="owner">
           <a href="javascript:void(0);"
             ><i class="far fa-user-circle"></i> <span> Approve Accounts</span>
             <span class="menu-arrow"></span
           ></a>
-          <ul style="display: none">
-            <li [className]="page === 'error404' ? 'active' : ''">
+          <ul style="display: none" >
+            <li >
               <a [routerLink]="'/admin/approval/employees'"
                 >Approve Employees</a
               >
             </li>
-            <li [className]="page === 'error500' ? 'active' : ''">
+            <li>
               <a [routerLink]="'/admin/approval/accountants'"
                 >Approve Accountants</a
               >
             </li>
 
-            <li [className]="page === 'error500' ? 'active' : ''">
+            <li >
               <a [routerLink]="'/admin/approval/Unapproveemployees'"
                 >Delete Employees</a
               >
             </li>
-            <li [className]="page === 'error500' ? 'active' : ''">
-              <a [routerLink]="'/admin/approval/Unapproveaccountants'"
-                >Delete Accountants</a
-              >
+            <li  >
+              <a style="z-index: 8857858785758758;" [routerLink]="'/admin/approval/Unapproveaccountants'">Delete Accountants</a>
             </li>
+          
           </ul>
         </li>
+        
         <!-- <li [className]="page === 'users'? 'active' : ''">
           <a [routerLink]="'/admin/users'"><i class="fas fa-users"></i> <span>Users</span></a>
         </li>
