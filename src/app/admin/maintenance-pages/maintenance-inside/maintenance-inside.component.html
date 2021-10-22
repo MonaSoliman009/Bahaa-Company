@@ -22,17 +22,22 @@
                 
                 <div class="form-group">
                   <label for="serialNumber">Product Serial Number:</label>
-                  <input type="text" class="form-control" formControlName="serialNumber" name="serialNumber"
+                  <input autocomplete="off" type="text" class="form-control" formControlName="serialNumber" name="serialNumber"
                   placeholder="Enter Product Serial Number"
                   [ngClass]="{
                     'is-invalid': submitted && form.controls.serialNumber.errors
-                  }">            
+                  }" #Serial [(ngModel)]="search"
+                
+                  (keyup)="searchSerial(search)">            
                   <div
                   class="alert alert-danger my-1 p-2 fadeInDown animated"
                   *ngIf="submitted && form.controls.serialNumber.errors"
                 >
                  Enter Valid serial Number
                 </div>
+                <div  *ngFor="let post of allSerialNumbers | filter:search ">
+                  <a (click)="selectedSerial(post)" *ngIf='!displayRecomendedSerial'>{{post}}</a>
+              </div>
                 </div>
                 <div class="text-right">
                   <button type="button" *ngIf="!started" class="btn btn-primary" (click)="onStart()" >Start Maintenance</button>
@@ -72,7 +77,7 @@
                        value="true" name="Existence"  [ngClass]="{
                         'is-invalid':
                           submitted2 && MaintenanceInsideForm.controls.Existence.errors
-                      }" >
+                      }" (change)="onItemChange($event.target.value)" >
                       <label class="form-check-label" >Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -80,7 +85,7 @@
                       type="radio" value="false" name="Existence"  [ngClass]="{
                         'is-invalid':
                           submitted2 && MaintenanceInsideForm.controls.Existence.errors
-                      }"  >
+                      }" (change)="onItemChange2($event.target.value)" >
                       <label class="form-check-label" >No</label>
                     </div>
                     <div
@@ -91,40 +96,47 @@
                   </div>
                   </div>
                   <div *ngIf="existence == 'true'">
-
-                    <div class="form-group"*ngFor = "let element of newSection" >
+<div formArrayName="MaintenanceData">
+                    <div class="form-group"*ngFor = "let element of MaintenanceData.controls;let x=index" >
+                      <div [formGroupName]="x">
                       <label>Part Serial Number:</label>
-                      <input type="text" class="form-control">
+                      <input formControlName="sparePartNumber" type="text" class="form-control">
                     
                     </div>
+                  </div>
+                </div>
                     <div class="text-right mb-5">
                       <button type="button" class="btn btn-primary" (click)="addNewSection()" >Add Another Part</button>
                     </div>
                   </div>
                   <div *ngIf="existence == 'false'">
-                 <div *ngFor = "let element of newPart;let x=index">
+                    <div  formArrayName="sparePartsData">
+                 <div *ngFor = "let element of sparePartsData.controls;let x=index">
+                   <div  [formGroupName]="x">
                 <div class="form-group" >
                   <label>Part Serial Number:</label>
-                  <input type="text" class="form-control">
+                  <input type="text" formControlName="serialNumber" class="form-control">
                 
                 </div>
-                <!-- <div class="form-group" >
+                <div class="form-group" >
                   <label class="d-block">Inside Product:</label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" value="{{x}}" formControlName="inside"  [(ngModel)]="Inside" name="{{x}}" >
+                    <input class="form-check-input" type="radio" value="true" formControlName="isInside"  [(ngModel)]="newPart[x]" [name]="x" >
                     <label class="form-check-label">Yes</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" value="{{x+2}}" formControlName="inside" [(ngModel)]="Inside" name="{{-x}}" >
+                    <input class="form-check-input" type="radio" value="false" formControlName="isInside" [(ngModel)]="newPart[x]" [name]="x" >
                     <label class="form-check-label" >No</label>
                   </div>
-                </div> -->
-                <div class="form-group" *ngIf="Inside == x" >
+                </div>
+                <div class="form-group" *ngIf="newPart[x] == 'true'" >
                   <label>Product Number:</label>
-                  <input type="text" class="form-control">
+                  <input type="text" formControlName="product"  class="form-control">
                 
                 </div>
               </div>
+              </div>
+            </div>
                 <div class="text-right">
                   <button type="button" class="btn btn-primary mb-5" (click)="addNewPart()">Add Another Spare Part</button>
                 </div>
