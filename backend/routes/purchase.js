@@ -36,7 +36,7 @@ if(req.body.products){
 
 }
 
-if(req.body.accessories){
+if(req.body.accessories!=[]){
 
   for(var i=0;i< req.body.accessories.length;i++){
     let accessoriess = new accessories({
