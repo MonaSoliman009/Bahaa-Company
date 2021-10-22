@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { AntiauthGuard } from 'src/guards/antiauth.guard';
 import { AuthGuard } from 'src/guards/auth.guard';
 
 const routes: Routes = [
@@ -7,6 +8,9 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import( './admin/login/login.module').then((m) => m.LoginModule),
+    
+    canActivate: [AntiauthGuard]
+
   },
   {
     path: 'register',

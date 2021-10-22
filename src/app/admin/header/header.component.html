@@ -102,7 +102,7 @@
         <span class="user-img">
           <img
             class="rounded-circle"
-            src="assets/img/user.jpg"
+            [src]="(userr?.img||userr?.image)?(userr?.img||userr?.image):'assets/img/user.jpg'"
             width="40"
             alt="Admin"
           />

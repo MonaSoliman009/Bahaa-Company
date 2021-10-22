@@ -6,6 +6,9 @@ const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const products = require("./routes/products");
+const images = require("./routes/images");
+const user = require("./routes/user");
+
 var { product } = require("./models/product");
 var notification = require("./models/notification");
 var TestPhase = require("./models/test Phase");
@@ -84,6 +87,8 @@ app.use("/soldProducts", soldProductsReport);
 app.use("/employeeReport", employeeReportRoute);
 app.use("/goodProductsReport", goodProductRoute);
 app.use("/defectiveProductsReport", defectiveProductsRoute);
+app.use("/upload",images );
+app.use("/user",user );
 
 io.on("connection", (socket) => {
   console.log("new user connected");

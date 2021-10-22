@@ -9,6 +9,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { DataService } from '../services/data.service';
 import { EmployeeService } from '../services/employee.service';
 import { ProductService } from '../services/product.service';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,12 +17,13 @@ import { ProductService } from '../services/product.service';
 })
 
 export class DashboardComponent implements OnInit {
-  constructor(private service: DataService, private _EmployeeService: EmployeeService,private _ProductService:ProductService) { }
+  constructor(private service: DataService, private _EmployeeService: EmployeeService,private _ProductService:ProductService,private _UserService:UserService) { }
   nameOfUser: any;
   numOfProducts: any;
   numOfTests: any;
   numOfMaintained: any;
   lastFiveProducts:any;
+  userr:any;
   alertWithFail() {
     Swal.fire('Failed', "Try Again Later", 'error').then(
       (res) => {
@@ -30,7 +32,12 @@ export class DashboardComponent implements OnInit {
     );
   }
   ngOnInit(): void {
-
+    this._UserService.getProfile({id:localStorage.getItem('id'),type:localStorage.getItem('name')}).subscribe((res)=>{
+      console.log(res);
+      this.userr=res
+      },(error)=>{
+      
+      })
     this._EmployeeService.getUsersCount().subscribe((res) => {
       this.nameOfUser = res;
       console.log(res)

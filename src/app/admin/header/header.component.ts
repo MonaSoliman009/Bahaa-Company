@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { UserService } from '../services/user.service';
 declare var $:any;
 
 @Component({
@@ -19,14 +20,18 @@ export class HeaderComponent implements OnInit {
   flag: boolean = false;
   toggle: boolean = false;
   numOfNotifications: number;
-  constructor(private _NotificationService: NotificationService, private router: Router,) {
+  userr:any;
 
-
-
+  constructor(private _NotificationService: NotificationService, private router: Router,private _UserService:UserService) {
   }
 
   ngOnInit(): void {
-   
+    this._UserService.getProfile({id:localStorage.getItem('id'),type:localStorage.getItem('name')}).subscribe((res)=>{
+      console.log(res);
+      this.userr=res
+      },(error)=>{
+      
+      })
    
     this._NotificationService.getAllNotifications().subscribe((res) => {
       this.notifications = res;
