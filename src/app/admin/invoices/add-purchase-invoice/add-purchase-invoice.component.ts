@@ -29,11 +29,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         }),
       ]),
       accessories: new FormArray([
-        new FormGroup({
-          type: new FormControl(''),
-          price: new FormControl(''),
-          quantity: new FormControl(''),
-        }),
+        // new FormGroup({
+        //   // type: new FormControl(''),
+        //   // price: new FormControl(''),
+        //   // quantity: new FormControl(''),
+        // }),
       ]),
     });
   }
