@@ -12,6 +12,9 @@ import { InvoicesService } from '../../services/invoices.service';
 export class AddPurchaseInvoiceComponent implements OnInit {
   purchuseInvoiceForm: FormGroup;
   newSection: any = [0];
+  newAccessories: any = [0];
+  accesoriesOptions:any
+displayAccesoryField:boolean=false
   id: any;
   today: any;
   constructor(private serInvoices: InvoicesService) {
@@ -29,25 +32,51 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         }),
       ]),
       accessories: new FormArray([
-        // new FormGroup({
-        //   // type: new FormControl(''),
-        //   // price: new FormControl(''),
-        //   // quantity: new FormControl(''),
-        // }),
+        new FormGroup({
+          type: new FormControl(''),
+          price: new FormControl(''),
+          quantity: new FormControl(''),
+        }),
       ]),
     });
   }
+  setRadio(val) {
+    console.log(val);
+    this.accesoriesOptions=val
+    if (val == 1) {
+      this.displayAccesoryField = true;
 
+      //  this.Accessories.push(
+      //    new FormGroup({
+      //      type: new FormControl(''),
+      //      price: new FormControl(''),
+      //      quantity: new FormControl(''),
+      //    })
+      //  );
+      // this.newAccessories.push()
+    } else {
+      this.displayAccesoryField = false;
+  this.purchuseInvoiceForm.value.accessories = [];
+
+    }
+  }
   ngOnInit(): void {}
   get Products() {
     return this.purchuseInvoiceForm.get('products') as FormArray;
   }
+  get Accessories() {
+    return this.purchuseInvoiceForm.get('accessories') as FormArray;
+  }
   onSubmit() {
     this.id = localStorage.getItem('id');
     console.log('idt', this.id);
+    if (this.accesoriesOptions = 0) {
+this.purchuseInvoiceForm.value.accessories = [];
 
+}
+    console.log('form', this.purchuseInvoiceForm.value.accessories=[]);
+   
     console.log('form', this.purchuseInvoiceForm.value);
-
     this.serInvoices
       .addPurchuseInvoice(this.id, this.purchuseInvoiceForm.value)
       .subscribe((res) => {
@@ -72,6 +101,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       })
     );
     this.newSection.push();
+  }
+  addAccessories() {
+    this.Accessories.push(
+      new FormGroup({
+        type: new FormControl(''),
+        price: new FormControl(''),
+        quantity: new FormControl(''),
+      })
+    );
+    this.newAccessories.push()
   }
   addNewSection() {
     this.newSection.push(2);
