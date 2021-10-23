@@ -9,7 +9,7 @@ var spareParts =new Schema({
     },
 
     insideProduct: {
-      isInside: { type: Number, required: true },
+      isInside: { type: Boolean, required: true },
       product: { type: Number }
     },
     AddedBy : {//currently working //or done by

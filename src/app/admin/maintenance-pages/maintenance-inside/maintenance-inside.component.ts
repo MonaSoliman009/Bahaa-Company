@@ -86,7 +86,7 @@ i:number=1;
       MaintenanceData:this._fb.array([]) ,
       // Existence: new FormControl(''),
       // inside:new FormControl(''),
-      repaired:['']
+      repaired:['',[Validators.required]]
     });
     // this.sparePartsData.push(this.newsparePartsData())
     // this.MaintenanceData.push(this.newMaintenanceData())
@@ -123,32 +123,74 @@ newMaintenanceData(): FormGroup {
   }
   onStart() {
     this.submitted = true;
-    this.started = true;
+    // this.started = true;
 
-    // if (this.form.valid) {
-    //   this._MaintenanceService.startMaitenanceInsideStore(this.Getserial(), localStorage.getItem("id")).subscribe((res: any) => {
-    //     console.log(res)
-    //     if (res.message == 'Maintainence Started successfully') {
-    //       this.started = true;
+    if (this.form.valid) {
+      this._MaintenanceService.startMaitenanceInsideStore(this.Getserial(), localStorage.getItem("id")).subscribe((res: any) => {
+        console.log(res)
+        if (res.message == 'Maintainence Started successfully') {
+          this.started = true;
 
-    //     }else{
-    //       this.alertWithFail(res.message);
+        }else{
+          this.alertWithFail(res.message);
 
-    //     }
-    //   }, (err) => {
-    //     this.alertWithFail(err);
+        }
+      }, (err) => {
+        this.alertWithFail(err);
 
-    //   })
-    //   console.log(this.form.value.serialNumber, localStorage.getItem("emp"))
-    // }
+      })
+      console.log(this.form.value.serialNumber, localStorage.getItem("emp"))
+    }
   }
   onSubmit(){
    this.submitted2=true;
-        console.log(this.MaintenanceInsideForm.value)
+        // console.log(this.MaintenanceInsideForm.value)
 
-  //  if(this.MaintenanceInsideForm.valid){
-  //    console.log(this.MaintenanceInsideForm.value)
-  //  }
+   if(this.MaintenanceInsideForm.valid){
+     console.log(this.MaintenanceInsideForm.value);
+     var spareData=[];
+     for(var i=0;i<this.MaintenanceInsideForm.value.sparePartsData.length;i++){
+      spareData.push({
+        serialNumber:this.MaintenanceInsideForm.value.sparePartsData[i].serialNumber,
+        insideProduct:{
+          isInside: this.MaintenanceInsideForm.value.sparePartsData[i].isInside,
+           product: this.MaintenanceInsideForm.value.sparePartsData[i].product
+        }
+      })
+     }
+     console.log(spareData);
+     var Maintenancedata={
+      isAdded:this.MaintenanceInsideForm.value.isAdded,
+      sparePartNumber:[]
+     }
+     for(var i=0;i<this.MaintenanceInsideForm.value.MaintenanceData.length;i++){
+      Maintenancedata.sparePartNumber.push(this.MaintenanceInsideForm.value.MaintenanceData[i].sparePartNumber)
+     }
+     for(var i=0;i<this.MaintenanceInsideForm.value.sparePartsData.length;i++){
+      Maintenancedata.sparePartNumber.push(this.MaintenanceInsideForm.value.sparePartsData[i].serialNumber)
+     }
+     console.log(Maintenancedata);
+     this._MaintenanceService.submitMaintenanceInsideStore(this.Getserial(),localStorage.getItem("id"),spareData,Maintenancedata,this.MaintenanceInsideForm.value.repaired).subscribe((res:any)=>{
+      console.log(res);
+      if (res.message == 'Maintainence Finished successfully') {
+this.alertWithSuccess(res.message )
+      }else{
+        this.alertWithFail(res.message);
+
+      }
+     },(err)=>{
+       console.log(err);
+       this.alertWithFail(err);
+
+     })
+   }
+  }
+  alertWithSuccess(msg) {
+    Swal.fire('Done', msg, 'success').then(
+      (res) => {
+        location.reload();
+      }
+    );
   }
   getAllproducts() {
     this._ProductService.getAllProduct().subscribe((res) => {
