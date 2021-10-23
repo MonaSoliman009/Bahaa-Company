@@ -48,6 +48,7 @@
     "google-maps": "^4.3.2",
     "google-maps-infowindow": "0.0.1",
     "helmet": "^4.6.0",
+    "ngx-spinner": "10.0.1",
     "http": "0.0.1-security",
     "joi": "^17.4.2",
     "jquery": "^3.5.1",
