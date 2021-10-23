@@ -44,7 +44,12 @@ export class HeaderComponent implements OnInit {
     this._NotificationService.newNotifications().subscribe((res) => {
       
       this.notifications = res;
-      if(this.notifications[this.notifications.length-1].notificationOwner !=[]){
+      console.log(this.notifications.length-1)
+      var x=localStorage.getItem('id')
+      if(this.notifications[this.notifications.length-1].notificationOwner[0]?._id==x||
+        this.notifications[this.notifications.length-1].notificationAccountant[0]?._id==x||
+        this.notifications[this.notifications.length-1].notificationEmployee[0]?._id==x
+        ){
 
       }else{
         this.lastNotification=this.notifications[this.notifications.length-1];

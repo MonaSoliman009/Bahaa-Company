@@ -15,7 +15,7 @@ export class SidemenuComponent implements OnInit {
   splitVal;
   base = '';
   page = '';
-
+   owner:boolean=false;
   constructor(
     @Inject(DOCUMENT) private document,
     public router: Router,
@@ -24,12 +24,16 @@ export class SidemenuComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    if(localStorage.getItem('name')=='owner'){
+      this.owner=true;
+    }
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         this.splitVal = event.url.split('/');
         this.base = this.splitVal[1];
         this.page = this.splitVal[2];
       }
+    
     });
   }
 

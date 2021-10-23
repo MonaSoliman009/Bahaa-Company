@@ -28,8 +28,14 @@ export class ApproveEmployeesComponent implements OnInit {
       });
     });
   }
+  
   alertWithSuccess() {
-    Swal.fire('Thank you...', 'succesfully approved!', 'success');
+    Swal.fire('Thank you...', 'succesfully approved!', 'success').then(
+      (res) => {
+        location.reload();
+      }
+    );
+  
   }
   appprove(id) {
     this.ser.ApproveEmployee(id).subscribe((res) => {

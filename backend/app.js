@@ -565,7 +565,7 @@ io.on("connection", (socket) => {
         
           io.emit('notification', newNotification);
 
-            if (sparePartsData) {
+            if (sparePartsData.length !=0) {
               for (var i = 0; i < sparePartsData.length; i++) {
                 console.log("done");
 

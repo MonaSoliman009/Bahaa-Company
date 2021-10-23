@@ -27,7 +27,11 @@ export class ApproveAccountantsComponent implements OnInit {
     );
   }
   alertWithSuccess() {
-    Swal.fire('Thank you...', 'succesfully approved!', 'success');
+    Swal.fire('Thank you...', 'succesfully approved!', 'success').then(
+      (res) => {
+        location.reload();
+      }
+    );
   }
   approve(id) {
     console.log('id', id);

@@ -94,7 +94,7 @@ export class MaintenanceOutsideComponent implements OnInit {
     this.submitted2=true;
     if (this.maintenanceForm.valid) {
 
-      this._MaintenanceService.submitMaintenanceOutsideStore(this.form.value.serialNumber, localStorage.getItem("id"),this.maintenanceForm.value).subscribe((res: any) => {
+      this._MaintenanceService.submitMaintenanceOutsideStore(this.Getserial(), localStorage.getItem("id"),this.maintenanceForm.value).subscribe((res: any) => {
         console.log(res)
         if (res.message == 'Maintainence Finished successfully') {
           this.alertWithSuccess(res.message);
