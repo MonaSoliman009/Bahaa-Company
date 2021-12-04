@@ -19,7 +19,7 @@ if(req.body.products){
       model: req.body.products[i].model,
       addedAt: d.toString(),
       quantity: req.body.products[i].quantity,
-      price: req.body.products[i].price,
+      price: (req.body.products[i].price>=0)?req.body.products[i].price:undefined,
       purchaseSerialNumber: req.body.purchaseNumber,
       addedBy: req.params.id,
     });
@@ -57,12 +57,16 @@ if(req.body.accessories.length!=0){
   }
 
 }
-
+var invoice_status="Pending"
+if(req.body.supplier){
+  invoice_status="Completed"
+}
   console.log(arr)
   let PurchaseInvoicee = new PurchaseInvoice({
     purchaseNumber: req.body.purchaseNumber,
     purchaseDate:d.toString(),
     supplier: req.body.supplier,
+    status:invoice_status,
     purchaseCart: arr,
   });
   PurchaseInvoicee.save();
@@ -71,7 +75,12 @@ if(req.body.accessories.length!=0){
 
 router.get("/list", parseUrlencoded, async (req, res) => {
   console.log("hi");
-  let result = await PurchaseInvoice.find({}).populate("products").populate("accessories");
+  let result = await PurchaseInvoice.find({status:"Completed"}).populate("products").populate("accessories");
+  res.json(result);
+});
+router.get("/list/pending", parseUrlencoded, async (req, res) => {
+  console.log("hi");
+  let result = await PurchaseInvoice.find({status:"Pending"}).populate("products").populate("accessories");
   res.json(result);
 });
 router.get("/list/:id",async(req,res)=>{

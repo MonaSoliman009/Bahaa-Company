@@ -10,7 +10,7 @@ import { DataService } from '../services/data.service';
 import { EmployeeService } from '../services/employee.service';
 import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+// import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -18,7 +18,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class DashboardComponent implements OnInit {
   constructor(
-    private spinner: NgxSpinnerService,
+    // private spinner: NgxSpinnerService,
     private service: DataService,
     private _EmployeeService: EmployeeService,
     private _ProductService: ProductService,
@@ -35,14 +35,14 @@ export class DashboardComponent implements OnInit {
       location.reload();
     });
   }
-   showSpinner() {
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 2000);
-  }
+  //  showSpinner() {
+  //   this.spinner.show();
+  //   setTimeout(() => {
+  //     this.spinner.hide();
+  //   }, 2000);
+  // }
   ngOnInit(): void {
-    this.showSpinner()
+    // this.showSpinner()
     this._UserService
       .getProfile({
         id: localStorage.getItem('id'),

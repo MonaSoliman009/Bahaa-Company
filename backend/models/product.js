@@ -75,7 +75,7 @@ var product =mongoose.model("product", new mongoose.Schema({
   },
   price: {
     type: Number,
-    required: true,
+   
   },
   purchaseSerialNumber: {
     type: Number,

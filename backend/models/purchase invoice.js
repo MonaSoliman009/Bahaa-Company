@@ -13,6 +13,10 @@ const PurchaseInvoice =new Schema({
     },
     supplier: {
       type: String,
+     
+    },
+    status: {
+      type: String,
       required: true,
     },
     purchaseCart:  [
