@@ -8,17 +8,21 @@ var parseUrlencoded = bodyParser.urlencoded({
 var  saleInvoice  = require("../models/saleInvoice");
 var soldProductsReport  = require("../models/soldProductsReport");
 var { product } = require("../models/product");
-var mongoose = require("mongoose");
+
 
 router.post("/add", parseUrlencoded, async (req, res)=> {
   var d = new Date();
-
+var _status="pending";
+if(req.body.price!=null){
+  _status="completed";
+}
   let saleInvoicee = new saleInvoice({
     customerName: req.body.customerName,
     price: req.body.price,
     date: d.toString(),
     Products: req.body.Products,
     seller: req.body.seller,
+    status: _status
   });
   var obj = {};
   for (var i = 0; i < req.body.Products.length; i++) {
@@ -69,13 +73,23 @@ router.post("/add", parseUrlencoded, async (req, res)=> {
 });
 
 router.get("/list", parseUrlencoded, async (req, res) => {
-   saleInvoice.find().populate("serials").exec(function(error, bands) {
+   saleInvoice.find({status:"completed"}).populate("serials").exec(function(error, bands) {
     if(error){
       console.log(error)
     }
     res.json(bands);
 
   });;
+});
+
+router.get("/list/pending", parseUrlencoded, async (req, res) => {
+  saleInvoice.find({status:"pending"}).populate("serials").exec(function(error, bands) {
+   if(error){
+     console.log(error)
+   }
+   res.json(bands);
+
+ });;
 });
 
 router.get("/list/:id",async(req,res)=>{
@@ -86,5 +100,14 @@ router.get("/list/:id",async(req,res)=>{
     res.json(bands);
 
   });;
+})
+router.post("/complete/pending/:id",async(req,res)=>{
+  await PurchaseInvoice.updateOne(
+    { _id: req.params.id },
+    {
+      $set: { status: "completed", price: req.body.price },
+    }
+  );
+
 })
 module.exports = router;

@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const bodyParser = require("body-parser");
-
+var modelPrice=require("../models/modelPrice")
 var parseUrlencoded = bodyParser.urlencoded({
   extended: true,
 });
@@ -10,7 +10,17 @@ var { product } = require("../models/product");
 var {accessories}= require("../models/accessories");
 router.post("/add/:id", parseUrlencoded, async (req, res)=> {
   var arr = [];
+  var prices=[]
   var d = new Date();
+  for(var i=0;i<req.body.products.length;i++){
+ var _modelPriceDetails=  await modelPrice.findOne({model: req.body.products[i].model});
+       if(_modelPriceDetails){
+         prices.push(_modelPriceDetails.price)
+       }else{
+        prices.push(null)
+       }
+  }
+  console.log(prices);
 if(req.body.products){
 
   for (var i = 0; i < req.body.products.length; i++) {
@@ -19,7 +29,7 @@ if(req.body.products){
       model: req.body.products[i].model,
       addedAt: d.toString(),
       quantity: req.body.products[i].quantity,
-      price: (req.body.products[i].price>=0)?req.body.products[i].price:undefined,
+      price: prices[i],
       purchaseSerialNumber: req.body.purchaseNumber,
       addedBy: req.params.id,
     });
@@ -57,15 +67,15 @@ if(req.body.accessories.length!=0){
   }
 
 }
-var invoice_status="Pending"
-if(req.body.supplier){
+var invoice_status="Pending";
+if(req.body.supplier!=null&&!prices.includes(null)){
   invoice_status="Completed"
 }
   console.log(arr)
   let PurchaseInvoicee = new PurchaseInvoice({
     purchaseNumber: req.body.purchaseNumber,
     purchaseDate:d.toString(),
-    supplier: req.body.supplier,
+    supplier: req.body.supplier?req.body.supplier:null,
     status:invoice_status,
     purchaseCart: arr,
   });
@@ -92,5 +102,15 @@ router.get("/list/:id",async(req,res)=>{
     res.json(bands);
 
   });;
+});
+
+router.post("/complete/pending/:id",async(req,res)=>{
+  await PurchaseInvoice.updateOne(
+    { _id: req.params.id },
+    {
+      $set: { status: "Completed", supplier: req.body.supplier },
+    }
+  );
+
 })
 module.exports = router;

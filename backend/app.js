@@ -13,7 +13,7 @@ var { product } = require("./models/product");
 var notification = require("./models/notification");
 var TestPhase = require("./models/test Phase");
 var employeeReport = require("./models/employeeReport");
-
+var modelPrice=require("./routes/modelPrice")
 var repairedInsideStorePhase = require("./models/repairedInsideStoreProducts");
 var repairedOutsideStoreProducts = require("./models/repairedOutsideStoreProducts");
 var spareParts = require("./models/spareParts");
@@ -89,6 +89,7 @@ app.use("/goodProductsReport", goodProductRoute);
 app.use("/defectiveProductsReport", defectiveProductsRoute);
 app.use("/upload",images );
 app.use("/user",user );
+app.use("/models",modelPrice)
 
 io.on("connection", (socket) => {
   console.log("new user connected");

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-var modelPrice=require("../models/modelPrice")
+var {modelPrice}=require("../models/modelPrice")
 
 
 
@@ -19,11 +19,12 @@ router.get("/all", async (req, resp) => {
 
   router.post("/add", async (req, resp) => {
    
-    let new_model =await new modelPrice({
+    let new_model = new modelPrice({
         model: req.body.model,
         price: req.body.price,
      
       });  
+      await new_model.save();
     resp.json(new_model);
   
   });
@@ -46,3 +47,6 @@ resp.json("Deleted successfully")
  
    
      })
+
+
+     module.exports = router;

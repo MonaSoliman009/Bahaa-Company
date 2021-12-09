@@ -108,7 +108,7 @@ products: [
 serialNumber: number,
 model: String,
 quantity:number,
-price:number,
+price:number,  >>>>>>>>>>>>>>
 }
 ],
 
@@ -352,3 +352,36 @@ repaired:Boolean
 
 }
 
+////////////////////////////////////////////////////////////////////////
+--add new model with price 
+
+http://localhost:3000/models/add >>>>>>>>>>>>>>post
+
+body:
+
+{
+
+  model:string ,>>>>>>>>>>unique
+  price:number
+}
+
+////////////////////////////////////////////////////////////
+--list all models and prices
+
+http://localhost:3000/models/all   >>>GET 
+
+
+///////////////////////////////////////////////////////////////////////
+--update model;
+
+http://localhost:3000/models/update/:id  >>>>>PUT >>>>id for the model
+
+-body{
+
+  model or price 
+}
+
+//////////////////////////////////////////////////////////////////////
+--delete model
+
+http://localhost:3000/models/delete/:id  >>>>>>>delete

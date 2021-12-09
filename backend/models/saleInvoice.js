@@ -12,7 +12,7 @@ const Schema = mongoose.Schema
 
     price: {
       type: Number,
-      required: true,
+     
       minlength:2
     },
     date: {
@@ -40,6 +40,10 @@ const Schema = mongoose.Schema
           seller:{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Employee",
+            required: true
+          },
+          status:{
+            type:String,
             required: true
           }
         

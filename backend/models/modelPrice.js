@@ -4,7 +4,7 @@ var modelPrice =mongoose.model("modelPrice", new mongoose.Schema({
 
 
     model: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
       },
