@@ -28,7 +28,7 @@
                   />
                   <div class="valid-feedback">Looks good!</div>
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-4 mb-3" *ngIf="showPriceInput">
                   <label for="validationCustom01">Price</label>
                   <input
                     type="number"
@@ -36,11 +36,9 @@
                     id="validationCustom01"
                     placeholder="Price"
                     formControlName="price"
-                    required
                   />
                   <div class="valid-feedback">Looks good!</div>
                 </div>
-
 
                 <!-- <div class="col-md-4 mb-3">
                   <label for="validationCustom02">Seller Name</label>

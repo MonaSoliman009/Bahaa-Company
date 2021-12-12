@@ -12,7 +12,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 })
 export class AddSaleInvoiceComponent implements OnInit {
   newSection: any = [0];
-
+  showPriceInput: boolean = true;
   saleInvoiceForm: FormGroup;
 
   constructor(
@@ -40,7 +40,13 @@ export class AddSaleInvoiceComponent implements OnInit {
       seller: new FormControl(''),
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let typeOfperson = localStorage.getItem('name');
+    console.log(typeOfperson);
+    if (typeOfperson === 'employee') {
+      this.showPriceInput = false;
+    }
+  }
   get Products() {
     return this.saleInvoiceForm.get('Products') as FormArray;
   }

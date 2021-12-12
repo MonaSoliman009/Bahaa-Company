@@ -27,7 +27,7 @@
                   />
                 </div>
 
-                <div class="col-md-4 mb-3">
+                <div class="col-md-4 mb-3" *ngIf="showSupplierInput">
                   <label>Supplier</label>
                   <input
                     type="text"
@@ -73,67 +73,45 @@
                           required
                         />
                       </div>
-                      <div class="col-md-4 mb-3">
-                        <label for="validationCustom02">Quantity</label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="validationCustom02"
-                          placeholder="Quantity"
-                          formControlName="quantity"
-                          required
-                        />
-                      </div>
-                      <div class="col-md-4 mb-3">
-                        <label for="validationCustom02">Price</label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="validationCustom02"
-                          placeholder="price.."
-                          formControlName="price"
-                          required
-                        />
-                      </div>
-                         <div class="col-md-4 mb-3">
 
+                      <div class="col-md-4 mb-3">
                         <div class="form-group">
-                  <label class="d-block">Add Accessories:</label>
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="avaliable_yes_apart"
-                      id="apart"
-                      [value]="true"
-   (click)="setRadio(1)"
-                    />
-                    <label class="form-check-label" for="apart"
-                      >Yes</label
-                    >
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="avaliable_yes_apart"
-                      id="avaliable_no_apart"
-                      [value]="false"
-   (click)="setRadio(0)"
-
-                    />
-                    <label class="form-check-label" for="avaliable_no_apart"
-                      >No</label
-                    >
-                  </div>
-                </div>
+                          <label class="d-block">Add Accessories:</label>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="avaliable_yes_apart"
+                              id="apart"
+                              [value]="true"
+                              (click)="setRadio(1)"
+                            />
+                            <label class="form-check-label" for="apart"
+                              >Yes</label
+                            >
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="avaliable_yes_apart"
+                              id="avaliable_no_apart"
+                              [value]="false"
+                              (click)="setRadio(0)"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="avaliable_no_apart"
+                              >No</label
+                            >
+                          </div>
+                        </div>
                       </div>
                     </ng-container>
                   </div>
                 </div>
               </ng-container>
-                  <div class="text-right">
-
+              <div class="text-right">
                 <button
                   type="button"
                   class="btn btn-primary"
@@ -141,20 +119,21 @@
                 >
                   Add another product
                 </button>
-
               </div>
-        <!-- <button type="button" class="btn btn-primary accsosories">Add Accessories</button> -->
- <ng-container formArrayName="accessories" *ngIf="displayAccesoryField">
-            <hr>
+              <!-- <button type="button" class="btn btn-primary accsosories">Add Accessories</button> -->
+              <ng-container
+                formArrayName="accessories"
+                *ngIf="displayAccesoryField"
+              >
+                <hr />
 
                 <div *ngFor="let accseeory of Accessories.controls; index as i">
                   <div class="form-row">
                     <ng-container
                       [formGroupName]="i"
-*ngFor="let element of newAccessories"
+                      *ngFor="let element of newAccessories"
                     >
-
-                        <div class="col-md-4 mb-3">
+                      <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Type</label>
                         <input
                           type="text"
@@ -165,7 +144,7 @@
                           required
                         />
                       </div>
-                      <div class="col-md-4 mb-3" >
+                      <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Price</label>
                         <input
                           type="text"
@@ -176,7 +155,7 @@
                           required
                         />
                       </div>
-                      <div class="col-md-4 mb-3" >
+                      <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Quantity</label>
                         <input
                           type="number"
@@ -187,27 +166,19 @@
                           required
                         />
                       </div>
-
-
-
-
-
                     </ng-container>
                   </div>
                 </div>
-                      <div class="text-right">
-
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  (click)="addAccessories()"
-                >
-                  Add another accessory
-                </button>
-
-              </div>
+                <div class="text-right">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="addAccessories()"
+                  >
+                    Add another accessory
+                  </button>
+                </div>
               </ng-container>
-
 
               <button class="btn btn-primary" type="submit">Submit form</button>
             </form>

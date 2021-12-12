@@ -91,20 +91,13 @@
               <a [routerLink]="'/admin/product/addProduct'">Add New One</a>
             </li>
             <li [className]="page === 'searchProduct' ? 'active' : ''">
-              <a [routerLink]="'/admin/product/searchProduct'">Search For Product</a>
+              <a [routerLink]="'/admin/product/searchProduct'"
+                >Search For Product</a
+              >
             </li>
             <!-- <li [className]="page === 'outside'? 'active' : ''"><a [routerLink]="'/admin/maintenance/outside'">Outside Store</a></li> -->
           </ul>
         </li>
-
-
-
-
-
-
-
-
-
 
         <li class="menu-title">
           <span>Test Phase</span>
@@ -159,10 +152,14 @@
                     ><span>Add Sale Invoice</span></a
                   >
                 </li>
-
                 <li>
                   <a [routerLink]="'/admin/Invoices/list/sale'">
                     <span>View all invoices</span></a
+                  >
+                </li>
+                <li>
+                  <a [routerLink]="'/admin/Invoices/pending-sale-invoice'">
+                    <span>Pending Prices</span></a
                   >
                 </li>
               </ul>
@@ -184,6 +181,12 @@
                   >
                 </li>
               </ul>
+            </li>
+            <!--  -->
+            <li>
+              <a [routerLink]="'/admin/Invoices/pricing_model'"
+                ><span>Pricing Model</span></a
+              >
             </li>
           </ul>
         </li>
@@ -220,7 +223,6 @@
             <li [className]="page === 'error500' ? 'active' : ''">
               <a [routerLink]="'/admin/reports/employees'">Employees Report</a>
             </li>
-            
           </ul>
         </li>
 
@@ -233,8 +235,8 @@
             ><i class="far fa-user-circle"></i> <span> Approve Accounts</span>
             <span class="menu-arrow"></span
           ></a>
-          <ul style="display: none" >
-            <li >
+          <ul style="display: none">
+            <li>
               <a [routerLink]="'/admin/approval/employees'"
                 >Approve Employees</a
               >
@@ -245,18 +247,21 @@
               >
             </li>
 
-            <li >
+            <li>
               <a [routerLink]="'/admin/approval/Unapproveemployees'"
                 >Delete Employees</a
               >
             </li>
-            <li  >
-              <a style="z-index: 8857858785758758;" [routerLink]="'/admin/approval/Unapproveaccountants'">Delete Accountants</a>
+            <li>
+              <a
+                style="z-index: 8857858785758758"
+                [routerLink]="'/admin/approval/Unapproveaccountants'"
+                >Delete Accountants</a
+              >
             </li>
-          
           </ul>
         </li>
-        
+
         <!-- <li [className]="page === 'users'? 'active' : ''">
           <a [routerLink]="'/admin/users'"><i class="fas fa-users"></i> <span>Users</span></a>
         </li>

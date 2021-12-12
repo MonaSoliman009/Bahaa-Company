@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table custom-table mb-0 datatable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Customer Name</th>
+                <th>Price</th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rating of pricing; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ rating.customerName }}</td>
+                <td>{{ rating.price }}</td>
+                <td class="text-right">
+                  <a class="table-action-btn btn btn-sm bg-success-light">
+                    View all details
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row pricing-box">
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="pricing-header">
+                    <h2>Basic</h2>
+                    <p>Monthly Price</p>
+                </div>
+                <div class="pricing-card-price">
+                    <h3 class="heading2 price">$0.00</h3>
+                    <p>Duration: <span>3 Months</span></p>
+                </div>
+                <ul class="pricing-options">
+                    <li><i class="far fa-check-circle"></i> One listing submission</li>
+                    <li><i class="far fa-check-circle"></i> 3 Months expiration</li>
+                </ul>
+                <a [routerLink]="'/admin/edit-subscription'" class="btn btn-primary btn-block">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="pricing-header">
+                    <h2>Standard</h2>
+                    <p>Monthly Price</p>
+                </div>
+                <div class="pricing-card-price">
+                    <h3 class="heading2 price">$50.00</h3>
+                    <p>Duration: <span>6 Months</span></p>
+                </div>
+                <ul class="pricing-options">
+                    <li><i class="far fa-check-circle"></i> One listing submission</li>
+                    <li><i class="far fa-check-circle"></i> 6 Months expiration</li>
+                </ul>
+                <a [routerLink]="'/admin/edit-subscription'" class="btn btn-primary btn-block">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="pricing-header">
+                    <h2>Enterprice</h2>
+                    <p>Monthly Price</p>
+                </div>
+                <div class="pricing-card-price">
+                    <h3 class="heading2 price">$1200.00</h3>
+                    <p>Duration: <span>One Year</span></p>
+                </div>
+                <ul class="pricing-options">
+                    <li><i class="far fa-check-circle"></i> One listing submission</li>
+                    <li><i class="far fa-check-circle"></i> One Year expiration</li>
+                </ul>
+                <a [routerLink]="'/admin/edit-subscription'" class="btn btn-primary btn-block">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="pricing-header">
+                    <h2>Gold</h2>
+                    <p>Monthly Price</p>
+                </div>
+                <div class="pricing-card-price">
+                    <h3 class="heading2 price">$2000.00</h3>
+                    <p>Duration: <span>2 Years</span></p>
+                </div>
+                <ul class="pricing-options">
+                    <li><i class="far fa-check-circle"></i> One listing submission</li>
+                    <li><i class="far fa-check-circle"></i> Two Year expiration</li>
+                </ul>
+                <a [routerLink]="'/admin/edit-subscription'" class="btn btn-primary btn-block">View</a>
+            </div>
+        </div>
+    </div>
+
+</div> -->

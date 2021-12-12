@@ -13,8 +13,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   purchuseInvoiceForm: FormGroup;
   newSection: any = [0];
   newAccessories: any = [0];
-  accesoriesOptions:any
-displayAccesoryField:boolean=false
+  accesoriesOptions: any;
+  showSupplierInput: boolean = true;
+  displayAccesoryField: boolean = false;
   id: any;
   today: any;
   constructor(private serInvoices: InvoicesService) {
@@ -42,7 +43,7 @@ displayAccesoryField:boolean=false
   }
   setRadio(val) {
     console.log(val);
-    this.accesoriesOptions=val
+    this.accesoriesOptions = val;
     if (val == 1) {
       this.displayAccesoryField = true;
 
@@ -56,11 +57,16 @@ displayAccesoryField:boolean=false
       // this.newAccessories.push()
     } else {
       this.displayAccesoryField = false;
-  this.purchuseInvoiceForm.value.accessories = [];
-
+      this.purchuseInvoiceForm.value.accessories = [];
     }
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let typeOfperson = localStorage.getItem('name');
+    console.log(typeOfperson);
+    if (typeOfperson === 'employee') {
+      this.showSupplierInput = false;
+    }
+  }
   get Products() {
     return this.purchuseInvoiceForm.get('products') as FormArray;
   }
@@ -70,12 +76,11 @@ displayAccesoryField:boolean=false
   onSubmit() {
     this.id = localStorage.getItem('id');
     console.log('idt', this.id);
-    if (this.accesoriesOptions = 0) {
-this.purchuseInvoiceForm.value.accessories = [];
+    if ((this.accesoriesOptions = 0)) {
+      this.purchuseInvoiceForm.value.accessories = [];
+    }
+    console.log('form', (this.purchuseInvoiceForm.value.accessories = []));
 
-}
-    console.log('form', this.purchuseInvoiceForm.value.accessories=[]);
-   
     console.log('form', this.purchuseInvoiceForm.value);
     this.serInvoices
       .addPurchuseInvoice(this.id, this.purchuseInvoiceForm.value)
@@ -110,7 +115,7 @@ this.purchuseInvoiceForm.value.accessories = [];
         quantity: new FormControl(''),
       })
     );
-    this.newAccessories.push()
+    this.newAccessories.push();
   }
   addNewSection() {
     this.newSection.push(2);

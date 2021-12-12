@@ -12,6 +12,8 @@ import { DataService } from 'src/app/data.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AddPurchaseInvoiceComponent } from './add-purchase-invoice/add-purchase-invoice.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PricingModelComponent } from './pricing-model/pricing-model.component';
+import { PendingSaleInvoiceComponent } from './pending-sale-invoice/pending-sale-invoice.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListSaleComponent,
     ListPurchaseComponent,
     AddPurchaseInvoiceComponent,
+    PricingModelComponent,
+    PendingSaleInvoiceComponent,
   ],
   imports: [
     CommonModule,
