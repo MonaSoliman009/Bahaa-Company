@@ -5,6 +5,7 @@ var repairedOutsideStoreProducts =new Schema({
     product: {
       type: Number,
       required: true,
+      unique: true
     },
 
     shopName: {
@@ -24,7 +25,7 @@ var repairedOutsideStoreProducts =new Schema({
     },
     cost:{
         type: Number,
-        required: true
+       
     },
     lastDealingWith: {
       type: mongoose.Schema.Types.ObjectId,

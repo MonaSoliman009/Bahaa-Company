@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const bodyParser = require("body-parser");
-var modelPrice=require("../models/modelPrice")
+var {modelPrice}=require("../models/modelPrice")
 var parseUrlencoded = bodyParser.urlencoded({
   extended: true,
 });
@@ -28,7 +28,6 @@ if(req.body.products){
       serialNumber: req.body.products[i].serialNumber,
       model: req.body.products[i].model,
       addedAt: d.toString(),
-      quantity: req.body.products[i].quantity,
       price: prices[i],
       purchaseSerialNumber: req.body.purchaseNumber,
       addedBy: req.params.id,
@@ -39,7 +38,7 @@ if(req.body.products){
     });
     console.log(pro)
 
-    arr.push({ productId: pro.id, quantity: req.body.products[i].quantity });
+    arr.push({ productId: pro.id });
   }
 
 

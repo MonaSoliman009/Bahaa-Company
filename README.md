@@ -208,6 +208,14 @@ start Test (Socket Io)
 -arguments :(productserialNumber, testerId);
 *productserialNumber:number;
 *testerId:Id
+/////////////////////////////////////////////////////////
+list Test (Socket Io)
+
+-Event Name: GetProductTest
+-arguments :(productserialNumber);
+*productserialNumber:number;
+
+
 
 /////////////////////////////////////////////////////////////
 
@@ -335,11 +343,11 @@ start maintenance outside Store (Socket Io)
 productserialNumber:number;
 maintainererId:id;
 /////////////////////////////////////////////////////////////////////////////
-submit maintenance outside store (Socket Io)
+submit maintenance outside store Before Repaired (Socket Io)
 
-\*Event Name:submitMaintenanceOutsideStore
+\*Event Name:submitMaintenanceOutsideStoreBeforeRepaired
 
-\*arguments:(productserialNumber,maintainererId,MaintenanceData,repaired)
+\*arguments:(productserialNumber,maintainererId,MaintenanceData)
 productserialNumber:number;
 maintainererId:id;
 MaintenanceData:
@@ -347,11 +355,20 @@ MaintenanceData:
 "shopName": String,
 "recipient": String
 "deliveryMan": String
-"cost": number,
-repaired:Boolean
-
 }
+////////////////////////////////////////////////////////////////////////////////
+submit maintenance outside store After Repaired (Socket Io)
 
+\*Event Name:submitMaintenanceOutsideStoreAfterRepaired
+
+\*arguments:(productserialNumber,maintainererId,MaintenanceData)
+productserialNumber:number;
+maintainererId:id;
+MaintenanceData:
+{
+"repaired":boolean,
+"cost":number
+}
 ////////////////////////////////////////////////////////////////////////
 --add new model with price 
 

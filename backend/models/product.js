@@ -69,10 +69,7 @@ var product =mongoose.model("product", new mongoose.Schema({
     type: Date,
     required: true,
   },
-  quantity: {
-    type: Number,
-    required: true,
-  },
+  
   price: {
     type: Number,
    

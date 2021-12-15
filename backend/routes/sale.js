@@ -27,11 +27,9 @@ if(req.body.price!=null){
   var obj = {};
   for (var i = 0; i < req.body.Products.length; i++) {
     obj={
-      productSerialNumber: req.body.Products[i].productSerialNumber,
-      quantity: req.body.Products[i].quantity,
+      productSerialNumber: req.body.Products[i].productSerialNumber
     };
-    console.log(req.body.Products[i].quantity);
-  let productt=await  product.findOne({serialNumber:req.body.Products[i].productSerialNumber,quantity : {$gte : req.body.Products[i].quantity}})
+  let productt=await  product.findOne({serialNumber:req.body.Products[i].productSerialNumber})
    if(productt){
      console.log("1")
     let soldProductsReportt = new soldProductsReport({
@@ -49,13 +47,13 @@ if(req.body.price!=null){
 
     // })  
     // await new_employeeReport.save();
-    product.findOneAndUpdate({serialNumber:req.body.Products[i].productSerialNumber },{$inc: {quantity: -req.body.Products[i].quantity}},function(err,updated){
-      if(err){
-        console.log(err)
-      }else{
-        console.log("product updated")
-      }
-    });
+    // product.findOneAndUpdate({serialNumber:req.body.Products[i].productSerialNumber },{$inc: {quantity: -req.body.Products[i].quantity}},function(err,updated){
+    //   if(err){
+    //     console.log(err)
+    //   }else{
+    //     console.log("product updated")
+    //   }
+    // });
 
   // let x=await mongoose.model("product").findOneAndRemove({
   //     serialNumber: req.body.Products[i].productSerialNumber,quantity:0
