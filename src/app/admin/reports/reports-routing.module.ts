@@ -7,6 +7,7 @@ import { EmployeeMonthlyReportComponent } from './employee-monthly-report/employ
 import { EmployeeReportComponent } from './employee-report/employee-report.component';
 import { GoodProductDetailsComponent } from './good-product-details/good-product-details.component';
 import { GoodProductsComponent } from './good-products/good-products.component';
+import { MissingPiecesComponent } from './missing-pieces/missing-pieces.component';
 import { SoldProductDetialsComponent } from './sold-product-detials/sold-product-detials.component';
 import { SoldProductsComponent } from './sold-products/sold-products.component';
 
@@ -29,7 +30,7 @@ const routes: Routes = [
 	},
 	{
 		path : 'missing-pieces',
-		component : DefectiveProductsComponent
+		component : MissingPiecesComponent
 	},
 	{
 		path : 'employees',
