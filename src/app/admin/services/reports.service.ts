@@ -53,4 +53,12 @@ export class ReportsService {
     return this.http.get(`http://localhost:3000/employeeReport/monthly/maintainedOutside/${_id}/${month}`);
 
   }
+
+  listMissingPiecesReport(): Observable<any> {
+    return this.http.get('http://localhost:3000/missingPiecesReport/list');
+  }
+  listMissingPiecesDetails(_id){
+    return this.http.get('http://localhost:3000/missingPiecesReport/list/'+_id);
+
+  }
 }

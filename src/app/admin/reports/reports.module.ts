@@ -12,6 +12,7 @@ import { DefectiveProductDetailsComponent } from './defective-product-details/de
 import { SoldProductDetialsComponent } from './sold-product-detials/sold-product-detials.component';
 import { EmployeeDailyReportComponent } from './employee-daily-report/employee-daily-report.component';
 import { EmployeeMonthlyReportComponent } from './employee-monthly-report/employee-monthly-report.component';
+import { MissingPiecesDetailsComponent } from './missing-pieces-details/missing-pieces-details.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { EmployeeMonthlyReportComponent } from './employee-monthly-report/employ
     DefectiveProductDetailsComponent,
     SoldProductDetialsComponent,
     EmployeeDailyReportComponent,
-    EmployeeMonthlyReportComponent
+    EmployeeMonthlyReportComponent,
+    MissingPiecesDetailsComponent
   ],
   imports: [
     CommonModule,

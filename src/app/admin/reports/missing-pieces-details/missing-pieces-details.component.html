@@ -1,0 +1,63 @@
+<div class="row pricing-box">
+  <div class="col-md-8 col-lg-8 col-xl-8 m-auto">
+    <div class="card">
+      <div class="card-body">
+        <div class="pricing-header">
+          <h3 style="color: #ff0080">Missing Piece Details</h3>
+
+          <!-- <h4>{{goodProductDetails.ProductDetails[0].serialNumber}}</h4> -->
+          <!-- <p>Monthly Price</p> -->
+        </div>
+        <div class="pricing-card-price">
+          <p>Taken From Product:</p>
+          <h6 class="heading2 price">{{ missingPiece?.takenFrom[0].model }}</h6>
+          <h6 class="heading2 price">
+            {{ missingPiece?.takenFrom[0].serialNumber }}
+          </h6>
+          <h6 class="heading2 price">
+            <i class="far fa-check-circle"></i
+            >{{ missingPiece?.takenFrom[0].status }}
+          </h6>
+          <hr />
+          <p>Added To Product:</p>
+          <h6 class="heading2 price">{{ missingPiece?.addedTo[0].model }}</h6>
+          <h6 class="heading2 price">
+            {{ missingPiece?.addedTo[0].serialNumber }}
+          </h6>
+          <h6 class="heading2 price">
+            <i class="far fa-check-circle"></i
+            >{{ missingPiece?.addedTo[0].status }}
+          </h6>
+          <hr />
+          <div *ngIf="missingPiece?.creatorEmployee.length">
+            <p>Maintainer:</p>
+            <h6 class="heading2 price">{{ missingPiece?.creatorEmployee[0].name }}</h6>
+           
+            <hr />
+          </div>
+          <div *ngIf="missingPiece?.creatorAccountant.length">
+            <p>Maintainer:</p>
+            <h6 class="heading2 price">{{ missingPiece?.creatorAccountant[0].name }}</h6>
+           
+            <hr />
+          </div>
+          <div *ngIf="missingPiece?.creatorOwner.length">
+            <p>Maintainer:</p>
+            <h6 class="heading2 price">{{ missingPiece?.creatorOwner[0].name }}</h6>
+           
+            <hr />
+          </div>
+          <p>
+            Missing At: <span>{{ missingPiece?.atTime | date: "medium" }}</span>
+          </p>
+        </div>
+    
+        <a
+          [routerLink]="'/admin/reports/missing-pieces'"
+          class="btn btn-primary btn-block"
+          >Back</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
