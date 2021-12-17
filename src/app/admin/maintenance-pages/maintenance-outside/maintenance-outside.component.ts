@@ -38,8 +38,8 @@ export class MaintenanceOutsideComponent implements OnInit {
       shopName: ["", [Validators.required]],
       recipient: ["", [Validators.required]],
       deliveryMan: ["", [Validators.required]],
-      cost: ["", [Validators.required]],
-      repaired:["", [Validators.required]],
+      // cost: ["", [Validators.required]],
+      // repaired:["", [Validators.required]],
     });
   }
   creteForm() {
@@ -91,11 +91,13 @@ export class MaintenanceOutsideComponent implements OnInit {
     }
    }
    submitMaitenanceOutside(){
+   
     this.submitted2=true;
     if (this.maintenanceForm.valid) {
-
+    
       this._MaintenanceService.submitMaintenanceOutsideStore(this.Getserial(), localStorage.getItem("id"),this.maintenanceForm.value).subscribe((res: any) => {
         console.log(res)
+        console.log("ccc")
         if (res.message == 'Maintainence Finished successfully') {
           this.alertWithSuccess(res.message);
 

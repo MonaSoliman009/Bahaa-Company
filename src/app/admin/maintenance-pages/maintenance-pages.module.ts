@@ -9,12 +9,14 @@ import { MaintenancePagesRoutingModule } from './maintenance-pages-routing.modul
 import { MaintenanceInsideComponent } from './maintenance-inside/maintenance-inside.component';
 import { MaintenanceOutsideComponent } from './maintenance-outside/maintenance-outside.component';
 import { FormsModule } from '@angular/forms';
+import { MaintenanceOutsideAfterComponent } from './maintenance-outside-after/maintenance-outside-after.component';
 
 
 @NgModule({
   declarations: [
     MaintenanceInsideComponent,
     MaintenanceOutsideComponent,
+    MaintenanceOutsideAfterComponent,
   
   ],
   imports: [

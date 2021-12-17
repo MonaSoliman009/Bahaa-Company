@@ -759,16 +759,16 @@ io.on("connection", (socket) => {
           //   });
           //   await new_defectiveProductsReport.save();
           // }
-          io.emit("submitMaintenanceOutsideStore", {
+          io.emit("submitMaintenanceOutsideStoreBeforeRepaired", {
             message: "Maintainence Finished successfully",
           });
         } else {
-          io.emit("submitMaintenanceOutsideStore", {
+          io.emit("submitMaintenanceOutsideStoreBeforeRepaired", {
             message: "you cannot Maintened this product",
           });
         }
       } else {
-        io.emit("submitMaintenanceOutsideStore", {
+        io.emit("submitMaintenanceOutsideStoreBeforeRepaired", {
           message: "Product Not exit",
         });
       }
@@ -810,7 +810,7 @@ io.on("connection", (socket) => {
           await repairedOutsideStoreProducts.updateOne(
             { product: productt.serialNumber },
             {
-              $set: { cost: MaintenanceData.cost },
+             cost: MaintenanceData.cost 
             }
           );
 
@@ -822,7 +822,7 @@ io.on("connection", (socket) => {
           });
           await new_employeeReport.save();
           console.log("done");
-          if (MaintenanceData.repaired == true) {
+          if (MaintenanceData.repaired == "true") {
             let new_goodProductsReport = new goodProductsReport({
               productSerialNumber: productserialNumber,
             });
@@ -833,12 +833,12 @@ io.on("connection", (socket) => {
             });
             await new_defectiveProductsReport.save();
           }
-          io.emit("submitMaintenanceOutsideStore", {
+          io.emit("submitMaintenanceOutsideStoreAfterRepaired", {
             message: "Maintainence Finished successfully",
           });
         }
       } else {
-        io.emit("submitMaintenanceOutsideStore", {
+        io.emit("submitMaintenanceOutsideStoreAfterRepaired", {
           message: "Product Not exit",
         });
       }

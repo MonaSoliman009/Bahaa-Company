@@ -22,7 +22,7 @@ export class AddProductComponent implements OnInit {
     this.form = this._fb.group({
       serialNumber: ["", [Validators.required]],
       model: ["", [Validators.required]],
-      quantity: ["", [Validators.required]],
+      // quantity: ["", [Validators.required]],
       price: ["", [Validators.required]],
       purchaseSerialNumber: [""],
 

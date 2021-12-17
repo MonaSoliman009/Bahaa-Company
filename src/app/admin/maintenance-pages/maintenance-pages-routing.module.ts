@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MaintenanceInsideComponent } from './maintenance-inside/maintenance-inside.component';
+import { MaintenanceOutsideAfterComponent } from './maintenance-outside-after/maintenance-outside-after.component';
 import { MaintenanceOutsideComponent } from './maintenance-outside/maintenance-outside.component';
 
 const routes: Routes = [
@@ -9,8 +10,12 @@ const routes: Routes = [
 		component : MaintenanceInsideComponent
 	},
   {
-		path : 'outside',
+		path : 'outside-before',
 		component : MaintenanceOutsideComponent
+	},
+	{
+		path : 'outside-after',
+		component : MaintenanceOutsideAfterComponent
 	}
 ];
 

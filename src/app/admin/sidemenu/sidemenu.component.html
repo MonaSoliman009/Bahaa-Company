@@ -128,8 +128,26 @@
             <li [className]="page === 'inside' ? 'active' : ''">
               <a [routerLink]="'/admin/maintenance/inside'">Inside Store</a>
             </li>
-            <li [className]="page === 'outside' ? 'active' : ''">
+            <!-- <li [className]="page === 'outside' ? 'active' : ''">
               <a [routerLink]="'/admin/maintenance/outside'">Outside Store</a>
+            </li> -->
+            <li class="submenu">
+              <a href="javascript:void(0);">
+                <span>Outside Store</span> <span class="menu-arrow"></span
+              ></a>
+              <ul style="display: none">
+                <li [className]="page === 'inside' ? 'active' : ''">
+                  <a [routerLink]="'/admin/maintenance/outside-before'"
+                    ><span>Before Delivery</span></a
+                  >
+                </li>
+                <li>
+                  <a [routerLink]="'/admin/maintenance/outside-after'">
+                    <span>After Delivery</span></a
+                  >
+                </li>
+             
+              </ul>
             </li>
           </ul>
         </li>

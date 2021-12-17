@@ -1,0 +1,93 @@
+		<!-- Page Header -->
+     
+          <!-- /Page Header -->
+      
+          <div class="row">
+            <div class="col-lg-9">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Maintenance Outside Store After Delivery :</h4>
+                </div>
+                <div class="card-body">
+                
+                    <div >
+                      <form [formGroup]="maintenanceForm">
+                
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-4">Product Serial Number:</label>
+                            <div class="col-md-10">
+                              <input type="text" class="form-control" placeholder="Enter Product Serial Number"
+                              #Serial [(ngModel)]="search"
+                      
+                              (keyup)="searchSerial(search)"
+                               formControlName="serialNumber"[ngClass]="{
+                                'is-invalid': submitted2 && maintenanceForm.controls.serialNumber.errors
+                              }">
+                              <div
+                              class="alert alert-danger my-1 p-2 fadeInDown animated"
+                              *ngIf="submitted2 && maintenanceForm.controls.serialNumber.errors"
+                            >
+                             Enter Valid serial Number
+                            </div>
+                            <div  *ngFor="let post of allSerialNumbers | filter:search ">
+                              <a (click)="selectedSerial(post)" *ngIf='!displayRecomendedSerial'>{{post}}</a>
+                          </div>
+                            </div>
+                       
+                          </div>
+               
+                 
+                  
+                      <div class="form-group row" >
+                        <label class="col-form-label col-md-4">Cost:</label>
+                        <div class="col-md-10">
+                          <input type="number" class="form-control" placeholder="Please Enter Cost"formControlName="cost" [ngClass]="{
+                            'is-invalid': submitted2 && maintenanceForm.controls.cost.errors
+                          }" >
+                          <div
+                          class="alert alert-danger my-1 p-2 fadeInDown animated"
+                          *ngIf="submitted2 && maintenanceForm.controls.cost.errors"
+                        >
+                         Field is required
+                        </div>
+                        </div>
+                      </div>
+                      <div class="form-group" >
+                        <label class="d-block">Repaired:</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input"  type="radio" 
+                           value="true" name="repaired"formControlName="repaired" [ngClass]="{
+                            'is-invalid':
+                              submitted2 && maintenanceForm.controls.repaired.errors
+                          }"  >
+                          <label class="form-check-label" >Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input"   
+                          type="radio" value="false" name="repaired"formControlName="repaired" [ngClass]="{
+                            'is-invalid':
+                              submitted2 && maintenanceForm.controls.repaired.errors
+                          }"    >
+                          <label class="form-check-label" >No</label>
+                        </div>
+                        <div
+                        class="alert alert-danger my-1 p-2 fadeInDown animated"
+                        *ngIf="submitted2 && maintenanceForm.controls.repaired.errors"
+                      >
+                        Please Choose Yes or No
+                      </div>
+                      </div>
+                      <div class="text-right">
+                        <button  type="submit" (click)="submitMaitenanceOutside()" class="btn btn-primary">Submit</button>
+                      </div>
+                    </form>
+                    </div>
+
+
+                 
+                </div>
+              </div>
+             
+            </div>
+          </div>
+      
