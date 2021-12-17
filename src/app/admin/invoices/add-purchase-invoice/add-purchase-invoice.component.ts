@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 
 import { InvoicesService } from '../../services/invoices.service';
+import { ModelPriceService } from '../../services/model-price.service';
 
 @Component({
   selector: 'app-add-purchase-invoice',
@@ -18,10 +19,17 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   displayAccesoryField: boolean = false;
   id: any;
   today: any;
-  constructor(private serInvoices: InvoicesService) {
+  allModels = new Array();
+  Model: any;
+  Modals:any;
+  public filter: any = '';
+  @ViewChild('Model') model: ElementRef;
+  displayRecomendedSerial = true;
+  search: string;
+  constructor(private serInvoices: InvoicesService,private _ModelPriceService:ModelPriceService) {
     this.purchuseInvoiceForm = new FormGroup({
       purchaseNumber: new FormControl(''),
-
+     
       supplier: new FormControl(''),
       products: new FormArray([
         new FormGroup({
@@ -60,12 +68,44 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       this.purchuseInvoiceForm.value.accessories = [];
     }
   }
+  getModels(){
+    this._ModelPriceService.listMissingPiecesReport().subscribe((res)=>{
+    console.log(res);
+    this.Modals=res
+    for (let val of this.Modals) {
+      console.log(val)
+      let stringSerial = val.model;
+      console.log(val.model);
+
+      this.allModels.push(val.model);
+    }
+    },(err)=>{
+console.log(err)
+    })
+  }
+  selectedSerial(val) {
+    this.model.nativeElement.value = val;
+    this.displayRecomendedSerial = true;
+    // this.form.controls.serialNumber.valid;
+
+  }
+  data(val) {
+    return val;
+  }
+  searchModel(val) {
+    this.displayRecomendedSerial = false;
+    
+
+    let filterd = this.allModels.filter(this.data);
+
+  }
   ngOnInit(): void {
     let typeOfperson = localStorage.getItem('name');
     console.log(typeOfperson);
     if (typeOfperson === 'employee') {
       this.showSupplierInput = false;
     }
+    this.getModels()
   }
   get Products() {
     return this.purchuseInvoiceForm.get('products') as FormArray;

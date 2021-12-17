@@ -14,6 +14,7 @@ import { AddPurchaseInvoiceComponent } from './add-purchase-invoice/add-purchase
 import { ReactiveFormsModule } from '@angular/forms';
 import { PricingModelComponent } from './pricing-model/pricing-model.component';
 import { PendingSaleInvoiceComponent } from './pending-sale-invoice/pending-sale-invoice.component';
+import { FilterPipe } from '../pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { PendingSaleInvoiceComponent } from './pending-sale-invoice/pending-sale
     AddPurchaseInvoiceComponent,
     PricingModelComponent,
     PendingSaleInvoiceComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { PendingSaleInvoiceComponent } from './pending-sale-invoice/pending-sale
     ReactiveFormsModule,
     InMemoryWebApiModule.forRoot(DataService),
     ModalModule.forRoot(),
+    
   ],
 })
 export class InvoicesModule {}

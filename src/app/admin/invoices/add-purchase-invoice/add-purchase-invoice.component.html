@@ -71,9 +71,16 @@
                           placeholder="model"
                           formControlName="model"
                           required
+                          [(ngModel)]="search"
+                          (keyup)="searchModel(search)"
+                          #Model
+                          autocomplete="off"
                         />
+                        <div  *ngFor="let post of allModels | filter:search ">
+                          <a (click)="selectedSerial(post)" *ngIf='!displayRecomendedSerial'>{{post}}</a>
                       </div>
-
+                      </div>
+                 
                       <div class="col-md-4 mb-3">
                         <div class="form-group">
                           <label class="d-block">Add Accessories:</label>
