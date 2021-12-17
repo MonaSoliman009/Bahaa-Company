@@ -31,7 +31,16 @@ export class MaintenanceOutsideComponent implements OnInit {
     this.creteForm();
     this.createmaintenanceForm()
     this.getAllproducts();
-
+    setTimeout(()=>{ // this will make the execution after the above boolean has changed
+      this.serial.nativeElement.focus();
+    },0); 
+  }
+  enterPressed(e){
+    var code = (e.keyCode ? e.keyCode : e.which);
+if(code == 13) { //Enter keycode
+    this.onSubmit()
+}
+    
   }
   createmaintenanceForm(){
     this.maintenanceForm = this._fb.group({

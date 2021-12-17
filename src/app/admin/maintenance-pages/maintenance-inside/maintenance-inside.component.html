@@ -22,12 +22,12 @@
                 
                 <div class="form-group">
                   <label for="serialNumber">Product Serial Number:</label>
-                  <input autocomplete="off" type="text" class="form-control" formControlName="serialNumber" name="serialNumber"
+                  <input   autocomplete="off" type="text" class="form-control" formControlName="serialNumber" name="serialNumber"
                   placeholder="Enter Product Serial Number"
                   [ngClass]="{
                     'is-invalid': submitted && form.controls.serialNumber.errors
                   }" #Serial [(ngModel)]="search"
-                
+                (keypress)="enterPressed($event)"
                   (keyup)="searchSerial(search)">            
                   <div
                   class="alert alert-danger my-1 p-2 fadeInDown animated"

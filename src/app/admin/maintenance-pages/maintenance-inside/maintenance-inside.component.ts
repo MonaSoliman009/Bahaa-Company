@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl,FormArray, FormGroup, Validators } from '@angular/forms';
 import { MaintenanceService } from '../../services/maintenance.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -31,8 +31,17 @@ i:number=1;
     this.creteForm();
     this.creteMaintenanceInsideForm();
     this.getAllproducts();
+    setTimeout(()=>{ // this will make the execution after the above boolean has changed
+      this.serial.nativeElement.focus();
+    },0); 
   }
-
+  enterPressed(e){
+    var code = (e.keyCode ? e.keyCode : e.which);
+if(code == 13) { //Enter keycode
+    this.onStart()
+}
+    
+  }
   addNewSection() {
     this.MaintenanceData.push(this.newMaintenanceData())
 
