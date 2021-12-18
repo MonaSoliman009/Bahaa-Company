@@ -260,6 +260,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'Models',
+        loadChildren: () =>
+          import('./models/models.module').then(
+            (m) => m.ModelsModule
+          ),
+      },
+      {
         path: 'reports',
         loadChildren: () =>
           import('./reports/reports.module').then(

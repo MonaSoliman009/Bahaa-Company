@@ -16,6 +16,7 @@ export class SidemenuComponent implements OnInit {
   base = '';
   page = '';
    owner:boolean=false;
+   accountant:boolean=false
   constructor(
     @Inject(DOCUMENT) private document,
     public router: Router,
@@ -26,6 +27,9 @@ export class SidemenuComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('name')=='owner'){
       this.owner=true;
+    }
+    if(localStorage.getItem('name')=='accountant'){
+      this.accountant=true;
     }
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
