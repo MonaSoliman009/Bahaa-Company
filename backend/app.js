@@ -14,7 +14,7 @@ var notification = require("./models/notification");
 var TestPhase = require("./models/test Phase");
 var employeeReport = require("./models/employeeReport");
 var missingPiecesSchema = require("./models/missing pieces report");
-var missingPiecesReport= require("./routes/missingPiecesReport");
+var missingPiecesReport = require("./routes/missingPiecesReport");
 var modelPrice = require("./routes/modelPrice");
 var repairedInsideStorePhase = require("./models/repairedInsideStoreProducts");
 var repairedOutsideStoreProducts = require("./models/repairedOutsideStoreProducts");
@@ -72,7 +72,7 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, DELETE,PUT, OPTIONS"
   );
   next();
 });
@@ -89,7 +89,7 @@ app.use("/soldProducts", soldProductsReport);
 app.use("/employeeReport", employeeReportRoute);
 app.use("/goodProductsReport", goodProductRoute);
 app.use("/defectiveProductsReport", defectiveProductsRoute);
-app.use("/missingPiecesReport",missingPiecesReport)
+app.use("/missingPiecesReport", missingPiecesReport);
 app.use("/upload", images);
 app.use("/user", user);
 app.use("/models", modelPrice);
@@ -592,13 +592,11 @@ io.on("connection", (socket) => {
               await new_spareParts.save();
               if (sparePartsData[i].insideProduct.isInside == true) {
                 var new_missingPiecesReport = new missingPiecesSchema({
-                  takenFromSerial:sparePartsData[i].insideProduct.product,
-                  addedToSerial:productserialNumber,
-                  missingPiece:sparePartsData[i].serialNumber,
-                  atTime:new Date(),
-                  creator:maintainererId
-
-
+                  takenFromSerial: sparePartsData[i].insideProduct.product,
+                  addedToSerial: productserialNumber,
+                  missingPiece: sparePartsData[i].serialNumber,
+                  atTime: new Date(),
+                  creator: maintainererId,
                 });
 
                 await new_missingPiecesReport.save();
@@ -810,7 +808,7 @@ io.on("connection", (socket) => {
           await repairedOutsideStoreProducts.updateOne(
             { product: productt.serialNumber },
             {
-             cost: MaintenanceData.cost 
+              cost: MaintenanceData.cost,
             }
           );
 

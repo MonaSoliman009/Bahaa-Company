@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Add Price</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activemodal.dismiss('cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="addFormPrice">
+    <div class="form-group">
+      <br />
+      <label for="price">Price</label>
+
+      <div class="input-group">
+        <input
+          id="price"
+          class="form-control"
+          placeholder="Price.."
+          name="peice"
+          formControlName="price"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="addprice(); activemodal.dismiss('cross click')"
+  >
+    Save
+  </button>
+</div>

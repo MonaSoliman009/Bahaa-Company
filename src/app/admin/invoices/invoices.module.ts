@@ -12,19 +12,25 @@ import { DataService } from 'src/app/data.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AddPurchaseInvoiceComponent } from './add-purchase-invoice/add-purchase-invoice.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PricingModelComponent } from './pricing-model/pricing-model.component';
+// import { PricingModelComponent } from './pricing-model/pricing-model.component';
 import { PendingSaleInvoiceComponent } from './pending-sale-invoice/pending-sale-invoice.component';
 import { FilterPipe } from '../pipes/filter.pipe';
-
+import { EditPricingModelComponent } from './edit-pricing-model/edit-pricing-model.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddPricePendingSaleComponent } from './add-price-pending-sale/add-price-pending-sale.component';
+import { PendingPurchaseInvoiceComponent } from './pending-purchase-invoice/pending-purchase-invoice.component';
 @NgModule({
   declarations: [
     AddSaleInvoiceComponent,
     ListSaleComponent,
     ListPurchaseComponent,
     AddPurchaseInvoiceComponent,
-    PricingModelComponent,
+    // PricingModelComponent,
     PendingSaleInvoiceComponent,
-    FilterPipe
+    FilterPipe,
+    EditPricingModelComponent,
+    AddPricePendingSaleComponent,
+    PendingPurchaseInvoiceComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +40,7 @@ import { FilterPipe } from '../pipes/filter.pipe';
     ReactiveFormsModule,
     InMemoryWebApiModule.forRoot(DataService),
     ModalModule.forRoot(),
-    
   ],
+  providers: [NgbActiveModal],
 })
 export class InvoicesModule {}

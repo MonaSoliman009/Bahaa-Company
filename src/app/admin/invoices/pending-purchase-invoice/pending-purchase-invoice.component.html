@@ -7,22 +7,22 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Model</th>
-                <th>Price</th>
+                <th>Purchase Number</th>
+                <th>Status</th>
                 <th class="text-right">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let rating of pricing; index as i">
+              <tr *ngFor="let rating of pending; index as i">
                 <td>{{ i + 1 }}</td>
-                <td>{{ rating.customerName }}</td>
-                <td>{{ rating.price }}</td>
+                <td>{{ rating.supplier }}</td>
+                <td>{{ rating.status }}</td>
                 <td class="text-right">
                   <a
                     class="table-action-btn btn btn-sm bg-success-light"
-                    (click)="AddPrice(rating._id)"
+                    (click)="AddSupplier(rating._id)"
                   >
-                    Add Price
+                    Add Supplier
                   </a>
                 </td>
               </tr>

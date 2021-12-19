@@ -1,453 +1,126 @@
-<!-- Page Content -->
+<h1>hello</h1>
+
 <div class="row">
-    <div class="col-8 m-auto">
-      <!-- Tab Menu -->
-      <nav class="user-tabs">
-        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-          <li>
-            <a class="nav-link active" href="#all" data-toggle="tab">All Models</a
-            >
-          </li>
-         
-        </ul>
-      </nav>
-      <!-- /Tab Menu -->
-      <!-- Tab Content -->
-      <div class="tab-content">
-        <div role="tabpanel" id="all" class="tab-pane fade show active">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-center mb-0 datatable">
-                      <thead>
-                        <tr>
-                         
-                          <th>Model</th>
-                          <th>Price</th>
-                          <th>Edit</th>
-                          <th>Delete</th>
-                           <!--<th>Status</th>
-                          <th>Updated</th> -->
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let product of Models">
-                          <td>{{product.model}}</td>
-                          <td>{{product.price}}</td>
-                          
-                          <td class="text-center">
-                            <a class="table-action-btn btn btn-md bg-success-light" >
-                              Edit
-                            </a>
-                          </td>
-                          <td class="text-center">
-                            <a class="table-action-btn btn btn-md bg-danger-light " >
-                              Delete
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table custom-table mb-0 datatable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rating of pricing; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ rating.model }}</td>
+                <td>{{ rating.price }}</td>
+                <td class="text-right">
+                  <a
+                    class="table-action-btn btn btn-sm bg-success-light m-2"
+                    (click)="EditModel(rating._id)"
+                  >
+                    Edit
+                  </a>
+                  <a
+                    class="table-action-btn btn btn-sm bg-success-light"
+                    (click)="deletemodel(rating._id)"
+                  >
+                    Delete
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <!-- <div role="tabpanel" id="pending" class="tab-pane fade">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-center mb-0 datatable">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Date</th>
-                          <th>User</th>
-                          <th>Provider</th>
-                          <th>Service</th>
-                          <th>Amount</th>
-                          <th>Status</th>
-                          <th>Updated</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let pendingReport of pendingReports">
-                          <td>{{ pendingReport.id }}</td>
-                          <td>{{ pendingReport.date | date: "dd MMM yyyy" }}</td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ pendingReport.user_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                pendingReport.user_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ pendingReport.provider_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                pendingReport.provider_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>{{ pendingReport.service }}</td>
-                          <td>{{ pendingReport.amount }}</td>
-                          <td>
-                            <label class="badge badge-dark">{{
-                              pendingReport.status
-                            }}</label>
-                          </td>
-                          <td>{{ pendingReport.updated }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div role="tabpanel" id="inprogress" class="tab-pane fade">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-center mb-0 datatable">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Date</th>
-                          <th>User</th>
-                          <th>Provider</th>
-                          <th>Service</th>
-                          <th>Amount</th>
-                          <th>Status</th>
-                          <th>Updated</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let inprogressReport of inprogressReports">
-                          <td>{{ inprogressReport.id }}</td>
-                          <td>
-                            {{ inprogressReport.date | date: "dd MMM yyyy" }}
-                          </td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ inprogressReport.user_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                inprogressReport.user_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ inprogressReport.provider_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                inprogressReport.provider_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>{{ inprogressReport.service }}</td>
-                          <td>{{ inprogressReport.amount }}</td>
-                          <td>
-                            <label class="badge badge-info">{{
-                              inprogressReport.status
-                            }}</label>
-                          </td>
-                          <td>{{ inprogressReport.updated }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div role="tabpanel" id="completed" class="tab-pane fade">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-center mb-0 datatable">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Date</th>
-                          <th>User</th>
-                          <th>Provider</th>
-                          <th>Service</th>
-                          <th>Amount</th>
-                          <th>Status</th>
-                          <th>Updated</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let completedReport of completedReports">
-                          <td>{{ completedReport.id }}</td>
-                          <td>
-                            {{ completedReport.date | date: "dd MMM yyyy" }}
-                          </td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ completedReport.user_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                completedReport.user_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ completedReport.provider_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                completedReport.provider_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>{{ completedReport.service }}</td>
-                          <td>{{ completedReport.amount }}</td>
-                          <td>
-                            <label class="badge badge-success">{{
-                              completedReport.status
-                            }}</label>
-                          </td>
-                          <td>{{ completedReport.updated }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div role="tabpanel" id="rejected" class="tab-pane fade">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-center mb-0 datatable">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Date</th>
-                          <th>User</th>
-                          <th>Provider</th>
-                          <th>Service</th>
-                          <th>Amount</th>
-                          <th>Status</th>
-                          <th>Updated</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let rejectedReport of rejectedReports">
-                          <td>{{ rejectedReport.id }}</td>
-                          <td>{{ rejectedReport.date | date: "dd MMM yyyy" }}</td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ rejectedReport.user_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                rejectedReport.user_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ rejectedReport.provider_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                rejectedReport.provider_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>{{ rejectedReport.service }}</td>
-                          <td>{{ rejectedReport.amount }}</td>
-                          <td>
-                            <label
-                              [className]="
-                                rejectedReport.status === 'Rejected'
-                                  ? 'badge badge-warning'
-                                  : 'badge badge-success'
-                              "
-                              class=""
-                              >{{ rejectedReport.status }}</label
-                            >
-                          </td>
-                          <td>{{ rejectedReport.updated }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div role="tabpanel" id="canceled" class="tab-pane fade">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-center mb-0 datatable">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Date</th>
-                          <th>User</th>
-                          <th>Provider</th>
-                          <th>Service</th>
-                          <th>Amount</th>
-                          <th>Status</th>
-                          <th>Updated</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let canceledReport of canceledReports">
-                          <td>{{ canceledReport.id }}</td>
-                          <td>{{ canceledReport.date | date: "dd MMM yyyy" }}</td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ canceledReport.user_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                canceledReport.user_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>
-                            <span class="table-avatar">
-                              <a
-                                href="javascript:void(0);"
-                                class="avatar avatar-sm mr-2"
-                              >
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  alt=""
-                                  src="{{ canceledReport.provider_img }}"
-                                />
-                              </a>
-                              <a href="javascript:void(0);">{{
-                                canceledReport.provider_name
-                              }}</a>
-                            </span>
-                          </td>
-                          <td>{{ canceledReport.service }}</td>
-                          <td>{{ canceledReport.amount }}</td>
-                          <td>
-                            <label class="badge badge-danger">{{
-                              canceledReport.status
-                            }}</label>
-                          </td>
-                          <td>{{ canceledReport.updated }}</td>
-                          <td class="text-right">
-                            <a
-                              href="javascript:void(0);"
-                              class="btn btn-sm bg-success-light mr-2"
-                            >
-                              <i class="far fa-edit mr-1"></i> Edit
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
-      <!-- /Tab Content -->
     </div>
   </div>
-  <!-- /Page Content -->
-  
+</div>
+
+<!-- <div class="row pricing-box">
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="pricing-header">
+                    <h2>Basic</h2>
+                    <p>Monthly Price</p>
+                </div>
+                <div class="pricing-card-price">
+                    <h3 class="heading2 price">$0.00</h3>
+                    <p>Duration: <span>3 Months</span></p>
+                </div>
+                <ul class="pricing-options">
+                    <li><i class="far fa-check-circle"></i> One listing submission</li>
+                    <li><i class="far fa-check-circle"></i> 3 Months expiration</li>
+                </ul>
+                <a [routerLink]="'/admin/edit-subscription'" class="btn btn-primary btn-block">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="pricing-header">
+                    <h2>Standard</h2>
+                    <p>Monthly Price</p>
+                </div>
+                <div class="pricing-card-price">
+                    <h3 class="heading2 price">$50.00</h3>
+                    <p>Duration: <span>6 Months</span></p>
+                </div>
+                <ul class="pricing-options">
+                    <li><i class="far fa-check-circle"></i> One listing submission</li>
+                    <li><i class="far fa-check-circle"></i> 6 Months expiration</li>
+                </ul>
+                <a [routerLink]="'/admin/edit-subscription'" class="btn btn-primary btn-block">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="pricing-header">
+                    <h2>Enterprice</h2>
+                    <p>Monthly Price</p>
+                </div>
+                <div class="pricing-card-price">
+                    <h3 class="heading2 price">$1200.00</h3>
+                    <p>Duration: <span>One Year</span></p>
+                </div>
+                <ul class="pricing-options">
+                    <li><i class="far fa-check-circle"></i> One listing submission</li>
+                    <li><i class="far fa-check-circle"></i> One Year expiration</li>
+                </ul>
+                <a [routerLink]="'/admin/edit-subscription'" class="btn btn-primary btn-block">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="pricing-header">
+                    <h2>Gold</h2>
+                    <p>Monthly Price</p>
+                </div>
+                <div class="pricing-card-price">
+                    <h3 class="heading2 price">$2000.00</h3>
+                    <p>Duration: <span>2 Years</span></p>
+                </div>
+                <ul class="pricing-options">
+                    <li><i class="far fa-check-circle"></i> One listing submission</li>
+                    <li><i class="far fa-check-circle"></i> Two Year expiration</li>
+                </ul>
+                <a [routerLink]="'/admin/edit-subscription'" class="btn btn-primary btn-block">View</a>
+            </div>
+        </div>
+    </div>
+
+</div> -->

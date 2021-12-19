@@ -20,4 +20,10 @@ export class InvoicesService {
   listPurshuseInvoice(): Observable<any> {
     return this.http.get('http://localhost:3000/purchase/list');
   }
+  listAllProductBySerial(serial: any) {
+    return this.http.post(
+      `http://localhost:3000/product/getBySerialNum`,
+      serial
+    );
+  }
 }

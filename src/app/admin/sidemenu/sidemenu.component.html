@@ -146,7 +146,6 @@
                     <span>After Delivery</span></a
                   >
                 </li>
-             
               </ul>
             </li>
           </ul>
@@ -198,6 +197,12 @@
                     <span>View all invoices</span></a
                   >
                 </li>
+                <!-- <li>
+                  <a [routerLink]="'/admin/Invoices/pending-purchase-invoice'">
+                    <span>Pending Invoices</span></a
+                  >
+                </li> -->
+                <!-- pending-purchase-invoice -->
               </ul>
             </li>
             <!--  -->
@@ -282,18 +287,15 @@
         <li class="menu-title" *ngIf="owner">
           <span>Models</span>
         </li>
-        <li class="submenu" *ngIf="owner ||accountant">
+        <li class="submenu" *ngIf="owner || accountant">
           <a href="javascript:void(0);"
             ><i class="far fa-user-circle"></i> <span>Models</span>
             <span class="menu-arrow"></span
           ></a>
           <ul style="display: none">
             <li>
-              <a [routerLink]="'/admin/Models'"
-                >View Models Details</a
-              >
+              <a [routerLink]="'/admin/Models'">View Models Details</a>
             </li>
-          
           </ul>
         </li>
         <!-- <li [className]="page === 'users'? 'active' : ''">

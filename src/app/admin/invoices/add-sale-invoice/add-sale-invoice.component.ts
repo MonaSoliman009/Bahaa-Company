@@ -73,6 +73,13 @@ export class AddSaleInvoiceComponent implements OnInit {
     this.saleInvoiceForm.patchValue({
       seller: localStorage.getItem('response'),
     });
+    let typeOfperson = localStorage.getItem('name');
+    console.log(typeOfperson);
+    if (typeOfperson === 'employee') {
+      this.saleInvoiceForm.patchValue({
+        price: null,
+      });
+    }
     console.log('value of form', this.saleInvoiceForm.value);
     this.serInvoices
       .addSaleInvoice(this.saleInvoiceForm.value)
@@ -80,6 +87,14 @@ export class AddSaleInvoiceComponent implements OnInit {
         console.log('success');
         this.alertWithSuccess(res);
         console.log(res);
+      });
+  }
+  getAllData(e) {
+    let serial = e.target.value;
+    this.serInvoices
+      .listAllProductBySerial({ serialNumber: serial })
+      .subscribe((res) => {
+        console.log(res, 'data fron blur');
       });
   }
   addNewSection() {
