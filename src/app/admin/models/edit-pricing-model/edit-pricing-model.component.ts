@@ -46,6 +46,7 @@ export class EditPricingModelComponent implements OnInit {
       .EditPrice(this.SelectedId._id, this.EditFormPrice.value)
       .subscribe((res) => {
         console.log(res);
+        console.log("rr")
       });
   }
 }

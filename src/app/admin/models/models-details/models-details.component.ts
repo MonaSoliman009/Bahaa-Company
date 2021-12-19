@@ -44,6 +44,7 @@ export class ModelsDetailsComponent implements OnInit {
     modelRef.result.then((res) => {
       console.log(res);
     });
+    
   }
   deletemodel(id) {
     console.log(id, 'id');
