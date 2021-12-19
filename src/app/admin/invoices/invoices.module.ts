@@ -19,6 +19,7 @@ import { EditPricingModelComponent } from './edit-pricing-model/edit-pricing-mod
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddPricePendingSaleComponent } from './add-price-pending-sale/add-price-pending-sale.component';
 import { PendingPurchaseInvoiceComponent } from './pending-purchase-invoice/pending-purchase-invoice.component';
+import { AddSupplierComponent } from './add-supplier/add-supplier.component';
 @NgModule({
   declarations: [
     AddSaleInvoiceComponent,
@@ -31,6 +32,7 @@ import { PendingPurchaseInvoiceComponent } from './pending-purchase-invoice/pend
     EditPricingModelComponent,
     AddPricePendingSaleComponent,
     PendingPurchaseInvoiceComponent,
+    AddSupplierComponent,
   ],
   imports: [
     CommonModule,

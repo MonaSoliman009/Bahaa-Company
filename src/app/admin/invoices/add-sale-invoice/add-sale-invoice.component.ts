@@ -12,9 +12,10 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 })
 export class AddSaleInvoiceComponent implements OnInit {
   newSection: any = [0];
+  showdata = false;
   showPriceInput: boolean = true;
   saleInvoiceForm: FormGroup;
-
+  dataOnBlur: {};
   constructor(
     private formBuilder: FormBuilder,
     private serInvoices: InvoicesService
@@ -94,6 +95,8 @@ export class AddSaleInvoiceComponent implements OnInit {
     this.serInvoices
       .listAllProductBySerial({ serialNumber: serial })
       .subscribe((res) => {
+        this.dataOnBlur = res;
+        this.showdata = true;
         console.log(res, 'data fron blur');
       });
   }
