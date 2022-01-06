@@ -18,9 +18,9 @@ export class ModelPriceService {
   }
   private idOfEditPrice = new BehaviorSubject(this.id);
   currentId = this.idOfEditPrice.asObservable();
-  changeidofEditPrice(id: any) {
-    this.idOfEditPrice.next(id);
-  }
+  // changeidofEditPrice(id: any) {
+  //   this.idOfEditPrice.next(id);
+  // }
   DeleteModel(id): Observable<any> {
     return this.http.delete(`http://localhost:3000/models/delete/:${id}`);
   }

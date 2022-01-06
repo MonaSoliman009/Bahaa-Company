@@ -16,9 +16,9 @@ export class ListSaleComponent implements OnInit {
 
       this.invoices = res;
 
-      $(function () {
-        $('table').DataTable();
-      });
+      // $(function () {
+      //   $('table').DataTable();
+      // });
       console.log('list sale invoice', res);
     });
   }

@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EditPricingModelComponent } from './edit-pricing-model/edit-pricing-model.component';
+import { AddNewModelComponent } from './add-new-model/add-new-model.component';
 import { ModelsDetailsComponent } from './models-details/models-details.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'details',
     component: ModelsDetailsComponent,
   },
+
   {
-    path: 'edit-pricing-model',
-    component: EditPricingModelComponent,
-  },
+    path: 'add-new-model',
+    component: AddNewModelComponent,
+  }
 ];
 
 @NgModule({

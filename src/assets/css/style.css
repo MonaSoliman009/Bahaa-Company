@@ -185,7 +185,7 @@ textarea.form-control {
 	2. Table
 -----------------------*/
 
-.table {
+/* .table {
 	color: #333;
 	max-width: 100%;
 	margin-bottom: 0;
@@ -206,14 +206,14 @@ textarea.form-control {
 .table-nowrap td,
 .table-nowrap th {
 	white-space: nowrap
-}
-.table.dataTable {
+} */
+/* .table.dataTable {
 	border-collapse: collapse !important;
-}
-.table td a {
+} */
+/* .table td a {
     color: #333;
-}
-table.table td h2 {
+} */
+/* table.table td h2 {
 	display: inline-block;
 	font-size: inherit;
 	font-weight: 400;
@@ -246,8 +246,8 @@ table.table td h2 span {
 .table thead tr th {
 	font-weight: 600;
 	border: 0;
-}
-.table tbody tr {
+} */
+/* .table tbody tr {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 .table tbody tr:last-child {
@@ -262,8 +262,8 @@ table.table td h2 span {
 }
 .table-hover tbody tr:hover td {
 	color: #474648;
-}
-.table-striped thead tr {
+} */
+/* .table-striped thead tr {
 	border-color: transparent;
 }
 .table-striped tbody tr {
@@ -284,9 +284,9 @@ table.table td h2 span {
 }
 table.dataTable tbody th, table.dataTable tbody td {
 	padding:.75rem;
-}
+} */
 
-.admin_dash .dataTables_length {
+/* .admin_dash .dataTables_length {
 	display: none;
 }
 .dataTables_filter {
@@ -305,8 +305,8 @@ table.dataTable tbody th, table.dataTable tbody td {
     -moz-appearance: none;
     text-transform: none;
     outline: none;
-}
-.card-table .card-body {
+} */
+/* .card-table .card-body {
     padding: 0;
 }
 .card-table .card-body .table > thead > tr > th {
@@ -324,7 +324,7 @@ table.dataTable tbody th, table.dataTable tbody td {
     border-top: 1px solid #e2e5e8;
     padding: 1rem 0.75rem;
     white-space: nowrap;
-}
+} 
 .actions a {
 	width: 85px;
 }
@@ -807,12 +807,12 @@ button.bg-danger:hover {
 .btn-outline-light.disabled, .btn-outline-light:disabled {
     color: #ababab;
 }
-.dataTables_paginate.paging_simple_numbers {
+/* .dataTables_paginate.paging_simple_numbers {
 	border: 1px solid #e5e8eb;
 	border-radius:.25rem;
 	padding-top:0;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+} */
+/* .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
 	color: #fff !important;
     border: 1px solid #ff0080;
     background-color: #ff0080;
@@ -821,7 +821,7 @@ button.bg-danger:hover {
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0.3em .7em;
-}
+} */
 .pagination > .active > a, 
 .pagination > .active > a:focus,
 .pagination > .active > a:hover,

@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CommonServiceService } from 'src/app/common-service.service';
 import { ReportsService } from '../../services/reports.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { NzTableLayout, NzTablePaginationPosition, NzTablePaginationType, NzTableSize } from 'ng-zorro-antd/table';import { ModelsService } from '../../services/models.service';
 
 @Component({
   selector: 'app-good-products',
@@ -30,9 +31,9 @@ getGoodProductsReport(){
     console.log(res);
     this.goodProducts=res;
     
-    $(function () {
-      $('table').DataTable();
-    });
+    // $(function () {
+    //   $('table').DataTable();
+    // });
   },(error)=>{
     // console.log(error)
     this.alertWithFail()

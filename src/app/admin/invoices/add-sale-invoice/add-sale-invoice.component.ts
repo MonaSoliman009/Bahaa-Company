@@ -1,10 +1,11 @@
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Event, Router, NavigationStart } from '@angular/router';
 import { SaleInvoice } from '../../model/saleInvoice/sale-invoice';
 import { FormBuilder } from '@angular/forms';
 import { InvoicesService } from '../../services/invoices.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { ProductService } from '../../services/product.service';
 @Component({
   selector: 'app-add-sale-invoice',
   templateUrl: './add-sale-invoice.component.html',
@@ -13,33 +14,21 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 export class AddSaleInvoiceComponent implements OnInit {
   newSection: any = [0];
   showdata = false;
+  products: any;
+  product: any;
   showPriceInput: boolean = true;
   saleInvoiceForm: FormGroup;
   dataOnBlur: {};
+  displayRecomendedSerial = false;
+  allSerialNumbers = new Array();
+  Serial: any;
+  @ViewChild('Serial') serial: ElementRef;
   constructor(
-    private formBuilder: FormBuilder,
-    private serInvoices: InvoicesService
+ 
+    private serInvoices: InvoicesService,
+    private _ProductService: ProductService, 
+     private _fb: FormBuilder
   ) {
-    this.saleInvoiceForm = new FormGroup({
-      customerName: new FormControl(''),
-      price: new FormControl(''),
-
-      Products: new FormArray([
-        new FormGroup({
-          productSerialNumber: new FormControl(''),
-          quantity: new FormControl(''),
-          configuration: new FormGroup({
-            cpu: new FormControl(''),
-            withCharger: new FormControl(''),
-
-            ram: new FormControl(''),
-
-            hard: new FormControl(''),
-          }),
-        }),
-      ]),
-      seller: new FormControl(''),
-    });
   }
   ngOnInit(): void {
     let typeOfperson = localStorage.getItem('name');
@@ -47,13 +36,64 @@ export class AddSaleInvoiceComponent implements OnInit {
     if (typeOfperson === 'employee') {
       this.showPriceInput = false;
     }
+    setTimeout(() => {
+      // this will make the execution after the above boolean has changed
+      this.serial.nativeElement.focus();
+    }, 0);
+    this.getAllproducts();
+    this.createSaleForm()
   }
-  get Products() {
+ createSaleForm(){
+  this.saleInvoiceForm =this._fb.group({
+    customerName:["",Validators.required],
+    price:[""],
+    seller:[""],
+    Products: this._fb.array([
+
+    ])
+  })
+ }
+  getAllproducts() {
+    this._ProductService.getAllProduct().subscribe((res) => {
+      this.products = res;
+      for (let val of this.products) {
+        console.log(val.serialNumber);
+        let stringSerial = val.serialNumber.toString();
+        console.log(stringSerial);
+
+        this.allSerialNumbers.push(val.serialNumber.toString());
+      }
+    });
+  }
+  selectedSerial(val) {
+    this.serial.nativeElement.value = val;
+    this.displayRecomendedSerial = true;
+    this.getAllData();
+  }
+  data(val) {
+    return val;
+  }
+  searchSerial(val,e) {
+    this.displayRecomendedSerial = false;
+
+    var code = e.keyCode ? e.keyCode : e.which;
+    if (code == 13) {
+      //Enter keycode
+      this.displayRecomendedSerial=true
+    }
+
+    let filterd = this.allSerialNumbers.filter(this.data);
+  }
+  Getserial() {
+    const valueInput = this.serial.nativeElement.value;
+    this.Serial = valueInput;
+    return this.Serial;
+  }
+  get Products():FormArray {
     return this.saleInvoiceForm.get('Products') as FormArray;
   }
-  get configuration() {
-    return this.saleInvoiceForm.get('configuration') as FormGroup;
-  }
+  
+
   // {
   //       prod
   // uctId: [''],
@@ -90,32 +130,45 @@ export class AddSaleInvoiceComponent implements OnInit {
         console.log(res);
       });
   }
-  getAllData(e) {
-    let serial = e.target.value;
+  getAllData() {
+    console.log(this.Getserial());
     this.serInvoices
-      .listAllProductBySerial({ serialNumber: serial })
+      .listAllProductBySerial({ serialNumber: this.Getserial() })
       .subscribe((res) => {
         this.dataOnBlur = res;
         this.showdata = true;
+
         console.log(res, 'data fron blur');
       });
   }
+  enterPressed(e) {
+    var code = e.keyCode ? e.keyCode : e.which;
+    if (code == 13) {
+      //Enter keycode
+      this.getAllData()
+      this.displayRecomendedSerial=true
+    }
+  }
+  newProductData(): FormGroup {
+    return this._fb.group({
+      productSerialNumber:[""],
+      configuration:{
+        cpu: [""],
+        withCharger: [""],
+
+        ram: [""],
+
+        hard:[""]
+
+      }
+
+
+    })
+  }
   addNewSection() {
     // console.log(array);
-    this.Products.push(
-      new FormGroup({
-        productId: new FormControl(''),
-        quantity: new FormControl(''),
-        configuration: new FormGroup({
-          cpu: new FormControl(''),
-          withCharger: new FormControl(''),
+    this.Products.push(this.newProductData())
 
-          ram: new FormControl(''),
-
-          hard: new FormControl(''),
-        }),
-      })
-    );
-    this.newSection.push();
+    this.newSection.push(1);
   }
 }

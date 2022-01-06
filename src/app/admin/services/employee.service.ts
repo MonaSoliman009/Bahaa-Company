@@ -17,6 +17,11 @@ export class EmployeeService {
       id
     );
   }
+  getAllEmployee() {
+    return this.http.get(
+      'http://localhost:3000/owner/list/employees/all'
+    );
+  }
   getApproveEmployee() {
     return this.http.get('http://localhost:3000/owner/list/employees/approved');
   }

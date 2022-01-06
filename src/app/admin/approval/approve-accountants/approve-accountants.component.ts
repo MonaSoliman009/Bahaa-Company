@@ -19,9 +19,9 @@ export class ApproveAccountantsComponent implements OnInit {
         console.log(res);
         this.id = res?._id;
         this.ratings = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 //device history will based on notification for that device,will treated as endpoint Not as Shema
 const notification=new Schema({
     productSerialNumber: {//or serial number
-      type: Number, required: true
+      type: String, required: true
       },
       tester : {//currently working //or done by
         type: mongoose.Schema.Types.ObjectId,

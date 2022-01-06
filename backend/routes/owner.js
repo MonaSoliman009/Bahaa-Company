@@ -105,7 +105,14 @@ router.get("/list/accountants/approved", async (req, res) => {
   let result = await accountant.find({ approved: true });
   res.json(result);
 });
-
+router.get("/list/accountants/all", async (req, res) => {
+  let result = await accountant.find({ });
+  res.json(result);
+});
+router.get("/list/employees/all", async (req, res) => {
+  let result = await employee.find({  });
+  res.json(result);
+});
 router.get("/list/employees/approved", async (req, res) => {
   let result = await employee.find({ approved: true });
   res.json(result);

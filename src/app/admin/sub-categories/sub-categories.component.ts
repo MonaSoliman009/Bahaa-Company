@@ -37,9 +37,9 @@ export class SubCategoriesComponent implements OnInit {
             index['categories'] = filter[0];
           }          
         });
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

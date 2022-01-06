@@ -21,12 +21,18 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+ this.createForm()
+  }
+
+  createForm(){
+
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
       // approved: [false],
     });
+
   }
   get formControls() {
     console.log(this.registerForm.controls);
@@ -45,6 +51,13 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+  alertWithFail(msg) {
+    Swal.fire('Failed', msg, 'error').then(
+      (res) => {
+        location.reload();
+      }
+    );
+  };
   onSubmit() {
     console.log('register');
 
@@ -52,25 +65,38 @@ export class RegisterComponent implements OnInit {
 
     // stop here if form is invalid
     console.log('form value', this.registerForm.value);
+if(this.registerForm.valid) {
 
-    if (this.selectedPosition == 1) {
-      console.log(this.registerForm.value);
-      this.service
-        .accountant_register(this.registerForm.value)
-        .subscribe((res) => {
-          this.alertWithSuccess();
-          console.log('success', res);
-          this.router.navigate(['./admin/dashboard']);
-        });
-    } else if (this.selectedPosition == 2) {
-      this.service
-        .employee_register(this.registerForm.value)
-        .subscribe((res) => {
-          console.log('employee');
-          this.alertWithSuccess();
-          this.router.navigate(['./admin/dashboard']);
-          res;
-        });
-    }
+  if (this.selectedPosition == 1) {
+    console.log(this.registerForm.value);
+    this.service
+      .accountant_register(this.registerForm.value)
+      .subscribe((res) => {
+        this.alertWithSuccess();
+        console.log('success', res);
+        this.router.navigate(['./admin/dashboard']);
+      },(error)=>{
+
+      this.alertWithFail(error.error);
+
+      });
+  } else if (this.selectedPosition == 2) {
+    this.service
+      .employee_register(this.registerForm.value)
+      .subscribe((res) => {
+        console.log('employee');
+        this.alertWithSuccess();
+        this.router.navigate(['./admin/dashboard']);
+        res;
+      },(error)=>{
+
+        this.alertWithFail(error.error);
+
+        
+      });
+  }
+
+}
+  
   }
 }

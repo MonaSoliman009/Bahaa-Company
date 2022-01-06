@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataTablesModule } from 'angular-datatables';
+// import { DataTablesModule } from 'angular-datatables';
 import { RatingTypeComponent } from './rating-type.component';
 import { RatingTypeRoutingModule } from './rating-type-routing.module';
 
@@ -9,7 +9,7 @@ import { RatingTypeRoutingModule } from './rating-type-routing.module';
   imports: [
     CommonModule,
     RatingTypeRoutingModule,
-    DataTablesModule
+    // DataTablesModule
   ]
 })
 export class RatingTypeModule { }

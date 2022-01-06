@@ -25,7 +25,9 @@ i:number=1;
   products: any;
   @ViewChild('Serial') serial: ElementRef;
 
-  constructor(private _fb: FormBuilder, public _MaintenanceService: MaintenanceService,private _ProductService: ProductService) { }
+  constructor(private _fb: FormBuilder, 
+    public _MaintenanceService: MaintenanceService,
+    private _ProductService: ProductService) { }
 
   ngOnInit(): void {
     this.creteForm();

@@ -1,435 +1,279 @@
-
-
-    <!-- Page Header -->
-    <!-- <div class="page-header">
-        <div class="row">
-          <div class="col">
-            <h3 class="page-title">Inside Store</h3>
-            
+<div class="row">
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Maintenance Inside Store Form</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="serialNumber">Product Serial Number:</label>
+            <input
+              autocomplete="off"
+              type="text"
+              class="form-control"
+              formControlName="serialNumber"
+              name="serialNumber"
+              placeholder="Enter Product Serial Number"
+              [ngClass]="{
+                'is-invalid': submitted && form.controls.serialNumber.errors
+              }"
+              #Serial
+              [(ngModel)]="search"
+              (keypress)="enterPressed($event)"
+              (keyup)="searchSerial(search)"
+            />
+            <div
+              class="alert alert-danger my-1 p-2 fadeInDown animated"
+              *ngIf="submitted && form.controls.serialNumber.errors"
+            >
+              Enter Valid serial Number
+            </div>
+            <div *ngFor="let post of allSerialNumbers | filter: search">
+              <a
+                (click)="selectedSerial(post)"
+                *ngIf="!displayRecomendedSerial"
+                >{{ post }}</a
+              >
+            </div>
           </div>
-        </div>
-      </div> -->
-      <!-- /Page Header -->
-  
-      <div class="row">
-        <div class="col-md-9">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Maintenance Inside Store Form</h4>
+          <div class="text-right">
+            <button
+              type="button"
+              *ngIf="!started"
+              class="btn btn-primary"
+              (click)="onStart()"
+            >
+              Start Maintenance
+            </button>
+          </div>
+        </form>
+        <form *ngIf="started" [formGroup]="MaintenanceInsideForm">
+          <div class="form-group">
+            <label class="d-block">Spare Parts Added:</label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                formControlName="isAdded"
+                [(ngModel)]="type"
+                type="radio"
+                value="true"
+                name="isAdded"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted2 && MaintenanceInsideForm.controls.isAdded.errors
+                }"
+              />
+              <label class="form-check-label" for="gender_male">Yes</label>
             </div>
-            <div class="card-body">
-              <form [formGroup]="form" >
-                
-                <div class="form-group">
-                  <label for="serialNumber">Product Serial Number:</label>
-                  <input   autocomplete="off" type="text" class="form-control" formControlName="serialNumber" name="serialNumber"
-                  placeholder="Enter Product Serial Number"
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                formControlName="isAdded"
+                [(ngModel)]="type"
+                type="radio"
+                value="false"
+                name="isAdded"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted2 && MaintenanceInsideForm.controls.isAdded.errors
+                }"
+              />
+              <label class="form-check-label" for="gender_female">No</label>
+            </div>
+            <div
+              class="alert alert-danger my-1 p-2 fadeInDown animated"
+              *ngIf="
+                submitted2 && MaintenanceInsideForm.controls.isAdded.errors
+              "
+            >
+              Please Choose Yes or No
+            </div>
+          </div>
+          <div *ngIf="type == 'true'">
+            <div class="form-group">
+              <label class="d-block">Existence:</label>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  [(ngModel)]="existence"
+                  type="radio"
+                  formControlName="Existence"
+                  value="true"
+                  name="Existence"
                   [ngClass]="{
-                    'is-invalid': submitted && form.controls.serialNumber.errors
-                  }" #Serial [(ngModel)]="search"
-                (keypress)="enterPressed($event)"
-                  (keyup)="searchSerial(search)">            
-                  <div
-                  class="alert alert-danger my-1 p-2 fadeInDown animated"
-                  *ngIf="submitted && form.controls.serialNumber.errors"
-                >
-                 Enter Valid serial Number
-                </div>
-                <div  *ngFor="let post of allSerialNumbers | filter:search ">
-                  <a (click)="selectedSerial(post)" *ngIf='!displayRecomendedSerial'>{{post}}</a>
-              </div>
-                </div>
-                <div class="text-right">
-                  <button type="button" *ngIf="!started" class="btn btn-primary" (click)="onStart()" >Start Maintenance</button>
-                </div>
-                </form >
-                <form *ngIf="started" [formGroup]="MaintenanceInsideForm">
-                <div class="form-group " >
-                    <label class="d-block">Spare Parts Added:</label>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" formControlName="isAdded" [(ngModel)]="type" 
-                       type="radio" value="true" name="isAdded"  [ngClass]="{
-                        'is-invalid':
-                          submitted2 && MaintenanceInsideForm.controls.isAdded.errors
-                      }" >
-                      <label class="form-check-label" for="gender_male">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" formControlName="isAdded" [(ngModel)]="type"
-                       type="radio" value="false" name="isAdded"  [ngClass]="{
-                        'is-invalid':
-                          submitted2 && MaintenanceInsideForm.controls.isAdded.errors
-                      }">
-                      <label class="form-check-label" for="gender_female">No</label>
-                    </div>
-                    <div
-                    class="alert alert-danger my-1 p-2 fadeInDown animated"
-                    *ngIf="submitted2 && MaintenanceInsideForm.controls.isAdded.errors"
-                  >
-                    Please Choose Yes or No
-                  </div>
-                  </div>
-                  <div *ngIf="type == 'true'">
-                  <div class="form-group" >
-                    <label class="d-block">Existence:</label>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" [(ngModel)]="existence" type="radio" formControlName="Existence"
-                       value="true" name="Existence"  [ngClass]="{
-                        'is-invalid':
-                          submitted2 && MaintenanceInsideForm.controls.Existence.errors
-                      }" (change)="onItemChange($event.target.value)" >
-                      <label class="form-check-label" >Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" [(ngModel)]="existence" formControlName="Existence" 
-                      type="radio" value="false" name="Existence"  [ngClass]="{
-                        'is-invalid':
-                          submitted2 && MaintenanceInsideForm.controls.Existence.errors
-                      }" (change)="onItemChange2($event.target.value)" >
-                      <label class="form-check-label" >No</label>
-                    </div>
-                    <div
-                    class="alert alert-danger my-1 p-2 fadeInDown animated"
-                    *ngIf="submitted2 && MaintenanceInsideForm.controls.Existence.errors"
-                  >
-                    Please Choose Yes or No
-                  </div>
-                  </div>
-                  <div *ngIf="existence == 'true'">
-<div formArrayName="MaintenanceData">
-                    <div class="form-group"*ngFor = "let element of MaintenanceData.controls;let x=index" >
-                      <div [formGroupName]="x">
-                      <label>Part Serial Number:</label>
-                      <input formControlName="sparePartNumber" type="text" class="form-control">
-                    
-                    </div>
-                  </div>
-                </div>
-                    <div class="text-right mb-5">
-                      <button type="button" class="btn btn-primary" (click)="addNewSection()" >Add Another Part</button>
-                    </div>
-                  </div>
-                  <div *ngIf="existence == 'false'">
-                    <div  formArrayName="sparePartsData">
-                 <div *ngFor = "let element of sparePartsData.controls;let x=index">
-                   <div  [formGroupName]="x">
-                <div class="form-group" >
-                  <label>Part Serial Number:</label>
-                  <input type="text" formControlName="serialNumber" class="form-control">
-                
-                </div>
-                <div class="form-group" >
-                  <label class="d-block">Inside Product:</label>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" value="true" formControlName="isInside"  [(ngModel)]="newPart[x]" [name]="x" >
-                    <label class="form-check-label">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" value="false" formControlName="isInside" [(ngModel)]="newPart[x]" [name]="x" >
-                    <label class="form-check-label" >No</label>
-                  </div>
-                </div>
-                <div class="form-group" *ngIf="newPart[x] == 'true'" >
-                  <label>Product Serial Number:</label>
-                  <input type="text" formControlName="product"  class="form-control">
-                
-                </div>
-              </div>
-              </div>
-            </div>
-                <div class="text-right">
-                  <button type="button" class="btn btn-primary mb-5" (click)="addNewPart()">Add Another Spare Part</button>
-                </div>
-              </div>
-              
-              </div>
-              <div class="form-group" >
-                <label class="d-block">Repaired:</label>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input"  type="radio" formControlName="repaired"
-                   value="true" name="repaired"  [ngClass]="{
                     'is-invalid':
-                      submitted2 && MaintenanceInsideForm.controls.repaired.errors
-                  }" >
-                  <label class="form-check-label" >Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input"  formControlName="repaired" 
-                  type="radio" value="false" name="repaired"  [ngClass]="{
+                      submitted2 &&
+                      MaintenanceInsideForm.controls.Existence.errors
+                  }"
+                  (change)="onItemChange($event.target.value)"
+                />
+                <label class="form-check-label">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  [(ngModel)]="existence"
+                  formControlName="Existence"
+                  type="radio"
+                  value="false"
+                  name="Existence"
+                  [ngClass]="{
                     'is-invalid':
-                      submitted2 && MaintenanceInsideForm.controls.repaired.errors
-                  }"  >
-                  <label class="form-check-label" >No</label>
-                </div>
-                <div
+                      submitted2 &&
+                      MaintenanceInsideForm.controls.Existence.errors
+                  }"
+                  (change)="onItemChange2($event.target.value)"
+                />
+                <label class="form-check-label">No</label>
+              </div>
+              <div
                 class="alert alert-danger my-1 p-2 fadeInDown animated"
-                *ngIf="submitted2 && MaintenanceInsideForm.controls.repaired.errors"
+                *ngIf="
+                  submitted2 && MaintenanceInsideForm.controls.Existence.errors
+                "
               >
                 Please Choose Yes or No
               </div>
+            </div>
+            <div *ngIf="existence == 'true'">
+              <div formArrayName="MaintenanceData">
+                <div
+                  class="form-group"
+                  *ngFor="
+                    let element of MaintenanceData.controls;
+                    let x = index
+                  "
+                >
+                  <div [formGroupName]="x">
+                    <label>Part Serial Number:</label>
+                    <input
+                      formControlName="sparePartNumber"
+                      type="text"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="text-right mb-5">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="addNewSection()"
+                >
+                  Add Another Part
+                </button>
+              </div>
+            </div>
+            <div *ngIf="existence == 'false'">
+              <div formArrayName="sparePartsData">
+                <div
+                  *ngFor="let element of sparePartsData.controls; let x = index"
+                >
+                  <div [formGroupName]="x">
+                    <div class="form-group">
+                      <label>Part Serial Number:</label>
+                      <input
+                        type="text"
+                        formControlName="serialNumber"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="d-block">Inside Product:</label>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          value="true"
+                          formControlName="isInside"
+                          [(ngModel)]="newPart[x]"
+                          [name]="x"
+                        />
+                        <label class="form-check-label">Yes</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          value="false"
+                          formControlName="isInside"
+                          [(ngModel)]="newPart[x]"
+                          [name]="x"
+                        />
+                        <label class="form-check-label">No</label>
+                      </div>
+                    </div>
+                    <div class="form-group" *ngIf="newPart[x] == 'true'">
+                      <label>Product Serial Number:</label>
+                      <input
+                        type="text"
+                        formControlName="product"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="text-right">
-                <button  (click)="onSubmit()" type="submit" class="btn btn-primary">Submit</button>
+                <button
+                  type="button"
+                  class="btn btn-primary mb-5"
+                  (click)="addNewPart()"
+                >
+                  Add Another Spare Part
+                </button>
               </div>
-              </form>
             </div>
           </div>
-        </div>
-        <!-- <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Address Form</h4>
+          <div class="form-group">
+            <label class="d-block">Repaired:</label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                formControlName="repaired"
+                value="true"
+                name="repaired"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted2 && MaintenanceInsideForm.controls.repaired.errors
+                }"
+              />
+              <label class="form-check-label">Yes</label>
             </div>
-            <div class="card-body">
-              <form action="#">
-                <div class="form-group">
-                  <label>Address Line 1</label>
-                  <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label>Address Line 2</label>
-                  <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label>City</label>
-                  <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label>State</label>
-                  <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label>Country</label>
-                  <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label>Postal Code</label>
-                  <input type="text" class="form-control">
-                </div>
-                <div class="text-right">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                formControlName="repaired"
+                type="radio"
+                value="false"
+                name="repaired"
+                [ngClass]="{
+                  'is-invalid':
+                    submitted2 && MaintenanceInsideForm.controls.repaired.errors
+                }"
+              />
+              <label class="form-check-label">No</label>
+            </div>
+            <div
+              class="alert alert-danger my-1 p-2 fadeInDown animated"
+              *ngIf="
+                submitted2 && MaintenanceInsideForm.controls.repaired.errors
+              "
+            >
+              Please Choose Yes or No
             </div>
           </div>
-        </div> -->
+          <div class="text-right">
+            <button (click)="onSubmit()" type="submit" class="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
+    </div>
+  </div>
   
-      <!-- <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Two Column Vertical Form</h4>
-            </div>
-            <div class="card-body">
-              <form action="#">
-                <h4 class="card-title">Personal Information</h4>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>First Name</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Last Name</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Blood Group</label>
-                      <select class="select form-control">
-                        <option>Select</option>
-                        <option value="1">A+</option>
-                        <option value="2">O+</option>
-                        <option value="3">B+</option>
-                        <option value="4">AB+</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="d-block">Gender:</label>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="gender_male" value="option1">
-                        <label class="form-check-label" for="gender_male">Male</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="gender_female" value="option2">
-                        <label class="form-check-label" for="gender_female">Female</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Username</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Email</label>
-                      <input type="text" class="form-control">
-                    </div>
-  
-                    <div class="form-group">
-                      <label>Password</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Repeat Password</label>
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                </div>
-                <h4 class="card-title">Postal Address</h4>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Address Line 1</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Address Line 2</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>State</label>
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>City</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Country</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Postal Code</label>
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Two Column Vertical Form</h4>
-            </div>
-            <div class="card-body">
-              <form action="#">
-                <div class="row">
-                  <div class="col-md-6">
-                    <h4 class="card-title">Personal details</h4>
-                    <div class="form-group">
-                      <label>Name:</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Password:</label>
-                      <input type="password" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>State:</label>
-                      <select class="select form-control">
-                        <option>Select State</option>
-                        <option value="1">California</option>
-                        <option value="2">Texas</option>
-                        <option value="3">Florida</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Your Message:</label>
-                      <textarea rows="5" cols="5" class="form-control" placeholder="Enter message"></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <h4 class="card-title">Personal details</h4>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>First Name:</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Last Name:</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Email:</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Phone:</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label>Address line:</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Country:</label>
-                          <select class="select form-control">
-                            <option>Select Country</option>
-                            <option value="1">USA</option>
-                            <option value="2">France</option>
-                            <option value="3">India</option>
-                            <option value="4">Spain</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>State/Province:</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>ZIP code:</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>City:</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div> -->
-  
-  
+</div>
+

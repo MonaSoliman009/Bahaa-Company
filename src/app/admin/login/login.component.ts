@@ -36,50 +36,61 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
       console.log('response', this.response);
+this.createForm()
+  }
+  createForm(){
+
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
-  alertWithFail() {
-    Swal.fire('Failed', "Try Again Later", 'error').then(
+  alertWithFail(msg) {
+    Swal.fire('Failed', msg, 'error').then(
       (res) => {
         location.reload();
       }
     );
-  }
+  };
   onSubmit() {
     this.submitted = true;
 
     console.log(this.loginForm.value);
+    if(this.loginForm.valid) {
 
-    this.ser.login(this.loginForm.value).subscribe((response) => {
-this.response=response
-      console.log('response', response);
-this.service.changelogin(this.response)
-      console.log('response', this.response);
-      console.log(response);
-// localStorage.setItem('data', JSON.stringify(response.data) as string);
-      localStorage.setItem('token', response.token as string);
-      localStorage.setItem('name', response.name as string);
-      localStorage.setItem('id', response.id as string);
-      // localStorage.setItem('emp', response?.employee as string);
-      // let info = localStorage.getItem('response');
-      // console.log('data', info);
-      // this.service.changeMessage(info);
-      // if (response.name === 'accountant') {
-      //   // this.router.navigate(['/home/volunteer', response.volunteer]);
-      //   localStorage.setItem('id', response.accountant as string);
-      //   console.log(response.accountant);
 
-      // }
-      this.router.navigate(['./admin/dashboard']);
 
-    },(error)=>{
+      this.ser.login(this.loginForm.value).subscribe((response) => {
+        this.response=response
+              console.log('response', response);
+        this.service.changelogin(this.response)
+              console.log('response', this.response);
+              console.log(response);
+        // localStorage.setItem('data', JSON.stringify(response.data) as string);
+              localStorage.setItem('token', response.token as string);
+              localStorage.setItem('name', response.name as string);
+              localStorage.setItem('id', response.id as string);
+              // localStorage.setItem('emp', response?.employee as string);
+              // let info = localStorage.getItem('response');
+              // console.log('data', info);
+              // this.service.changeMessage(info);
+              // if (response.name === 'accountant') {
+              //   // this.router.navigate(['/home/volunteer', response.volunteer]);
+              //   localStorage.setItem('id', response.accountant as string);
+              //   console.log(response.accountant);
+        
+              // }
+              this.router.navigate(['./admin/dashboard']);
+        
+            },(error)=>{
+        
+              this.alertWithFail(error.error)
+        
+            });
 
-      this.alertWithFail()
+    }
 
-    });
+
   }
   // onSubmit() {
   //   console.log('register');

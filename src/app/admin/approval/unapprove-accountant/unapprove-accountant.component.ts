@@ -14,14 +14,14 @@ export class UnapproveAccountantComponent implements OnInit {
   errorMessage: string;
   id: any;
   ngOnInit(): void {
-    this.ser.getUnApprovedAccountant().subscribe(
+    this.ser.getAllAccountant().subscribe(
       (res: Accountant) => {
         console.log(res);
         this.id = res?._id;
         this.ratings = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

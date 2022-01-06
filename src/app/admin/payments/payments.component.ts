@@ -18,9 +18,9 @@ export class PaymentsComponent implements OnInit {
     this.commonService.getAllReports().subscribe(
       (res) => {
         this.allReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

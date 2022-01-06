@@ -21,37 +21,36 @@
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-hover table-center mb-0 datatable">
+                  <nz-table #basicTable [nzData]="missingPieces">
                     <thead>
                       <tr>
-                       
+                     
                         <th>Serial Number</th>
                         <th>Added To</th>
                         <th>Taken From</th>
                         <th>At time</th>
                         <th>Maintainer</th>
                         <th>Details</th>
-                         <!--<th>Status</th>
-                        <th>Updated</th> -->
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let product of missingPieces">
-                        <td>{{product.missingPiece}}</td>
-                        <td>{{product.addedToSerial}}</td>
-                        <td>{{product.takenFromSerial}}</td>
-                        <td>{{product.atTime |date:'medium'}}</td>
-                        <td *ngIf="product?.creatorEmployee.length">{{product?.creatorEmployee[0].name}}</td>
-                        <td *ngIf="product?.creatorAccountant.length">{{product?.creatorAccountant[0].name}} </td>
-                        <td *ngIf="product?.creatorOwner.length">{{product?.creatorOwner[0].name }}</td>
+                      <tr *ngFor="let data of basicTable.data">
+                        <td>{{data.missingPiece}}</td>
+                        <td>{{data.addedToSerial}}</td>
+                        <td>{{data.takenFromSerial}}</td>
+                        <td>{{data.atTime |date:'medium'}}</td>
+                        <td *ngIf="product?.creatorEmployee.length">{{data?.creatorEmployee[0].name}}</td>
+                        <td *ngIf="product?.creatorAccountant.length">{{data?.creatorAccountant[0].name}} </td>
+                        <td *ngIf="product?.creatorOwner.length">{{data?.creatorOwner[0].name }}</td>
                         <td class="text-right">
-                          <a class="table-action-btn btn btn-sm bg-success-light" (click)="viewProductDetails(product._id)">
+                          <a class="table-action-btn btn btn-sm bg-success-light" (click)="viewProductDetails(data._id)">
                             View all details
                           </a>
                         </td>
+                   
                       </tr>
                     </tbody>
-                  </table>
+                  </nz-table>
                 </div>
               </div>
             </div>
@@ -64,3 +63,4 @@
   </div>
 </div>
 <!-- /Page Content -->
+

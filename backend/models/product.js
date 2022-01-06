@@ -1,18 +1,70 @@
 const mongoose = require("mongoose");
-var product =mongoose.model("product", new mongoose.Schema({
-  serialNumber: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-//   make: {
-//     type: String,
-//     required: true,
-//   },
-  model: {
-    type: String,
-    required: true,
-  },
+var joi = require("joi");
+
+var product = mongoose.model(
+  "product",
+  new mongoose.Schema({
+    serialNumber: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    model: {
+      type: String,
+      required: true,
+    },
+
+    addedAt: {
+      type: Date,
+      required: true,
+    },
+
+    price: {
+      type: Number,
+    },
+    purchaseSerialNumber: {
+      type: String,
+    },
+    addedBy: {
+      type: mongoose.Schema.Types.ObjectId, //who add the product
+      enum: ['accountant', 'owner', 'employee'],
+    },
+    status: {
+      type: String,
+      required: true,
+      default: "New",
+    },
+    tested: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    maintened: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+  })
+);
+
+function validateProduct(x) {
+  var Schema =joi.object( {
+    serialNumber: joi.string().min(2).max(40).required(),
+    model: joi.string().required(),
+    addedAt: joi.date(),
+    price:joi.number(),
+    purchaseSerialNumber:joi.string(),
+    status:joi.string(),
+    tested:joi.boolean(),
+    maintened:joi.boolean()
+
+  
+  });
+  return Schema.validate(x)
+}
+exports.validateProduct = validateProduct;
+exports.product = product;
+
 //   processorType: {
 //     type: String,
 //     required: true,
@@ -65,38 +117,7 @@ var product =mongoose.model("product", new mongoose.Schema({
 //     type: Boolean,
 //     required: true,
 //   },
-  addedAt: {
-    type: Date,
-    required: true,
-  },
-  
-  price: {
-    type: Number,
-   
-  },
-  purchaseSerialNumber: {
-    type: Number,
-  
-  },
-  addedBy: {
-    type: mongoose.Schema.Types.ObjectId, //who add the product
-    enum: ["accountant", "owner", "employee"],
-  },
-  status: {
-    type: String,
-    required: true,
-    default: "New",
-  },
-  tested: {
-    type: Boolean,
-    required: true,
-    default:false,
-  },
-  maintened:{
-    type: Boolean,
-    required: true,
-    default: false,
-  }
-}));
-exports.product = product;
-
+//   make: {
+//     type: String,
+//     required: true,
+//   },

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DataTablesModule } from 'angular-datatables';
+// import { DataTablesModule } from 'angular-datatables';
 import { ServicesComponent } from './services.component';
 import { ServicesRoutingModule } from './services-routing.module';
 
@@ -11,7 +11,7 @@ import { ServicesRoutingModule } from './services-routing.module';
     CommonModule,
     ServicesRoutingModule,
     FormsModule,
-    DataTablesModule
+    // DataTablesModule
   ]
 })
 export class SpecialitiesModule { }

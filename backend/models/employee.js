@@ -35,7 +35,7 @@ function validateEmployee(emp) {
   var Schema =joi.object( {
     name: joi.string().min(5).max(45).required(),
     image: joi.string(),
-    email: joi.string().min(15).max(225).required(),
+    email: joi.string().min(6).max(225).required(),
     password: joi.string().min(8).max(255).required(),
   
   });

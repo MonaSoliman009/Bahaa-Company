@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataTablesModule } from 'angular-datatables';
+// import { DataTablesModule } from 'angular-datatables';
 import { BookingListRoutingModule } from './booking-list-routing.module';
 import { BookingListComponent } from './booking-list.component';
 
@@ -10,7 +10,7 @@ import { BookingListComponent } from './booking-list.component';
   imports: [
     CommonModule,
     BookingListRoutingModule,
-    DataTablesModule
+    
   ]
 })
 export class BookingListModule { }

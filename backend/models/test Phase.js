@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+var joi = require("joi");
+
 const TestPhase = new Schema({
   power: {
     type: Boolean,
@@ -85,7 +87,7 @@ const TestPhase = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     enum: ["accountant", "owner", "employee"],
   },
-  ProductSerial: { type: Number, required: true },
+  ProductSerial: { type: String, required: true },
 });
 TestPhase.virtual("Product", {
   ref: "product", // The model to use
@@ -97,4 +99,98 @@ TestPhase.virtual("Product", {
  
 });
 TestPhase.set("toJSON", { virtuals: true });
-module.exports = mongoose.model("TestPhase", TestPhase);
+function validateTest(x) {
+  var Schema =joi.object( {
+    power: joi.boolean().required(),
+    condition: joi.object({
+      aPart:joi.object( {
+        avaliable:joi.boolean().required(),
+        hasScratch: joi.boolean(),
+        broken: joi.boolean(),
+        dent: joi.boolean(),
+      }),
+      bPart:joi.object( {
+        avaliable:joi.boolean().required(),
+        hasScratch: joi.boolean(),
+        broken: joi.boolean(),
+        dent: joi.boolean(),
+      }),
+      cPart: joi.object( {
+        avaliable:joi.boolean().required(),
+        hasScratch: joi.boolean(),
+        broken: joi.boolean(),
+        dent: joi.boolean(),
+      }),
+      dPart:joi.object( {
+        avaliable:joi.boolean().required(),
+        hasScratch: joi.boolean(),
+        broken: joi.boolean(),
+        dent: joi.boolean(),
+      }),
+      location:joi.array().items({
+        
+          partName:joi.string(),
+          PartProblem: joi.string()
+        
+
+      }),
+
+
+    }),
+    configuration: joi.object({
+
+      cpu: joi.string().required(),
+      generation:joi.number().required(),
+      ram: joi.number().required(),
+      hdd:joi.string().required()
+
+
+    }),
+    battery: joi.object({
+      avaliable: joi.boolean().required(),
+      batteryHealth:""}),
+      lcd:joi.object({
+
+        avaliable: joi.boolean().required(),
+        status: "",
+        hasScratch: joi.boolean(),
+        hasSpots: joi.boolean(),
+        hasLine: joi.boolean(),
+        hasPixel:joi.boolean(),
+        broken: joi.boolean()
+
+
+      }),
+
+      bazel: joi.object({
+        avaliable: joi.boolean().required(),
+        broken: joi.boolean(),
+        location: "",
+      }),
+      keyboard:joi.object( {
+        avaliable: joi.boolean().required(),
+        working: joi.boolean(),
+      }),
+      dvd: joi.object( {
+        avaliable: joi.boolean().required(),
+        working: joi.boolean(),
+      }),
+      speakers:joi.object(  {
+        avaliable:  joi.boolean().required(),
+        working:  joi.boolean(),
+      }),
+      camera:joi.object(  {
+        avaliable: joi.boolean().required(),
+        working: joi.boolean(),
+      }),
+      hasVGAorIntel:  joi.boolean().required(),
+
+
+      ProductSerial: joi.string()
+  
+  });
+  return Schema.validate(x)
+}
+
+exports.validateTest = validateTest;
+exports.TestPhase = mongoose.model("TestPhase", TestPhase);

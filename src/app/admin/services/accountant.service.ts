@@ -11,6 +11,11 @@ export class AccountantService {
       'http://localhost:3000/owner/list/accountants/unapproved'
     );
   }
+  getAllAccountant() {
+    return this.http.get(
+      'http://localhost:3000/owner/list/accountants/all'
+    );
+  }
   ApproveAccountant(id) {
     return this.http.post(
       `http://localhost:3000/owner/approve/accountant/${id}`,
@@ -22,6 +27,7 @@ export class AccountantService {
       'http://localhost:3000/owner/list/accountants/approved'
     );
   }
+
   deleteAccountant(id) {
     http: return this.http.delete(
       `http://localhost:3000/owner/accountant/delete/${id}`

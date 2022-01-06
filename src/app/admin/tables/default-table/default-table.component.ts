@@ -7,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DefaultTableComponent implements OnInit {
 
-  dtOptions: DataTables.Settings = {};
+  // dtOptions: DataTables.Settings = {};
   constructor() { }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      // ... skipped ...
-      dom: 'lrtip'
-   }
+  //   this.dtOptions = {
+  //     // ... skipped ...
+  //     dom: 'lrtip'
+  //  }
   }
 
 }

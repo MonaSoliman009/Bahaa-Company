@@ -20,20 +20,20 @@ export class WalletComponent implements OnInit {
   }
 
   getWalletReport() {
-    this.commonService.getWalletReport().subscribe((res) => {
-      this.walletReport = res;
-      $(function () {
-        $('table').DataTable();
-      });
-    });
+    // this.commonService.getWalletReport().subscribe((res) => {
+    //   this.walletReport = res;
+    //   $(function () {
+    //     $('table').DataTable();
+    //   });
+    // });
   }
 
   getWalletHistory() {
-    this.commonService.getWalletHistory().subscribe((res) => {
-      this.walletHistory = res;
-      $(function () {
-        $('table').DataTable();
-      });
-    });
+    // this.commonService.getWalletHistory().subscribe((res) => {
+    //   this.walletHistory = res;
+    //   $(function () {
+    //     $('table').DataTable();
+    //   });
+    // });
   }
 }

@@ -22,9 +22,9 @@ export class EmployeeReportComponent implements OnInit {
       (res) => {
         console.log(res)
         this.users = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

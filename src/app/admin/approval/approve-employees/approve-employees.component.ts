@@ -23,9 +23,9 @@ export class ApproveEmployeesComponent implements OnInit {
 
       console.log(this.emplyee);
 
-      $(function () {
-        $('table').DataTable();
-      });
+      // $(function () {
+      //   $('table').DataTable();
+      // });
     });
   }
   

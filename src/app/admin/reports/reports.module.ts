@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DemoNgZorroAntdModule } from 'src/app/ng-zoro.module';
 
 import { ReportsRoutingModule } from './reports-routing.module';
 import { GoodProductsComponent } from './good-products/good-products.component';
@@ -31,7 +32,8 @@ import { MissingPiecesDetailsComponent } from './missing-pieces-details/missing-
   ],
   imports: [
     CommonModule,
-    ReportsRoutingModule
+    ReportsRoutingModule,
+    DemoNgZorroAntdModule
   ]
 })
 export class ReportsModule { }

@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+var joi = require("joi");
+
 const PurchaseInvoice =new Schema({
   
     purchaseNumber: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
     },
@@ -19,15 +21,27 @@ const PurchaseInvoice =new Schema({
       type: String,
       required: true,
     },
-    purchaseCart:  [
+    purchaseCartProducts:  [
         {
           productId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
             required: true,
-          },
-          quantity: { type: Number, required: true },
+         
+          }
+         
         }
-      ]
+      ],
+      purchaseCartAccessories:[{
+
+        productId: {
+          type: String,
+          required: true
+        },
+        quantity:{
+          type: Number,
+          required: true
+        }
+      }]
     
   })
 
@@ -49,5 +63,20 @@ PurchaseInvoice.virtual('accessories', {
   justOne: false,
 
 });
-PurchaseInvoice.set('toJSON', { virtuals: true })
-module.exports = mongoose.model('PurchaseInvoice', PurchaseInvoice)
+PurchaseInvoice.set('toJSON', { virtuals: true });
+
+function validatePurchaseInvoice(x) {
+  var Schema =joi.object( {
+    supplier:joi.string(),
+    status: joi.string(),
+    purchaseCartProducts: joi.array(),
+  purchaseCartAccessories: joi.array(),
+ 
+  purchaseDate:joi.date()
+  });
+  return Schema.validate(x)
+}
+
+
+exports.validatePurchaseInvoice = validatePurchaseInvoice;
+exports.PurchaseInvoice = mongoose.model('PurchaseInvoice', PurchaseInvoice)

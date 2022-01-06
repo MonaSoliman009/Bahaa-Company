@@ -16,15 +16,15 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-    this.commonService.getUsers().subscribe(
-      (res) => {
-        this.users = res;
-        $(function () {
-          $('table').DataTable();
-        });
-      },
-      (error) => (this.errorMessage = <any>error)
-    );
+    // this.commonService.getUsers().subscribe(
+    //   (res) => {
+    //     this.users = res;
+    //     $(function () {
+    //       $('table').DataTable();
+    //     });
+    //   },
+    //   (error) => (this.errorMessage = <any>error)
+    // );
   }
 
 }

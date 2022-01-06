@@ -62,6 +62,7 @@ router.post("/", parseUrlencoded, async (req, res) => {
           req.body.password,
           employeee.password
         );
+        console.log("emp")
         if (!validepassword) {
           return res.status(400).send("invalid email or password.");
         } else {

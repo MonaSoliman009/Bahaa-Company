@@ -20,9 +20,9 @@ export class CategoriesComponent implements OnInit {
     this.commonService.getCategories().subscribe(
       (res) => {
         this.categories = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

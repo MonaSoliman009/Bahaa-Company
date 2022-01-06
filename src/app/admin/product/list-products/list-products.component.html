@@ -1,0 +1,145 @@
+<nz-table #basicTable [nzData]="products">
+    <thead>
+      <tr>
+        <th>Serial Number</th>
+        <th>Model</th>
+        <th>Status</th>
+       <th>Edit</th>
+       <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.serialNumber}}</td>
+        <td>{{ data.model }}</td>
+        <td>{{ data.status }}</td>
+        <td>   <a
+          class="table-action-btn btn btn-sm bg-success-light"
+          data-toggle="modal" data-target="#exampleModal"
+          (click)="Serial=data.serialNumber;model=data.model;purchaseSerialNumber=data.purchaseSerialNumber "
+        >
+          Edit
+        </a></td>
+        <td>   <a
+          class="table-action-btn btn btn-sm bg-danger-light"
+         
+          (click)="deleteProduct(data.serialNumber)"
+
+        >
+          Delete
+        </a></td>
+   
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Model</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+       <!-- Row -->
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Custom Boostrap Validation -->
+    <div class="card">
+  
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm">
+            <form
+                class="needs-validation"
+                [formGroup]="form"
+                autocomplete="off"
+              >
+                <div class="form-row">
+                  <div class="col-md-8 mb-3">
+                    <label for="validationCustom01">Serial Number</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustom01"
+                      placeholder="Serial Number"
+                      [ngModel]="Serial"
+                      name="serialNumber"formControlName="serialNumber"
+                      [ngClass]="{
+                        'is-invalid': submitted && form.controls.serialNumber.errors
+                      }" 
+                    />
+                    
+                    <div
+                    class="alert alert-danger my-1 p-2 fadeInDown animated"
+                    *ngIf="submitted && form.controls.serialNumber.errors"
+                  >
+                   Field is required
+                  </div>
+                    <div class="valid-feedback">Looks good!</div>
+                  </div>
+                  <div class="col-md-8 mb-3">
+                    <label for="validationCustom01">Model</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustom01"
+                      placeholder="Model"
+                      name="model"
+                      [ngModel]="model"
+                      formControlName="model" 
+                      [ngClass]="{
+                        'is-invalid': submitted && form.controls.model.errors
+                      }" 
+                 
+                    />
+               
+                    <div
+                    class="alert alert-danger my-1 p-2 fadeInDown animated"
+                    *ngIf="submitted && form.controls.model.errors"
+                  >
+                   Field is required
+                  </div>
+                    <div class="valid-feedback">Looks good!</div>
+                  </div>
+                 
+                  <div class="col-md-8 mb-3">
+                    <label for="validationCustom01">Purchase Invoice Serial Number</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustom01"
+                      placeholder="Purchase Invoice Serial Number"
+                      name="purchaseSerialNumber"
+                      [ngModel]="purchaseSerialNumber"
+                      formControlName="purchaseSerialNumber" 
+                      [ngClass]="{
+                        'is-invalid': submitted && form.controls.purchaseSerialNumber.errors
+                      }" 
+                    />
+                    <div class="valid-feedback">Looks good!</div>
+                  </div>
+                 
+                </div>
+  
+             
+                <button class="btn btn-primary" type="submit" (click)="EditProduct()">Submit</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- /Validation Tooltips -->
+  </div>
+</div>
+<!-- /Row -->
+
+        </div>
+        <!-- <div class="modal-footer">
+        </div> -->
+      </div>
+    </div>
+  </div>

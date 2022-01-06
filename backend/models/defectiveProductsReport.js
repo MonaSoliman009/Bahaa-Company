@@ -7,7 +7,13 @@ var defectiveProductsReport =new Schema({
       type: Number,
       required: true,
       unique: true,
+    },
+    missingPiece:{
+      type: String,
+      required: true,
+
     }
+
 
  
   }

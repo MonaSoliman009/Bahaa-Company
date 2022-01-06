@@ -30,9 +30,9 @@ export class SoldProductsComponent implements OnInit {
       console.log(res);
       this.soldProducts=res;
       
-      $(function () {
-        $('table').DataTable();
-      });
+      // $(function () {
+      //   $('table').DataTable();
+      // });
     },(error)=>{
       // console.log(error)
       this.alertWithFail()

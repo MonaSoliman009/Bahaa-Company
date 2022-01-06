@@ -19,9 +19,9 @@ export class ServicesComponent implements OnInit {
     this.commonService.getServices().subscribe(
       (res) => {
         this.services = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

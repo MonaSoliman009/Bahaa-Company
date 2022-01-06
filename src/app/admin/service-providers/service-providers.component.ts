@@ -19,9 +19,9 @@ export class ServiceProvidersComponent implements OnInit {
     this.commonService.getSubscription().subscribe(
       (res) => {
         this.subscriptions = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

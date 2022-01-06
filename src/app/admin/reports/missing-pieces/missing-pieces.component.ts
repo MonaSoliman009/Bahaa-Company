@@ -26,9 +26,9 @@ missingPieces:any
       console.log(res);
       this.missingPieces=res;
       
-      $(function () {
-        $('table').DataTable();
-      });
+      // $(function () {
+      //   $('table').DataTable();
+      // });
     },(error)=>{
       // console.log(error)
       this.alertWithFail()

@@ -12,12 +12,13 @@
               <form
                 class="needs-validation"
                 [formGroup]="form"
+                autocomplete="off"
               >
                 <div class="form-row">
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom01">Serial Number</label>
                     <input
-                      type="number"
+                      type="text"
                       class="form-control"
                       id="validationCustom01"
                       placeholder="Serial Number"
@@ -26,6 +27,7 @@
                         'is-invalid': submitted && form.controls.serialNumber.errors
                       }" 
                     />
+                    
                     <div
                     class="alert alert-danger my-1 p-2 fadeInDown animated"
                     *ngIf="submitted && form.controls.serialNumber.errors"
@@ -41,11 +43,22 @@
                       class="form-control"
                       id="validationCustom01"
                       placeholder="Model"
-                      name="model"formControlName="model" 
+                      name="model"
+                      formControlName="model" 
                       [ngClass]="{
                         'is-invalid': submitted && form.controls.model.errors
                       }" 
+                      #Model
+                      [(ngModel)]="search"
+                      (keyup)="searchSerial(search)"
                     />
+                    <div *ngFor="let serial of allSerialNumbers | filter: search">
+                      <a
+                        (click)="selectedSerial(serial)"
+                        *ngIf="!displayRecomendedSerial"
+                        >{{ serial }}</a
+                      >
+                    </div>
                     <div
                     class="alert alert-danger my-1 p-2 fadeInDown animated"
                     *ngIf="submitted && form.controls.model.errors"
@@ -54,71 +67,23 @@
                   </div>
                     <div class="valid-feedback">Looks good!</div>
                   </div>
-                  <!-- <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Quantity</label>
+                 
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Purchase Invoice Serial Number</label>
                     <input
                       type="text"
                       class="form-control"
                       id="validationCustom01"
-                      placeholder="Quantity"
-                      name="quantity"formControlName="quantity" 
-                      [ngClass]="{
-                        'is-invalid': submitted && form.controls.quantity.errors
-                      }" 
-                    />
-                    <div
-                    class="alert alert-danger my-1 p-2 fadeInDown animated"
-                    *ngIf="submitted && form.controls.quantity.errors"
-                  >
-                   Field is required
-                  </div>
-                    <div class="valid-feedback">Looks good!</div>
-                  </div> -->
-                  <!-- <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Price</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="validationCustom01"
-                      placeholder="price"
-                      name="price"formControlName="price" 
-                      [ngClass]="{
-                        'is-invalid': submitted && form.controls.price.errors
-                      }" 
-                    />
-                    <div
-                    class="alert alert-danger my-1 p-2 fadeInDown animated"
-                    *ngIf="submitted && form.controls.price.errors"
-                  >
-                   Field is required
-                  </div>
-                    <div class="valid-feedback">Looks good!</div>
-                  </div> -->
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Purchase Invoice Serial Number</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="validationCustom01"
                       placeholder="Purchase Invoice Serial Number"
-                      name="purchaseSerialNumber"formControlName="purchaseSerialNumber" 
+                      name="purchaseSerialNumber"
+                      formControlName="purchaseSerialNumber" 
                       [ngClass]="{
                         'is-invalid': submitted && form.controls.purchaseSerialNumber.errors
                       }" 
                     />
                     <div class="valid-feedback">Looks good!</div>
                   </div>
-                  <!-- <div class="col-md-4 mb-3">
-                    <label for="validationCustom02">Seller Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="validationCustom02"
-                      placeholder="Seller Name"
-                      required
-                    />
-                    <div class="valid-feedback">Looks good!</div>
-                  </div> -->
+                 
                 </div>
   
              
@@ -129,8 +94,5 @@
         </div>
       </div>
   
-      <!-- /Validation Tooltips -->
     </div>
   </div>
-  <!-- /Row -->
-  

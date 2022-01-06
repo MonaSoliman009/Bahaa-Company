@@ -15,16 +15,16 @@ export class UnapproveEmployeeComponent implements OnInit {
   constructor(public ser: EmployeeService) {}
 
   ngOnInit(): void {
-    this.ser.getApproveEmployee().subscribe((res: Employee) => {
+    this.ser.getAllEmployee().subscribe((res: Employee) => {
       console.log(res);
 
       this.emplyee = res;
 
       console.log(this.emplyee);
 
-      $(function () {
-        $('table').DataTable();
-      });
+      // $(function () {
+      //   $('table').DataTable();
+      // });
     });
   }
   alertWithSuccess() {

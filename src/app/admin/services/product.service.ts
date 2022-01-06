@@ -28,4 +28,15 @@ export class ProductService {
     return this.http.get('http://localhost:3000/product/list');
 
   }
+  updateProduct(serialNumber,product) {
+
+    return this.http.put(`http://localhost:3000/product/update/${serialNumber}`,product);
+
+
+  }
+  deleteProduct(serialNumber){
+    return this.http.delete(`http://localhost:3000/product/delete/${serialNumber}`);
+
+
+  }
 }

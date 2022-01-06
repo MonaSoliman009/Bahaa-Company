@@ -1,0 +1,77 @@
+<!-- Row -->
+<div class="row">
+    <div class="col-sm-12">
+      <!-- Custom Boostrap Validation -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Add New Model Form</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm">
+              <form
+                class="needs-validation"
+                [formGroup]="form"
+                autocomplete="off"
+              >
+                <div class="form-row">
+               
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Model</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustom01"
+                      placeholder="please add the model"
+                      name="model"formControlName="model" 
+                      [ngClass]="{
+                        'is-invalid': submitted && form.controls.model.errors
+                      }" 
+                    />
+                    <div
+                    class="alert alert-danger my-1 p-2 fadeInDown animated"
+                    *ngIf="submitted && form.controls.model.errors"
+                  >
+                   Field is required
+                  </div>
+                    <div class="valid-feedback">Looks good!</div>
+                  </div>
+                 
+            
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Price</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="validationCustom01"
+                      placeholder="please add the price"
+                      name="price"formControlName="price" 
+                      [ngClass]="{
+                        'is-invalid': submitted && form.controls.price.errors
+                      }" 
+                    />
+                    <div
+                    class="alert alert-danger my-1 p-2 fadeInDown animated"
+                    *ngIf="submitted && form.controls.price.errors"
+                  >
+                   Field is required
+                  </div>
+                    <div class="valid-feedback">Looks good!</div>
+                  </div>
+                 
+                
+                </div>
+  
+             
+                <button class="btn btn-primary" type="submit" (click)="saveModel()">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- /Validation Tooltips -->
+    </div>
+  </div>
+  <!-- /Row -->
+  

@@ -19,9 +19,9 @@ export class RatingsComponent implements OnInit {
     this.commonService.getCompletedReports().subscribe(
       (res) => {
         this.reports = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

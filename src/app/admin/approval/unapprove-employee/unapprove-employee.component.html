@@ -1,32 +1,47 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8 m-auto">
+    <nav class="user-tabs">
+      <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+        <li>
+          <a class="nav-link active" href="#all" data-toggle="tab">Delete Employees</a>
+        </li>
+       
+      </ul>
+    </nav>
     <div class="card">
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table custom-table mb-0 datatable">
+          <nz-table #basicTable [nzData]="emplyee">
             <thead>
               <tr>
-                <th>ID</th>
+             
                 <th>User Name</th>
-                <th class="text-right">Action</th>
+                <th>Email</th>
+                <th>Approved</th>
+                <th class="text-right">Delete</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let rating of emplyee">
-                <td>{{ rating._id }}</td>
-                <td>{{ rating.name }}</td>
+              <tr *ngFor="let data of basicTable.data">
+                <td>{{ data.name }}</td>
+                <td>{{ data.email }}</td>
+               
+                <td *ngIf="data.approved">Yes</td>
+                <td *ngIf="!data.approved">No</td>
 
                 <td class="text-right">
                   <a
                     class="table-action-btn btn btn-sm bg-success-light"
-                    (click)="delete(rating._id)"
+                    (click)="delete(data._id)"
                   >
                     Delete
                   </a>
                 </td>
+              
+           
               </tr>
             </tbody>
-          </table>
+          </nz-table>
         </div>
       </div>
     </div>

@@ -1,115 +1,161 @@
 var express = require("express");
 var router = express.Router();
 const bodyParser = require("body-parser");
-var {modelPrice}=require("../models/modelPrice")
+var { modelPrice } = require("../models/modelPrice");
 var parseUrlencoded = bodyParser.urlencoded({
   extended: true,
 });
-var  PurchaseInvoice  = require("../models/purchase invoice");
+var {
+  validatePurchaseInvoice,
+  PurchaseInvoice,
+} = require("../models/purchase invoice");
 var { product } = require("../models/product");
-var {accessories}= require("../models/accessories");
-router.post("/add/:id", parseUrlencoded, async (req, res)=> {
+var { validateAccessories, accessories } = require("../models/accessories");
+
+router.post("/add/:id", parseUrlencoded, async (req, res) => {
+  var { error } = validatePurchaseInvoice(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
   var arr = [];
-  var prices=[]
+  var arr2 = [];
+  var prices = [];
   var d = new Date();
-  for(var i=0;i<req.body.products.length;i++){
- var _modelPriceDetails=  await modelPrice.findOne({model: req.body.products[i].model});
-       if(_modelPriceDetails){
-         prices.push(_modelPriceDetails.price)
-       }else{
-        prices.push(null)
-       }
+  for (var i = 0; i < req.body.purchaseCartProducts.length; i++) {
+    var _modelPriceDetails = await modelPrice.findOne({
+      model: req.body.purchaseCartProducts[i].model,
+    });
+    if (_modelPriceDetails) {
+      prices.push(_modelPriceDetails.price);
+    } else {
+      return res.status(400).send("one of the models is not found please try again");
+    }
   }
   console.log(prices);
-if(req.body.products){
+  if (req.body.purchaseCartProducts.length != 0) {
+    for (var i = 0; i < req.body.purchaseCartProducts.length; i++) {
+      // let pro = await product.findOne({
+      //   serialNumber: productt.serialNumber
+      // });
+      // console.log(pro)
 
-  for (var i = 0; i < req.body.products.length; i++) {
-    let productt = new product({
-      serialNumber: req.body.products[i].serialNumber,
-      model: req.body.products[i].model,
-      addedAt: d.toString(),
-      price: prices[i],
-      purchaseSerialNumber: req.body.purchaseNumber,
-      addedBy: req.params.id,
-    });
-  await  productt.save();
-    let pro = await product.findOne({
-      serialNumber: productt.serialNumber
-    });
-    console.log(pro)
+      let productt = await product.findOne({
+        serialNumber: req.body.purchaseCartProducts[i].serialNumber
+      });
+      if(productt){
+        
 
-    arr.push({ productId: pro.id });
+      }else{
+        let productt = new product({
+          serialNumber: req.body.purchaseCartProducts[i].serialNumber,
+          model: req.body.purchaseCartProducts[i].model,
+          addedAt: d.toString(),
+          price: prices[i],
+          purchaseSerialNumber: PurchaseInvoicee.purchaseNumber,
+          addedBy: req.params.id,
+        });
+        await productt.save();
+      }
+      arr.push({ productId: req.body.purchaseCartProducts[i].serialNumber });
+
+   
+    }
   }
+  ///////////////////
 
+  ////////////////
+  if (req.body.purchaseCartAccessories.length != 0) {
+    for (var i = 0; i < req.body.purchaseCartAccessories.length; i++) {
+      var { error } = validateAccessories(req.body.purchaseCartAccessories[i]);
+      if (error) {
+        return res.status(400).send(error.details[0].message);
+      }
 
-
-}
-
-if(req.body.accessories.length!=0){
-
-  for(var i=0;i< req.body.accessories.length;i++){
-    let accessoriess = new accessories({
-      type: req.body.accessories[i].type,
-      price: req.body.accessories[i].price,
-      quantity: req.body.accessories[i].quantity,
     
-    });
-    await  accessoriess.save();
-    let acc = await accessories.findOne({
-      type: accessoriess.type,
-      price:accessoriess.price,
-      quantity:accessoriess.quantity
-    });
-    console.log(acc)
-    arr.push({ productId: acc.id, quantity: req.body.accessories[i].quantity });
-
+      let accessoriess = new accessories({
+        type: req.body.purchaseCartAccessories[i].type,
+        price: req.body.purchaseCartAccessories[i].price,
+        quantity: req.body.purchaseCartAccessories[i].quantity,
+      });
+      await accessoriess.save();
+      let acc = await accessories.findOne({
+        type: accessoriess.type,
+        price: accessoriess.price,
+        quantity: accessoriess.quantity,
+      });
+      console.log(acc);
+      arr2.push({
+        productId: acc.id,
+        quantity: acc.quantity
+      });
+    }
   }
+  // if (req.body.purchaseCartProducts.length != 0) {
+  //   for (var i = 0; i < req.body.purchaseCartProducts.length; i++) {
 
-}
-var invoice_status="Pending";
-if(req.body.supplier!=null&&!prices.includes(null)){
-  invoice_status="Completed"
-}
-  console.log(arr)
+  //   }
+  // }
+  var invoice_status = req.body.supplier ? "Completed" : "Pending";
+
+  console.log(arr);
+  var latest=await  PurchaseInvoice.findOne().sort({ purchaseDate: -1 }).limit(1);
+  var autoIncreamentNum;
+  if(latest){
+    autoIncreamentNum="00"+(parseInt(latest.purchaseNumber)+1).toString()
+  }else{
+    autoIncreamentNum="001"
+  }
+  console.log(autoIncreamentNum)
+
   let PurchaseInvoicee = new PurchaseInvoice({
-    purchaseNumber: req.body.purchaseNumber,
-    purchaseDate:d.toString(),
-    supplier: req.body.supplier?req.body.supplier:null,
-    status:invoice_status,
-    purchaseCart: arr,
+    purchaseNumber: autoIncreamentNum,
+    purchaseDate: d.toString(),
+    supplier: req.body.supplier ? req.body.supplier : null,
+    status: invoice_status,
+    purchaseCartProducts: arr,
+    purchaseCartAccessories: arr2,
   });
   PurchaseInvoicee.save();
+
+
+
   res.json(PurchaseInvoicee);
+
 });
 
 router.get("/list", parseUrlencoded, async (req, res) => {
   console.log("hi");
-  let result = await PurchaseInvoice.find({status:"Completed"}).populate("products").populate("accessories");
+  let result = await PurchaseInvoice.find({ status: "Completed" })
+    .populate("products")
+    .populate("accessories");
   res.json(result);
 });
 router.get("/list/pending", parseUrlencoded, async (req, res) => {
   console.log("hi");
-  let result = await PurchaseInvoice.find({status:"Pending"}).populate("products").populate("accessories");
+  let result = await PurchaseInvoice.find({ status: "Pending" })
+    .populate("products")
+    .populate("accessories");
   res.json(result);
 });
-router.get("/list/:id",async(req,res)=>{
-  PurchaseInvoice.findOne({_id:req.params.id}).populate({path: "purchaseCart.productId",
-  model: "product" || "accessories"}).exec(function(error, bands) {
-    if(error){
-      console.log(error)
-    }
-    res.json(bands);
-
-  });;
+router.get("/list/:id", async (req, res) => {
+  let result = await PurchaseInvoice.findOne({ _id: req.params.id })
+ 
+    ;
+    res.json(result);
 });
 
-router.post("/complete/pending/:id",async(req,res)=>{
+router.post("/complete/pending/:id", async (req, res) => {
   await PurchaseInvoice.updateOne(
     { _id: req.params.id },
     {
       $set: { status: "Completed", supplier: req.body.supplier },
     }
-  );
-
-})
+    ,function (error,data){
+      if(error){
+        return res.status(400).send("Try Again Please");
+      }
+      res.json("Updated Successfully");
+    }
+  ).clone().catch(function(err){ console.log(err)});
+});
 module.exports = router;

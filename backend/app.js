@@ -11,7 +11,7 @@ const user = require("./routes/user");
 
 var { product } = require("./models/product");
 var notification = require("./models/notification");
-var TestPhase = require("./models/test Phase");
+var {TestPhase,validateTest }= require("./models/test Phase");
 var employeeReport = require("./models/employeeReport");
 var missingPiecesSchema = require("./models/missing pieces report");
 var missingPiecesReport = require("./routes/missingPiecesReport");
@@ -168,6 +168,12 @@ io.on("connection", (socket) => {
   socket.on(
     "submitTest",
     async (finished, productserialNumber, testData, testerId) => {
+      var { error } = validateTest(testData);
+      if (error) {
+        
+        io.emit("submitTest", { message:error.details[0].message })
+        return;
+      }
       let productt = await product.findOne({
         serialNumber: productserialNumber,
       });

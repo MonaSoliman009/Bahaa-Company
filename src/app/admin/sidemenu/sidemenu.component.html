@@ -13,70 +13,7 @@
             ><i class="fas fa-columns"></i> <span>Dashboard</span></a
           >
         </li>
-        <!-- <li [class.active]="page === 'categories' || page === 'add-category' || page === 'edit-category'" >
-					<a [routerLink]="'/admin/categories'"><i class="fas fa-layer-group"></i> <span>Categories</span></a>
-				</li>
-				<li [class.active]="page === 'sub-categories' || page === 'add-sub-category' || page === 'edit-sub-category'">
-					<a [routerLink]="'/admin/sub-categories'"><i class="fab fa-buffer"></i> <span>Sub Categories</span></a>
-				</li>
-				<li [className]="page === 'services'? 'active' : ''">
-					<a [routerLink]="'/admin/services'"><i class="fas fa-bullhorn"></i> <span> Services</span></a>
-				</li>
-				<li [className]="page === 'booking-list'? 'active' : ''">
-					<a [routerLink]="'/admin/booking-list'"><i class="far fa-calendar-check"></i> <span> Booking List</span></a>
-				</li>
-				<li [className]="page === 'payments'? 'active' : ''">
-					<a [routerLink]="'/admin/payments'"><i class="fas fa-hashtag"></i> <span>Payments</span></a>
-				</li>
-
-				<li [class.active]="page === 'rating-type' || page === 'add-rating-type' || page === 'edit-rating-type'">
-					<a [routerLink]="'/admin/rating-type'"><i class="fas fa-star-half-alt"></i> <span>Rating Type</span></a>
-				</li>
-				<li [className]="page === 'ratings'? 'active' : ''">
-					<a [routerLink]="'/admin/ratings'"><i class="fas fa-star"></i> <span>Ratings</span></a>
-				</li>
-				<li [class.active]="page === 'subscriptions' || page === 'add-subscription' || page === 'edit-subscription'">
-					<a [routerLink]="'/admin/subscriptions'"><i class="far fa-calendar-alt"></i> <span>Subscriptions</span></a>
-				</li>
-				<li [className]="page === 'wallet'? 'active' : ''">
-					<a [routerLink]="'/admin/wallet'"><i class="fas fa-wallet"></i> <span> Wallet</span></a>
-				</li>
-				<li [className]="page === 'service-providers'? 'active' : ''">
-					<a [routerLink]="'/admin/service-providers'"><i class="fas fa-user-tie"></i> <span> Service Providers</span></a>
-				</li>
-				<li [className]="page === 'users'? 'active' : ''">
-					<a [routerLink]="'/admin/users'"><i class="fas fa-user"></i> <span>Users</span></a>
-				</li>
-				<li [className]="page === 'settings'? 'active' : ''">
-					<a [routerLink]="'/admin/settings'"><i class="fas fa-cog"></i> <span> Settings</span></a>
-				</li>
-      	<li class="submenu">
-          <a href="#"><i class="fas fa-border-all"></i> <span> Application</span> <span class="menu-arrow"></span></a>
-          <ul style="display: none;">
-            <li [className]="page === 'chat'? 'active' : ''"><a [routerLink]="'/admin/chat'">Chat</a></li>
-            <li [className]="page === 'calender'? 'active' : ''"><a [routerLink]="'/admin/calender'">Calendar</a></li>
-            <li [className]="page === 'email'? 'active' : ''"><a [routerLink]="'/admin/email'">Email</a></li>
-          </ul>
-        </li> -->
-        <!-- <li [className]="page === 'admin-profile'? 'active' : ''">
-          <a [routerLink]="'/admin/admin-profile'"><i class="fas fa-user-plus"></i> <span>Profile</span></a>
-        </li> -->
-        <!-- <li class="submenu">
-          <a href="#"><i class="fas fa-user-lock"></i> <span> Authentication</span> <span class="menu-arrow"></span></a>
-          <ul style="display: none;">
-            <li [className]="page === 'login'? 'active' : ''"><a [routerLink]="'/admin/login'">Login</a></li>
-            <li [className]="page === 'register'? 'active' : ''"><a [routerLink]="'/admin/register'">Register</a></li>
-            <li [className]="page === 'forget-password'? 'active' : ''"><a [routerLink]="'/admin/forget-password'">Forget Password</a></li>
-            <li [className]="page === 'lock-screen'? 'active' : ''"><a [routerLink]="'/admin/lock-screen'">Lock Screen</a></li>
-          </ul>
-        </li> -->
-        <!-- <li class="submenu">
-          <a href="#"><i class="fas fa-exclamation-circle"></i> <span> Error pages</span> <span class="menu-arrow"></span></a>
-          <ul style="display: none;">
-            <li [className]="page === 'error404'? 'active' : ''"><a [routerLink]="'/admin/pages/error404'">Error 404</a></li>
-            <li [className]="page === 'error500'? 'active' : ''"><a [routerLink]="'/admin/pages/error500'">Error 500</a></li>
-          </ul>
-        </li> -->
+       
         <li class="menu-title">
           <span>Product</span>
         </li>
@@ -88,10 +25,15 @@
           ></a>
           <ul style="display: none">
             <li [className]="page === 'addProduct' ? 'active' : ''">
-              <a [routerLink]="'/admin/product/addProduct'">Add New One</a>
+              <a [routerLink]="'/admin/product/add'">Add New One</a>
+            </li>
+            <li *ngIf="owner||accountant" [className]="page === 'searchProduct' ? 'active' : ''">
+              <a [routerLink]="'/admin/product/all-product'"
+                >All Products</a
+              >
             </li>
             <li [className]="page === 'searchProduct' ? 'active' : ''">
-              <a [routerLink]="'/admin/product/searchProduct'"
+              <a [routerLink]="'/admin/product/search'"
                 >Search For Product</a
               >
             </li>
@@ -174,7 +116,7 @@
                     <span>View all invoices</span></a
                   >
                 </li>
-                <li>
+                <li  *ngIf="owner||accountant">
                   <a [routerLink]="'/admin/Invoices/pending-sale-invoice'">
                     <span>Pending Prices</span></a
                   >
@@ -197,7 +139,7 @@
                     <span>View all invoices</span></a
                   >
                 </li>
-                <li>
+                <li *ngIf="owner||accountant">
                   <a [routerLink]="'/admin/Invoices/pending-purchase-invoice'">
                     <span>Pending Invoices</span></a
                   >
@@ -284,7 +226,7 @@
             </li>
           </ul>
         </li>
-        <li class="menu-title" *ngIf="owner">
+        <li class="menu-title" *ngIf="owner || accountant">
           <span>Models</span>
         </li>
         <li class="submenu" *ngIf="owner || accountant">
@@ -294,7 +236,10 @@
           ></a>
           <ul style="display: none">
             <li>
-              <a [routerLink]="'/admin/Models'">View Models Details</a>
+              <a [routerLink]="'/admin/Models/add-new-model'">Add New Model</a>
+            </li>
+            <li>
+              <a [routerLink]="'/admin/Models/details'">View Models Details</a>
             </li>
           </ul>
         </li>

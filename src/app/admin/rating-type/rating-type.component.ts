@@ -20,9 +20,9 @@ export class RatingTypeComponent implements OnInit {
     this.commonService.getRatings().subscribe(
       (res) => {
         this.ratings = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

@@ -16,7 +16,7 @@ export class BookingListComponent implements OnInit {
   rejectedReports: any = [];
   canceledReports: any = [];
   errorMessage: string;
-  dtOptions: DataTables.Settings = {};
+  // dtOptions: DataTables.Settings = {};
 
   constructor(
     public commonService: CommonServiceService,
@@ -30,20 +30,20 @@ export class BookingListComponent implements OnInit {
     this.getCompletedReports();
     this.getRejectedReports();
     this.getCanceledReports();
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      processing: true
-    };
+    // this.dtOptions = {
+    //   pagingType: 'full_numbers',
+    //   pageLength: 5,
+    //   processing: true
+    // };
   }
 
   getAllReports() {
     this.commonService.getAllReports().subscribe(
       (res) => {
         this.allReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );
@@ -53,9 +53,9 @@ export class BookingListComponent implements OnInit {
     this.commonService.getPendingReports().subscribe(
       (res) => {
         this.pendingReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );
@@ -65,9 +65,9 @@ export class BookingListComponent implements OnInit {
     this.commonService.getInprogressReports().subscribe(
       (res) => {
         this.inprogressReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );
@@ -77,9 +77,9 @@ export class BookingListComponent implements OnInit {
     this.commonService.getCompletedReports().subscribe(
       (res) => {
         this.completedReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );
@@ -89,9 +89,9 @@ export class BookingListComponent implements OnInit {
     this.commonService.getRejectedReports().subscribe(
       (res) => {
         this.rejectedReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );
@@ -101,9 +101,9 @@ export class BookingListComponent implements OnInit {
     this.commonService.getCanceledReports().subscribe(
       (res) => {
         this.canceledReports = res;
-        $(function () {
-          $('table').DataTable();
-        });
+        // $(function () {
+        //   $('table').DataTable();
+        // });
       },
       (error) => (this.errorMessage = <any>error)
     );

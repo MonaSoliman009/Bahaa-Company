@@ -13,33 +13,7 @@ var employeeReport = require("../models/employeeReport");
 var missingPiecesSchema = require("../models/missing pieces report");
 var saleInvoice = require("../models/saleInvoice");
 
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, path.join(__dirname, "../upload/"));
-//     },
-//     filename: function (req, file, cb) {
-//       cb(null, file.originalname);
-//     },
-//   });
-//   const fileFilter = (req, file, cb) => {
-//     // reject a file
-//     if (
-//       file.mimetype === "image/jpeg" ||
-//       file.mimetype === "image/png" ||
-//       file.mimetype === "image/jpg"
-//     ) {
-//       cb(null, true);
-//     } else {
-//       cb(null, false);
-//     }
-//   };
-//   var upload = multer({
-//     storage: storage,
-//     limits: {
-//       fileSize: 1024 * 1024 * 5,
-//     },
-//     fileFilter: fileFilter,
-//   });
+
   var parseUrlencoded = bodyParser.urlencoded({
     extended: true,
   });
@@ -178,3 +152,31 @@ var saleInvoice = require("../models/saleInvoice");
     res.json("done");
   });
   module.exports = router;
+
+  // const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, path.join(__dirname, "../upload/"));
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname);
+//     },
+//   });
+//   const fileFilter = (req, file, cb) => {
+//     // reject a file
+//     if (
+//       file.mimetype === "image/jpeg" ||
+//       file.mimetype === "image/png" ||
+//       file.mimetype === "image/jpg"
+//     ) {
+//       cb(null, true);
+//     } else {
+//       cb(null, false);
+//     }
+//   };
+//   var upload = multer({
+//     storage: storage,
+//     limits: {
+//       fileSize: 1024 * 1024 * 5,
+//     },
+//     fileFilter: fileFilter,
+//   });

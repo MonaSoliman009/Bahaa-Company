@@ -5,6 +5,7 @@
         <h4 class="card-title">Test Phase Form</h4>
       </div>
       <div class="card-body">
+       
         <div class="form-group">
           <label>Product Serial Number:</label>
           <input
@@ -14,7 +15,6 @@
             [(ngModel)]="search"
             (keyup)="searchSerial(search)"
           />
-          <!-- {{allSerialNumbers | filterSerialnumber:search}} -->
           <div *ngFor="let serial of allSerialNumbers | filter: search">
             <a
               (click)="selectedSerial(serial)"
@@ -23,6 +23,7 @@
             >
           </div>
         </div>
+        <div *ngIf="!started" >
         <div class="text-right">
           <button
             type="button"
@@ -32,8 +33,9 @@
             Start Test
           </button>
         </div>
-        <ng-container *ngIf="started">
-          <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
+      </div>
+        <ng-container>
+          <form [formGroup]="testForm" >
             <div class="form-group">
               <label class="d-block">Power:</label>
               <div class="form-check form-check-inline">
@@ -44,6 +46,9 @@
                   id="power_yes"
                   formControlName="power"
                   [value]="true"
+                  [ngClass]="{
+                    'is-invalid': submitted && testForm.controls.power.errors
+                  }" 
                 />
                 <label class="form-check-label" for="power_yes">Working</label>
               </div>
@@ -55,15 +60,24 @@
                   id="power_no"
                   formControlName="power"
                   [value]="false"
+                  [ngClass]="{
+                    'is-invalid': submitted && testForm.controls.power.errors
+                  }" 
                 />
                 <label class="form-check-label" for="power_no"
                   >Not working</label
                 >
               </div>
+              <div
+              class="alert alert-danger my-1 p-2 fadeInDown animated"
+              *ngIf="submitted && testForm.controls.power.errors"
+            >
+             Field is required
+            </div>
             </div>
             <!--  -->
-            <ng-container formGroupName="condition">
-              <ng-container formGroupName="aPart">
+            <ng-container  formGroupName="condition" >
+              <ng-container  formGroupName="aPart"  >
                 <div class="card-header col-md-4 mb-3">
                   <h5 class="card-title">A Part</h5>
                 </div>
@@ -73,13 +87,14 @@
                     <input
                       class="form-check-input"
                       type="radio"
-                      formControlName="avaliable_aPart"
+                      formControlName="avaliable"
                       name="avaliable_aPart"
                       id="avaliable_yes_apart"
                       [value]="true"
-                      (click)="
-                        setRadio('avaliable_yes_apart'); partName('aPart')
-                      "
+                      [(ngModel)]="aPartType"
+                      [ngClass]="{
+                        'is-invalid': submitted && testForm.controls.condition.controls.aPart.controls.avaliable.errors
+                      }" 
                     />
                     <label class="form-check-label" for="avaliable_yes_apart"
                       >Yes</label
@@ -93,14 +108,23 @@
                       name="avaliable_aPart"
                       id="avaliable_no_apart"
                       [value]="false"
-                      (click)="setRadio('avaliable_no_apart')"
+                      [(ngModel)]="aPartType"
+                      [ngClass]="{
+                        'is-invalid': submitted && testForm.controls.condition.controls.aPart.controls.avaliable.errors
+                      }" 
                     />
                     <label class="form-check-label" for="avaliable_no_apart"
                       >No</label
                     >
                   </div>
+                  <div
+                  class="alert alert-danger my-1 p-2 fadeInDown animated"
+                  *ngIf="submitted && testForm.controls.condition.controls.aPart.controls.avaliable.errors"
+                >
+                 Field is required
                 </div>
-                <ng-container *ngIf="isSelected('avaliable_yes_apart')">
+                </div>
+                <ng-container *ngIf="aPartType==true">
                   <div class="form-group">
                     <label class="d-block">Has Scratch:</label>
 
@@ -199,6 +223,7 @@
                       name="partProbleminp"
                       class="form-control"
                       #partProbleminp
+                    
                     />
                   </div>
                 </ng-container>
@@ -206,7 +231,7 @@
               <div class="card-header col-md-4 mb-3">
                 <h5 class="card-title">B Part</h5>
               </div>
-              <ng-container formGroupName="cPart">
+              <ng-container formGroupName="bPart">
                 <div class="form-group">
                   <label class="d-block">Available:</label>
                   <div class="form-check form-check-inline">
@@ -217,7 +242,10 @@
                       name="avaliable_bpart"
                       id="avaliable_bpart_yes"
                       [value]="true"
-                      (click)="setRadio('avaliable_bpart_yes')"
+                      [(ngModel)]="bPartType"
+                      [ngClass]="{
+                        'is-invalid': submitted && testForm.controls.condition.controls.bPart.controls.avaliable.errors
+                      }" 
                     />
                     <label class="form-check-label" for="avaliable_bpart_yes"
                       >Yes</label
@@ -231,14 +259,23 @@
                       name="avaliable_bpart"
                       id="avaliable_bpart_no"
                       [value]="false"
-                      (click)="setRadio('avaliable_bpart_no')"
+                      [(ngModel)]="bPartType"
+                      [ngClass]="{
+                        'is-invalid': submitted && testForm.controls.condition.controls.bPart.controls.avaliable.errors
+                      }" 
                     />
                     <label class="form-check-label" for="avaliable_bpart_no"
                       >No</label
                     >
                   </div>
+                  <div
+                  class="alert alert-danger my-1 p-2 fadeInDown animated"
+                  *ngIf="submitted && testForm.controls.condition.controls.bPart.controls.avaliable.errors"
+                >
+                 Field is required
                 </div>
-                <ng-container *ngIf="isSelected('avaliable_bpart_yes')">
+                </div>
+                <ng-container *ngIf="bPartType==true">
                   <div class="form-group">
                     <label class="d-block">Has Scratch:</label>
 
@@ -325,14 +362,14 @@
                   </div>
                   <div class="form-group">
                     <label>Location:</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" #locationB/>
                   </div>
                 </ng-container>
               </ng-container>
               <div class="card-header col-md-4 mb-3">
                 <h5 class="card-title">C Part</h5>
               </div>
-              <ng-container formGroupName="bPart">
+              <ng-container formGroupName="cPart">
                 <div class="form-group">
                   <label class="d-block">Available:</label>
                   <div class="form-check form-check-inline">
@@ -343,7 +380,10 @@
                       name="avaliable_cpart"
                       id="avaliable_cpart_yes"
                       [value]="true"
-                      (click)="setRadio('avaliable_cpart_yes')"
+                      [(ngModel)]="cPartType"
+                      [ngClass]="{
+                        'is-invalid': submitted && testForm.controls.condition.controls.cPart.controls.avaliable.errors
+                      }" 
                     />
                     <label class="form-check-label" for="avaliable_cpart_yes"
                       >Yes</label
@@ -357,14 +397,23 @@
                       name="avaliable_cpart"
                       id="avaliable_cpart_no"
                       [value]="false"
-                      (click)="setRadio('avaliable_cpart_no')"
+                      [(ngModel)]="cPartType"
+                      [ngClass]="{
+                        'is-invalid': submitted && testForm.controls.condition.controls.cPart.controls.avaliable.errors
+                      }" 
                     />
                     <label class="form-check-label" for="avaliable_cpart_no"
                       >No</label
                     >
                   </div>
+                  <div
+                  class="alert alert-danger my-1 p-2 fadeInDown animated"
+                  *ngIf="submitted && testForm.controls.condition.controls.cPart.controls.avaliable.errors"
+                >
+                 Field is required
                 </div>
-                <ng-container *ngIf="isSelected('avaliable_cpart_yes')">
+                </div>
+                <ng-container *ngIf="cPartType==true">
                   <div class="form-group">
                     <label class="d-block">Has Scratch:</label>
 
@@ -452,7 +501,7 @@
 
                   <div class="form-group">
                     <label>Location:</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" #locationC/>
                   </div>
                 </ng-container>
               </ng-container>
@@ -470,7 +519,10 @@
                       name="avaliable_dpart"
                       id="avaliable_dpart_yes"
                       [value]="true"
-                      (click)="setRadio('avaliable_dpart_yes')"
+                      [(ngModel)]="dPartType"
+                      [ngClass]="{
+                        'is-invalid': submitted && testForm.controls.condition.controls.dPart.controls.avaliable.errors
+                      }" 
                     />
                     <label class="form-check-label" for="avaliable_dpart_yes"
                       >Yes</label
@@ -484,14 +536,23 @@
                       name="avaliable_dpart"
                       id="avaliable_dpart_no"
                       [value]="false"
-                      (click)="setRadio('avaliable_dpart_no')"
+                      [(ngModel)]="dPartType"
+                      [ngClass]="{
+                        'is-invalid': submitted && testForm.controls.condition.controls.dPart.controls.avaliable.errors
+                      }" 
                     />
                     <label class="form-check-label" for="avaliable_dpart_no"
                       >No</label
                     >
                   </div>
+                  <div
+                  class="alert alert-danger my-1 p-2 fadeInDown animated"
+                  *ngIf="submitted && testForm.controls.condition.controls.dPart.controls.avaliable.errors"
+                >
+                 Field is required
                 </div>
-                <ng-container *ngIf="isSelected('avaliable_dpart_yes')">
+                </div>
+                <ng-container *ngIf="dPartType==true">
                   <div class="form-group">
                     <label class="d-block">Has Scratch:</label>
 
@@ -578,7 +639,7 @@
                   </div>
                   <div class="form-group">
                     <label>Location:</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" #locationD/>
                   </div>
                 </ng-container>
               </ng-container>
@@ -596,7 +657,16 @@
                   name="cpu"
                   id="cpu"
                   formControlName="cpu"
+                  [ngClass]="{
+                    'is-invalid': submitted && testForm.controls.configuration.controls.cpu.errors
+                  }" 
                 />
+                <div
+                class="alert alert-danger my-1 p-2 fadeInDown animated"
+                *ngIf="submitted && testForm.controls.configuration.controls.cpu.errors"
+              >
+               Field is required
+              </div>
               </div>
               <div class="form-group">
                 <label>Generation:</label>
@@ -606,7 +676,16 @@
                   name="generation"
                   id="generation"
                   formControlName="generation"
+                  [ngClass]="{
+                    'is-invalid': submitted && testForm.controls.configuration.controls.generation.errors
+                  }" 
                 />
+                <div
+                class="alert alert-danger my-1 p-2 fadeInDown animated"
+                *ngIf="submitted && testForm.controls.configuration.controls.generation.errors"
+              >
+               Field is required
+              </div>
               </div>
               <div class="form-group">
                 <label>RAM:</label>
@@ -616,7 +695,16 @@
                   name="ram"
                   id="ram"
                   formControlName="ram"
+                  [ngClass]="{
+                    'is-invalid': submitted && testForm.controls.configuration.controls.ram.errors
+                  }" 
                 />
+                <div
+                class="alert alert-danger my-1 p-2 fadeInDown animated"
+                *ngIf="submitted && testForm.controls.configuration.controls.ram.errors"
+              >
+               Field is required
+              </div>
               </div>
               <div class="form-group">
                 <label>HDD:</label>
@@ -626,7 +714,16 @@
                   name="hdd"
                   id="hdd"
                   formControlName="hdd"
+                  [ngClass]="{
+                    'is-invalid': submitted && testForm.controls.configuration.controls.hdd.errors
+                  }" 
                 />
+                <div
+                class="alert alert-danger my-1 p-2 fadeInDown animated"
+                *ngIf="submitted &&testForm.controls.configuration.controls.hdd.errors"
+              >
+               Field is required
+              </div>
               </div>
             </ng-container>
             <div class="card-header col-md-4 mb-3">
@@ -643,7 +740,7 @@
                     name="avaliable_battry"
                     id="avaliable_battry_yes"
                     [value]="true"
-                    (click)="setRadio('avaliable_battry_yes')"
+                    [(ngModel)]="batteryType"
                   />
                   <label class="form-check-label" for="avaliable_battry_yes"
                     >Yes</label
@@ -657,14 +754,15 @@
                     name="avaliable_battry"
                     id="avaliable_battry_no"
                     [value]="false"
-                    (click)="setRadio('avaliable_battry_no')"
+                    [(ngModel)]="batteryType"
+
                   />
                   <label class="form-check-label" for="avaliable_battry_no"
                     >No</label
                   >
                 </div>
               </div>
-              <ng-container *ngIf="isSelected('avaliable_battry_yes')">
+              <ng-container *ngIf="batteryType==true">
                 <div class="form-group">
                   <label>BatteryHealth:</label>
                   <input
@@ -691,7 +789,7 @@
                     id="avaliable_lcd_yes"
                     [value]="true"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_lcd_yes')"
+                    [(ngModel)]="lcdType"
                   />
                   <label class="form-check-label" for="avaliable_lcd_yes"
                     >Yes</label
@@ -705,14 +803,14 @@
                     id="avaliable_lcd_no"
                     [value]="false"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_lcd_no')"
+                    [(ngModel)]="lcdType"
                   />
                   <label class="form-check-label" for="avaliable_lcd_no"
                     >No</label
                   >
                 </div>
               </div>
-              <ng-container *ngIf="isSelected('avaliable_lcd_yes')">
+              <ng-container *ngIf="lcdType==true">
                 <div class="form-group">
                   <label>Status:</label>
                   <input
@@ -851,13 +949,13 @@
                     <input
                       class="form-check-input"
                       type="radio"
-                      name="broken_"
+                      name="broken_No"
                       id="broken_no"
                       [value]="false"
                       formControlName="broken"
                     />
 
-                    <!-- <label class="form-check-label" for="gender_female">No</label> -->
+                    <label class="form-check-label" for="broken_No">No</label>
                   </div>
                 </div>
               </ng-container>
@@ -876,7 +974,7 @@
                     id="avaliable_bazel_yes"
                     [value]="true"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_bazel_yes')"
+                    [(ngModel)]="bazelType"
                   />
                   <label class="form-check-label" for="avaliable_bazel_yes"
                     >Yes</label
@@ -890,14 +988,15 @@
                     id="avaliable_bazel_no"
                     [value]="false"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_bazel_no')"
+                    [(ngModel)]="bazelType"
+
                   />
                   <label class="form-check-label" for="avaliable_bazel_no"
                     >No</label
                   >
                 </div>
               </div>
-              <ng-container *ngIf="isSelected('avaliable_bazel_yes')">
+              <ng-container *ngIf="bazelType==true">
                 <div class="form-group">
                   <label class="d-block">Broken:</label>
                   <div class="form-check form-check-inline">
@@ -925,7 +1024,7 @@
                 </div>
                 <div class="form-group">
                   <label>Location:</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control"  formControlName="location" />
                 </div>
               </ng-container>
             </ng-container>
@@ -944,7 +1043,7 @@
                     id="avaliable_keyboard_yes"
                     [value]="true"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_keyboard_yes')"
+                    [(ngModel)]="keyType"
                   />
                   <label class="form-check-label" for="avaliable_keyboard_yes"
                     >Yes</label
@@ -958,14 +1057,14 @@
                     id="avaliable_keyboard_no"
                     [value]="false"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_keyboard_no')"
+                    [(ngModel)]="keyType"
                   />
                   <label class="form-check-label" for="avaliable_keyboard_no"
                     >No</label
                   >
                 </div>
               </div>
-              <ng-container *ngIf="isSelected('avaliable_keyboard_yes')">
+              <ng-container *ngIf="keyType==true">
                 <div class="form-group">
                   <label class="d-block">Working:</label>
                   <div class="form-check form-check-inline">
@@ -1010,7 +1109,7 @@
                     id="avaliable_dvd_yes"
                     [value]="true"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_dvd_yes')"
+                    [(ngModel)]="dvdType"
                   />
                   <label class="form-check-label" for="avaliable_dvd_yes"
                     >Yes</label
@@ -1024,14 +1123,14 @@
                     id="avaliable_dvd_no"
                     [value]="false"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_dvd_no')"
+                    [(ngModel)]="dvdType"
                   />
                   <label class="form-check-label" for="avaliable_dvd_no"
                     >No</label
                   >
                 </div>
               </div>
-              <ng-container *ngIf="isSelected('avaliable_dvd_yes')">
+              <ng-container *ngIf="dvdType==true">
                 <div class="form-group">
                   <label class="d-block">Working:</label>
                   <div class="form-check form-check-inline">
@@ -1077,7 +1176,7 @@
                     id="avaliable_speaker_yes"
                     [value]="true"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_speaker_yes')"
+                    [(ngModel)]="speakerType"
                   />
                   <label class="form-check-label" for="avaliable_yes"
                     >Yes</label
@@ -1091,14 +1190,15 @@
                     id="avaliable_speaker_no"
                     [value]="false"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_speaker_no')"
+                    [(ngModel)]="speakerType"
+
                   />
                   <label class="form-check-label" for="avaliable_speaker_no"
                     >No</label
                   >
                 </div>
               </div>
-              <ng-container *ngIf="isSelected('avaliable_speaker_yes')">
+              <ng-container *ngIf="speakerType==true">
                 <div class="form-group">
                   <label class="d-block">Working:</label>
                   <div class="form-check form-check-inline">
@@ -1143,7 +1243,7 @@
                     id="avaliable_camera_yes"
                     [value]="true"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_camera_yes')"
+                    [(ngModel)]="cameraType"
                   />
                   <label class="form-check-label" for="avaliable_camera_yes"
                     >Yes</label
@@ -1157,14 +1257,15 @@
                     id="avaliable_camera_no"
                     [value]="false"
                     formControlName="avaliable"
-                    (click)="setRadio('avaliable_camera_no')"
+                    [(ngModel)]="cameraType"
+
                   />
                   <label class="form-check-label" for="avaliable_camera_no"
                     >No</label
                   >
                 </div>
               </div>
-              <ng-container *ngIf="isSelected('avaliable_camera_yes')">
+              <ng-container *ngIf="cameraType==true">
                 <div class="form-group">
                   <label class="d-block">Working:</label>
                   <div class="form-check form-check-inline">
@@ -1196,7 +1297,7 @@
             </ng-container>
 
             <div class="card-header col-md-4 mb-3">
-              <h6 class="card-title">Has VGAor Intel</h6>
+              <h6 class="card-title">Has VGA or Intel</h6>
             </div>
             <div class="form-check form-check-inline">
               <input
@@ -1249,7 +1350,7 @@
               <label class="form-check-label" for="avaliable_no">No</label>
             </div>
             <div class="text-right">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
             </div>
           </form>
         </ng-container>
