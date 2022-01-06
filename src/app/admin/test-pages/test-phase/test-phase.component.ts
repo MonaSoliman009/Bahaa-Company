@@ -378,7 +378,7 @@ export class TestPhaseComponent implements OnInit {
         this.testForm.value.condition.location=location
     console.log(this.testForm);
 
-    if (this.testForm.valid) {
+    if (this.testForm.valid &&(this.finished==true || this.finished==false)) {
      console.log(  this.finished,
       this.Serial,
       this.testForm.value,
