@@ -5,7 +5,7 @@ var joi = require("joi");
 const PurchaseInvoice =new Schema({
   
     purchaseNumber: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
     },
@@ -65,18 +65,7 @@ PurchaseInvoice.virtual('accessories', {
 });
 PurchaseInvoice.set('toJSON', { virtuals: true });
 
-function validatePurchaseInvoice(x) {
-  var Schema =joi.object( {
-    supplier:joi.string(),
-    status: joi.string(),
-    purchaseCartProducts: joi.array(),
-  purchaseCartAccessories: joi.array(),
- 
-  purchaseDate:joi.date()
-  });
-  return Schema.validate(x)
-}
 
 
-exports.validatePurchaseInvoice = validatePurchaseInvoice;
+
 exports.PurchaseInvoice = mongoose.model('PurchaseInvoice', PurchaseInvoice)

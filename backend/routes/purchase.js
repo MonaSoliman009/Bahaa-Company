@@ -6,27 +6,37 @@ var parseUrlencoded = bodyParser.urlencoded({
   extended: true,
 });
 var {
-  validatePurchaseInvoice,
+  
   PurchaseInvoice,
 } = require("../models/purchase invoice");
 var { product } = require("../models/product");
 var { validateAccessories, accessories } = require("../models/accessories");
 
 router.post("/add/:id", parseUrlencoded, async (req, res) => {
-  var { error } = validatePurchaseInvoice(req.body);
-  if (error) {
-    return res.status(400).send(error.details[0].message);
-  }
+  // var { error } = validatePurchaseInvoice(req.body);
+  // if (error) {
+  //   return res.status(400).send(error.details[0].message);
+  // }
   var arr = [];
   var arr2 = [];
   var prices = [];
+  var models=[]
   var d = new Date();
+  var latest=await  PurchaseInvoice.findOne().sort({ purchaseDate: -1 }).limit(1);
+  var autoIncreamentNum;
+  if(latest){
+    autoIncreamentNum="00"+(parseInt(latest.purchaseNumber)+1).toString()
+  }else{
+    autoIncreamentNum="001"
+  }
+  console.log(autoIncreamentNum)
   for (var i = 0; i < req.body.purchaseCartProducts.length; i++) {
     var _modelPriceDetails = await modelPrice.findOne({
-      model: req.body.purchaseCartProducts[i].model,
+      model: {$regex : new RegExp(req.body.purchaseCartProducts[i].model, "i") } 
     });
     if (_modelPriceDetails) {
       prices.push(_modelPriceDetails.price);
+      models.push(_modelPriceDetails.model)
     } else {
       return res.status(400).send("one of the models is not found please try again");
     }
@@ -48,10 +58,10 @@ router.post("/add/:id", parseUrlencoded, async (req, res) => {
       }else{
         let productt = new product({
           serialNumber: req.body.purchaseCartProducts[i].serialNumber,
-          model: req.body.purchaseCartProducts[i].model,
+          model: models[i],
           addedAt: d.toString(),
           price: prices[i],
-          purchaseSerialNumber: PurchaseInvoicee.purchaseNumber,
+          purchaseSerialNumber: autoIncreamentNum,
           addedBy: req.params.id,
         });
         await productt.save();
@@ -98,14 +108,7 @@ router.post("/add/:id", parseUrlencoded, async (req, res) => {
   var invoice_status = req.body.supplier ? "Completed" : "Pending";
 
   console.log(arr);
-  var latest=await  PurchaseInvoice.findOne().sort({ purchaseDate: -1 }).limit(1);
-  var autoIncreamentNum;
-  if(latest){
-    autoIncreamentNum="00"+(parseInt(latest.purchaseNumber)+1).toString()
-  }else{
-    autoIncreamentNum="001"
-  }
-  console.log(autoIncreamentNum)
+
 
   let PurchaseInvoicee = new PurchaseInvoice({
     purchaseNumber: autoIncreamentNum,

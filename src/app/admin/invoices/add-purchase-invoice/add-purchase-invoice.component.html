@@ -34,12 +34,12 @@
                 <h5 class="card-title">Products</h5>
               </div>
 
-              <ng-container formArrayName="products">
-                <div *ngFor="let product of Products.controls; index as i">
+              <ng-container formArrayName="purchaseCartProducts">
+                <div  *ngFor="let element of purchaseCartProducts.controls; let x = index">
                   <div class="form-row">
                     <ng-container
-                      [formGroupName]="i"
-                      *ngFor="let element of newSection"
+                      [formGroupName]="x"
+                
                     >
                       <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Serial Number</label>
@@ -61,14 +61,10 @@
                           placeholder="model"
                           formControlName="model"
                           required
-                          [(ngModel)]="search"
-                          (keyup)="searchModel(search)"
-                          #Model
+                         
                           autocomplete="off"
                         />
-                        <div  *ngFor="let post of allModels | filter:search ">
-                          <a (click)="selectedSerial(post)" *ngIf='!displayRecomendedSerial'>{{post}}</a>
-                      </div>
+                     
                       </div>
                  
                 
@@ -82,7 +78,7 @@
                   class="btn btn-primary"
                   (click)="adddNewSection()"
                 >
-                  Add another product
+                  Add Product
                 </button>
               </div>
               <div class="col-md-4 mb-3">
@@ -120,16 +116,16 @@
               </div>
               <!-- <button type="button" class="btn btn-primary accsosories">Add Accessories</button> -->
               <ng-container
-                formArrayName="accessories"
+                formArrayName="purchaseCartAccessories"
                 *ngIf="displayAccesoryField"
               >
                 <hr />
 
-                <div *ngFor="let accseeory of Accessories.controls; index as i">
+                <div  *ngFor="let element of purchaseCartAccessories.controls; let x = index">
                   <div class="form-row">
                     <ng-container
-                      [formGroupName]="i"
-                      *ngFor="let element of newAccessories"
+                      [formGroupName]="x"
+                     
                     >
                       <div class="col-md-4 mb-3">
                         <label for="validationCustom02">Type</label>
@@ -173,7 +169,7 @@
                     class="btn btn-primary"
                     (click)="addAccessories()"
                   >
-                    Add another accessory
+                    Add Accessory
                   </button>
                 </div>
               </ng-container>

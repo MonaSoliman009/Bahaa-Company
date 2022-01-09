@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { DataService } from '../../services/data.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { InvoicesService } from '../../services/invoices.service';
 import { ModelPriceService } from '../../services/model-price.service';
@@ -19,7 +20,6 @@ import { ModelPriceService } from '../../services/model-price.service';
 export class AddPurchaseInvoiceComponent implements OnInit {
   purchuseInvoiceForm: FormGroup;
   newSection: any = [0];
-  newAccessories: any = [0];
   accesoriesOptions: any;
   showSupplierInput: boolean = true;
   displayAccesoryField: boolean = false;
@@ -44,21 +44,21 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     if (typeOfperson === 'employee') {
       this.showSupplierInput = false;
     }
-    this.getModels();
+  
     this.createForm();
   }
   createForm() {
     this.purchuseInvoiceForm = this._fb.group({
-      supplier: ['', [Validators.required]],
-      products: this._fb.array([]),
-      accessories: this._fb.array([]),
+      supplier: [''],
+      purchaseCartProducts: this._fb.array([]),
+      purchaseCartAccessories: this._fb.array([]),
     });
   }
-  get products(): FormArray {
-    return this.purchuseInvoiceForm.get('products') as FormArray;
+  get purchaseCartProducts(): FormArray {
+    return this.purchuseInvoiceForm.get('purchaseCartProducts') as FormArray;
   }
-  get accessories(): FormArray {
-    return this.purchuseInvoiceForm.get('accessories') as FormArray;
+  get purchaseCartAccessories(): FormArray {
+    return this.purchuseInvoiceForm.get('purchaseCartAccessories') as FormArray;
   }
   newproductsData(): FormGroup {
     return this._fb.group({
@@ -78,75 +78,51 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.accesoriesOptions = val;
     if (val == 1) {
       this.displayAccesoryField = true;
-
-      //  this.Accessories.push(
-      //    new FormGroup({
-      //      type: new FormControl(''),
-      //      price: new FormControl(''),
-      //      quantity: new FormControl(''),
-      //    })
-      //  );
-      // this.newAccessories.push()
     } else {
       this.displayAccesoryField = false;
-      this.purchuseInvoiceForm.value.accessories = [];
+      this.purchuseInvoiceForm.value.purchaseCartAccessories = [];
     }
-  }
-  getModels() {
-    this._ModelPriceService.listMissingPiecesReport().subscribe(
-      (res) => {
-        console.log(res);
-        this.Modals = res;
-        for (let val of this.Modals) {
-          console.log(val);
-          let stringSerial = val.model;
-          console.log(val.model);
-
-          this.allModels.push(val.model);
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-  selectedSerial(val) {
-    this.model.nativeElement.value = val;
-    this.displayRecomendedSerial = true;
-    // this.form.controls.serialNumber.valid;
-  }
-  data(val) {
-    return val;
-  }
-  searchModel(val) {
-    this.displayRecomendedSerial = false;
-
-    let filterd = this.allModels.filter(this.data);
-  }
-
-  onSubmit() {
-    this.id = localStorage.getItem('id');
-    console.log('idt', this.id);
-    if ((this.accesoriesOptions = 0)) {
-      this.purchuseInvoiceForm.value.accessories = [];
-    }
-    console.log('form', (this.purchuseInvoiceForm.value.accessories = []));
-
-    console.log('form', this.purchuseInvoiceForm.value);
-    // this.serInvoices
-    //   .addPurchuseInvoice(this.id, this.purchuseInvoiceForm.value)
-    //   .subscribe((res) => {
-    //     console.log('form', this.purchuseInvoiceForm.value);
-    //     console.log('response', res);
-    //   });
   }
   adddNewSection() {
     // console.log(array);
-    this.products.push(this.newproductsData());
+    this.purchaseCartProducts.push(this.newproductsData());
   }
 
   addAccessories(){
-    this.accessories.push(this.newaccessoriesData());
+    this.purchaseCartAccessories.push(this.newaccessoriesData());
 
   }
+  alertWithSuccess(msg) {
+    Swal.fire('Done', msg, 'success').then(
+      (res) => {
+        location.reload();
+      }
+    );
+  }
+  alertWithFail(msg) {
+    Swal.fire('Failed', msg, 'error').then(
+      (res) => {
+       
+      }
+    );
+  }
+  onSubmit() {
+    this.id = localStorage.getItem('id');
+    console.log('idt', this.id);
+ 
+   
+
+    console.log('form', this.purchuseInvoiceForm.value);
+    this.serInvoices
+      .addPurchuseInvoice(this.id, this.purchuseInvoiceForm.value)
+      .subscribe((res) => {
+        console.log('form', this.purchuseInvoiceForm.value);
+        console.log('response', res);
+        this.alertWithSuccess("Saved Successfully")
+      },(error)=>{
+        console.log('error', error);
+        this.alertWithFail("Try Again")
+      });
+  }
+
 }
