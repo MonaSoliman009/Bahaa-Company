@@ -27,7 +27,6 @@
                        
                           <th>Serial Number</th>
                                             <th>Model</th>
-                                            <th>Quantity</th>
                                             <th>Status</th>
                                             <th>View Details</th>
                         </tr>
@@ -36,7 +35,6 @@
                         <tr *ngFor="let data of basicTable.data">
                           <td>{{data.ProductDetails[0]?.serialNumber}}</td>
                           <td>{{data.ProductDetails[0]?.model}}</td>
-                          <td>{{data.ProductDetails[0]?.quantity}}</td>
                           <td>{{data.ProductDetails[0]?.status}}</td>
                   
                           <td class="text-right">

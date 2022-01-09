@@ -127,13 +127,7 @@ const routes: Routes = [
             (m) => m.EditSubscriptionModule
           ),
       },
-      {
-        path: 'wallet',
-        loadChildren: () =>
-          import('./wallet/wallet.module').then(
-            (m) => m.WalletModule
-          ),
-      },
+     
       {
         path: 'service-providers',
         loadChildren: () =>
@@ -153,13 +147,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./blank/blank.module').then(
             (m) => m.BlankModule
-          ),
-      },
-      {
-        path: 'vector-map',
-        loadChildren: () =>
-          import('./vector-map/vector-map.module').then(
-            (m) => m.VectorMapModule
           ),
       },
       {

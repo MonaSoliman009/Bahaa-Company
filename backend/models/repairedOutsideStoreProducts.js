@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 var repairedOutsideStoreProducts =new Schema({
     product: {
-      type: Number,
+      type: String,
       required: true,
       unique: true
     },

@@ -152,8 +152,8 @@
 			$('.subdrop + ul').slideUp();
 		}
 		setTimeout(function(){ 
-			mA.redraw();
-			mL.redraw();
+			// mA.redraw();
+			// mL.redraw();
 		}, 300);
 		return false;
 	});

@@ -10,7 +10,7 @@ var employeeReport = new Schema({
     },
     finishedProduct: {
 
-      type: Number,
+      type: String,
       required: true
     },
     finishedAt: {

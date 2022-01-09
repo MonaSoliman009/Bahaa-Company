@@ -39,10 +39,10 @@
                         <td>{{data.addedToSerial}}</td>
                         <td>{{data.takenFromSerial}}</td>
                         <td>{{data.atTime |date:'medium'}}</td>
-                        <td *ngIf="product?.creatorEmployee.length">{{data?.creatorEmployee[0].name}}</td>
-                        <td *ngIf="product?.creatorAccountant.length">{{data?.creatorAccountant[0].name}} </td>
-                        <td *ngIf="product?.creatorOwner.length">{{data?.creatorOwner[0].name }}</td>
-                        <td class="text-right">
+                        <td *ngIf="data?.creatorEmployee.length">{{data?.creatorEmployee[0].name}}</td>
+                        <td *ngIf="data?.creatorAccountant.length">{{data?.creatorAccountant[0].name}} </td>
+                        <td *ngIf="data?.creatorOwner.length">{{data?.creatorOwner[0].name }}</td>
+                        <td >
                           <a class="table-action-btn btn btn-sm bg-success-light" (click)="viewProductDetails(data._id)">
                             View all details
                           </a>

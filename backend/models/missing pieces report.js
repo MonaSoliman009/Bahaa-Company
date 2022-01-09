@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const missingPiecesSchema=new Schema({
   takenFromSerial:{
-    type:Number,
+    type:String,
     required:true
   },
   addedToSerial:{
-    type:Number,
+    type:String,
     required:true
   },
   missingPiece:{
-    type:Number,
+    type:String,
     required:true
   },
   atTime:{

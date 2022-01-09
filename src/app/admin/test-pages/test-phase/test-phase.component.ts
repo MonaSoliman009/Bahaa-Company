@@ -20,6 +20,7 @@ export class TestPhaseComponent implements OnInit {
   finished: boolean;
   testerId: string;
   search: string;
+  testData:any;
  locationA={
  
   };
@@ -216,6 +217,15 @@ export class TestPhaseComponent implements OnInit {
         console.log('message', res);
         if (res.message == 'Test Started successfully') {
           this.started = true;
+          this._TestPhaseService.getTestData(this.startTest.value.productserialNumber).subscribe((result: any) => {
+            if(result){
+              if(result.message){
+
+              }else{
+                this.testData=result
+              }
+            }
+          })
         } else {
           this.msg = res.message;
           this.alertWithFail(res.message);
@@ -393,7 +403,7 @@ export class TestPhaseComponent implements OnInit {
         .subscribe((res:any) => {
           console.log(res);
          
-          if(res.message=="Saved Successfully" ||res.modifiedCount==1){
+          if(res.message=="Saved Successfully" ||res.modifiedCount){
             this.alertWithSuccess("Saved Successfully")
 
           }else{

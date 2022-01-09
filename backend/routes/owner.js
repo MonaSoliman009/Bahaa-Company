@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 var bcrypt = require("bcryptjs");
-const TestPhase = require("../models/test Phase");
+const {TestPhase} = require("../models/test Phase");
 var repairedInsideStorePhase = require("../models/repairedInsideStoreProducts");
 var repairedOutsideStoreProducts = require("../models/repairedOutsideStoreProducts");
 var { accountant, validateAccountant } = require("../models/accountant");

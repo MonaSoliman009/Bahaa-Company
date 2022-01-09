@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 var repairedInsideStorePhase = new Schema({
  
     productSerialNumber: {
-      type: Number,
+      type: String,
       required: true,
       required: true,
     },
@@ -12,7 +12,7 @@ var repairedInsideStorePhase = new Schema({
     SpareParts: 
       {
         isAdded: { type: Boolean, required: true },
-        sparePartNumber: [{ type: Number }],
+        sparePartNumber: [{ type: String }],
       }
     ,
     lastDealingWith: {

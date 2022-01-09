@@ -49,4 +49,10 @@ export class TestPhaseService {
   getProductBySerialnumer(seri): Observable<any> {
     return this.http.post('http://localhost:3000/product/getBySerialNum', seri);
   }
+
+  getTestData(serialNumber){
+    return this.http.get(`http://localhost:3000/test/${serialNumber}`);
+
+
+  }
 }

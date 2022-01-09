@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 var goodProductsReport = new Schema({
   productSerialNumber: {
-      type: Number,
+      type: String,
       required: true,
       unique: true
     },

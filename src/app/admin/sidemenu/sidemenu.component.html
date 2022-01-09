@@ -136,7 +136,7 @@
 
                 <li>
                   <a [routerLink]="'/admin/Invoices/list/purchase'">
-                    <span>View all invoices</span></a
+                    <span>Completed invoices</span></a
                   >
                 </li>
                 <li *ngIf="owner||accountant">
@@ -185,7 +185,7 @@
                 >Sold Products Report</a
               >
             </li>
-            <li [className]="page === 'error500' ? 'active' : ''">
+            <li [className]="page === 'error500' ? 'active' : ''"  *ngIf="owner">
               <a [routerLink]="'/admin/reports/employees'">Employees Report</a>
             </li>
           </ul>

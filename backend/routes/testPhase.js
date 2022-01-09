@@ -1,6 +1,6 @@
 const express = require("express");
 
-const Test = require("../models/test Phase");
+const {TestPhase} = require("../models/test Phase");
 const checkAuth = require("../middleware/check-auth");
 
 
@@ -15,20 +15,12 @@ const router = express.Router();
 
 
 
-//Fetching Tested devices
-router.get("", (req, res, next) => {
-    Test.find().then(documents => {
-      res.status(200).json({
-        message: "Test devices fetched successfully!",
-        test: documents
-      });
-    });
-  });   
+
 
 
 //Fetching one tested device  
-router.get("/:id", (req, res, next) => {
-    Test.findById(req.params.id).then(test => {
+router.get("/:serial", (req, res, next) => {
+  TestPhase.findOne({ProductSerial:req.params.serial}).then(test => {
       if (test) {
         res.status(200).json(test);
       } else {
@@ -36,6 +28,17 @@ router.get("/:id", (req, res, next) => {
       }
     });
   });
+
+
+  //Fetching Tested devices
+router.get("", (req, res, next) => {
+  Test.find().then(documents => {
+    res.status(200).json({
+      message: "Test devices fetched successfully!",
+      test: documents
+    });
+  });
+});   
 
 // //Adding Test
 // router.post("",checkAuth, (req, res, next) => {

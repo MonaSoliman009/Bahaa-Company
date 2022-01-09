@@ -16,7 +16,6 @@ import { LockScreenComponent } from './lock-screen/lock-screen.component';
 import { Error404Component } from './error-pages/error404/error404.component';
 import { Error500Component } from './error-pages/error500/error500.component';
 import { BlankComponent } from './blank/blank.component';
-import { VectorMapComponent } from './vector-map/vector-map.component';
 import { ComponentsComponent } from './components/components.component';
 import { BasicInputComponent } from './forms/basic-input/basic-input.component';
 import { InputGroupsComponent } from './forms/input-groups/input-groups.component';

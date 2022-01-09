@@ -152,7 +152,7 @@ function validateTest(x) {
       lcd:joi.object({
 
         avaliable: joi.boolean().required(),
-        status: "",
+        status: joi.any(),
         hasScratch: joi.boolean(),
         hasSpots: joi.boolean(),
         hasLine: joi.boolean(),
@@ -165,7 +165,7 @@ function validateTest(x) {
       bazel: joi.object({
         avaliable: joi.boolean().required(),
         broken: joi.boolean(),
-        location: "",
+        location: joi.any(),
       }),
       keyboard:joi.object( {
         avaliable: joi.boolean().required(),

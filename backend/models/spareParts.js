@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 var spareParts =new Schema({
   
     serialNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
 
     insideProduct: {
       isInside: { type: Boolean, required: true },
-      product: { type: Number }
+      product: { type: String }
     },
     AddedBy : {//currently working //or done by
       type: mongoose.Schema.Types.ObjectId,

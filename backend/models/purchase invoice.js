@@ -5,7 +5,7 @@ var joi = require("joi");
 const PurchaseInvoice =new Schema({
   
     purchaseNumber: {
-      type: String,
+      type: Number,
       required: true,
       unique: true,
     },

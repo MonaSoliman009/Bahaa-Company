@@ -4,14 +4,9 @@ const Schema = mongoose.Schema;
 
 var defectiveProductsReport =new Schema({
     product: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
-    missingPiece:{
       type: String,
       required: true,
-
+      unique: true,
     }
 
 

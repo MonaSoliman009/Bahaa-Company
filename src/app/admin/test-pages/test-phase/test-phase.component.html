@@ -34,7 +34,7 @@
           </button>
         </div>
       </div>
-        <ng-container>
+        <ng-container *ngIf="started">
           <form [formGroup]="testForm" >
             <div class="form-group">
               <label class="d-block">Power:</label>

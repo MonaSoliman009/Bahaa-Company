@@ -596,7 +596,7 @@ io.on("connection", (socket) => {
                 AddedBy: maintainererId,
               });
               await new_spareParts.save();
-              if (sparePartsData[i].insideProduct.isInside == true) {
+              if (sparePartsData[i].insideProduct.isInside == 'true') {
                 var new_missingPiecesReport = new missingPiecesSchema({
                   takenFromSerial: sparePartsData[i].insideProduct.product,
                   addedToSerial: productserialNumber,
@@ -606,6 +606,7 @@ io.on("connection", (socket) => {
                 });
 
                 await new_missingPiecesReport.save();
+                console.log("missing");
               }
             }
           }
@@ -625,16 +626,18 @@ io.on("connection", (socket) => {
             status: "Maintenance Inside",
           });
           await new_employeeReport.save();
-          if (repaired) {
+          if (repaired=='true') {
             let new_goodProductsReport = new goodProductsReport({
               productSerialNumber: productserialNumber,
             });
             await new_goodProductsReport.save();
+            console.log("good");
           } else {
             let new_defectiveProductsReport = new defectiveProductsReport({
               product: productserialNumber,
             });
             await new_defectiveProductsReport.save();
+            console.log("defective");
           }
           io.emit("submitMaintenanceInsideStore", {
             message: "Maintainence Finished successfully",
