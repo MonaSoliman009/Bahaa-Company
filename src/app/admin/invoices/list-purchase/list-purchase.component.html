@@ -3,28 +3,35 @@
     <div class="card">
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table custom-table mb-0 datatable">
+      
+
+          <nz-table #basicTable [nzData]="invoices">
             <thead>
               <tr>
-                <th>ID</th>
+             
+              
                 <th>Purchase Number</th>
                 <th>Supplier</th>
+                <th>Date</th>
                 <th class="text-right">Action</th>
+                
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let rating of invoices; index as i">
-                <td>{{ i + 1 }}</td>
-                <td>{{ rating.purchaseNumber }}</td>
-                <td>{{ rating.supplier }}</td>
+              <tr *ngFor="let data of basicTable.data">
+               
+                <td>{{ data.purchaseNumber }}</td>
+                <td>{{ data.supplier }}</td>
+                <td>{{data.purchaseDate |date: 'dd/MM/yyyy'}}</td>
                 <td class="text-right">
                   <a class="table-action-btn btn btn-sm bg-success-light">
                     View all details
                   </a>
                 </td>
+            
               </tr>
             </tbody>
-          </table>
+          </nz-table>
         </div>
       </div>
     </div>

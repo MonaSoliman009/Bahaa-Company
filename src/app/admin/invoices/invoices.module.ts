@@ -20,6 +20,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddPricePendingSaleComponent } from './add-price-pending-sale/add-price-pending-sale.component';
 import { PendingPurchaseInvoiceComponent } from './pending-purchase-invoice/pending-purchase-invoice.component';
 import { AddSupplierComponent } from './add-supplier/add-supplier.component';
+import { DemoNgZorroAntdModule } from 'src/app/ng-zoro.module';
 @NgModule({
   declarations: [
     AddSaleInvoiceComponent,
@@ -42,6 +43,7 @@ import { AddSupplierComponent } from './add-supplier/add-supplier.component';
     ReactiveFormsModule,
     InMemoryWebApiModule.forRoot(DataService),
     ModalModule.forRoot(),
+    DemoNgZorroAntdModule
   ],
   providers: [NgbActiveModal],
 })

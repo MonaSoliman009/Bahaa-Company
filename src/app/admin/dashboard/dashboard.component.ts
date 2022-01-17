@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { NzTableLayout, NzTablePaginationPosition, NzTablePaginationType, NzTableSize } from 'ng-zorro-antd/table'
 
 import { DataService } from '../services/data.service';
 import { EmployeeService } from '../services/employee.service';
