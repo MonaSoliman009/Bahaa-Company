@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PendingService } from '../../services/pending.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-add-price-pending-sale',
@@ -21,6 +22,20 @@ export class AddPricePendingSaleComponent implements OnInit {
       price: [''],
     });
   }
+  alertWithSuccess(msg) {
+    Swal.fire('Done', msg, 'success').then(
+      (res) => {
+        location.reload();
+      }
+    );
+  }
+  alertWithFail(msg) {
+    Swal.fire('Failed', msg, 'error').then(
+      (res) => {
+       
+      }
+    );
+  }
   addprice() {
     this.PendingService.currentId.subscribe((res) => {
       this.SelectedPending = res;
@@ -33,7 +48,13 @@ export class AddPricePendingSaleComponent implements OnInit {
     this.PendingService.addPriceForPending(
       this.SelectedPending,
       this.addFormPrice.value
-    );
+    ).subscribe((res)=>{
+      console.log(res);
+      this.alertWithSuccess("Saved Successfully")
+    },(error)=>{
+      console.log(error);
+      this.alertWithFail(error.error)
+    });
   }
   ngOnInit(): void {}
 }

@@ -121,7 +121,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         this.alertWithSuccess("Saved Successfully")
       },(error)=>{
         console.log('error', error);
-        this.alertWithFail("Try Again")
+        this.alertWithFail(error.error)
       });
   }
 

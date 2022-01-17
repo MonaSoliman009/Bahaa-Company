@@ -1,0 +1,57 @@
+<div class="row pricing-box">
+  <div class="col-md-8 col-lg-8 col-xl-8 m-auto">
+    <div class="card">
+      <div class="card-body">
+        <div class="pricing-header">
+          <h3 style="color: #ff0080">Invoice Details</h3>
+
+          <!-- <h4>{{goodProductDetails.ProductDetails[0].serialNumber}}</h4> -->
+          <!-- <p>Monthly Price</p> -->
+        </div>
+        <div class="row">
+          <div class="pricing-card-price col-md-4">
+            <h6 class="heading2 price">Invoice Number</h6>
+            <span>{{ invoiceDetails.purchaseNumber }}</span>
+            <hr />
+          </div>
+          <div class="col-md-4">
+            <h6 class="heading2 price">Date</h6>
+            <span>{{ invoiceDetails.purchaseDate |date: 'dd/MM/yyyy'}}</span>
+            <hr />
+          </div>
+          <div class="col-md-4">
+            <h6 class="heading2 price">Supplier</h6>
+            <span>{{ invoiceDetails.supplier }}</span>
+            <hr />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5" *ngIf="invoiceDetails.purchaseCartProducts.length">
+            <ul class="pricing-options">
+              <h6 class="heading2 price">Products</h6>
+              <li *ngFor="let product of invoiceDetails.purchaseCartProducts">
+                <i class="far fa-check-circle"></i> {{ product.productId }}
+              </li>
+            </ul>
+          </div>
+
+          <hr />
+          <div class="col-md-5" *ngIf="invoiceDetails.purchaseCartAccessories.length">
+            <ul class="pricing-options">
+              <h6 class="heading2 price">Accessories</h6>
+              <li *ngFor="let product of invoiceDetails.purchaseCartAccessories">
+                <i class="far fa-check-circle"></i> {{ product.type }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <a
+          [routerLink]="'/admin/Invoices/list/purchase'"
+          class="btn btn-primary btn-block"
+          >Back</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

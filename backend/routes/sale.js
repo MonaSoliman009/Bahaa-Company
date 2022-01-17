@@ -16,7 +16,7 @@ router.post("/add", parseUrlencoded, async (req, res) => {
   }
   var d = new Date();
   var _status =req.body.price? "completed":"pending";
-  var latest=await  saleInvoicee.findOne().sort({ date: -1 }).limit(1);
+  var latest=await  saleInvoice.findOne().sort({ date: -1 }).limit(1);
   var autoIncreamentNum;
   if(latest){
     autoIncreamentNum="00"+(parseInt(latest.SerialNumber)+1).toString()

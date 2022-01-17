@@ -40,6 +40,10 @@ const PurchaseInvoice =new Schema({
         quantity:{
           type: Number,
           required: true
+        },
+        type:{
+          type: String,
+          required: true
         }
       }]
     
@@ -47,8 +51,8 @@ const PurchaseInvoice =new Schema({
 
 PurchaseInvoice.virtual('products', {
   ref: 'product', // The model to use
-  localField: 'purchaseCart.productId', // Find people where `localField`
-  foreignField: '_id', // is equal to `foreignField`
+  localField: 'purchaseCart.purchaseCartProducts.productId', // Find people where `localField`
+  foreignField: 'serialNumber', // is equal to `foreignField`
   // If `justOne` is true, 'members' will be a single doc as opposed to
   // an array. `justOne` is false by default.
   justOne: false,
@@ -56,7 +60,7 @@ PurchaseInvoice.virtual('products', {
 });
 PurchaseInvoice.virtual('accessories', {
   ref: 'accessories', // The model to use
-  localField: 'purchaseCart.productId', // Find people where `localField`
+  localField: 'purchaseCart.purchaseCartAccessories.productId', // Find people where `localField`
   foreignField: '_id', // is equal to `foreignField`
   // If `justOne` is true, 'members' will be a single doc as opposed to
   // an array. `justOne` is false by default.

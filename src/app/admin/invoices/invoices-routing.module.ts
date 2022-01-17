@@ -7,6 +7,7 @@ import { ListPurchaseComponent } from './list-purchase/list-purchase.component';
 import { ListSaleComponent } from './list-sale/list-sale.component';
 import { PendingPurchaseInvoiceComponent } from './pending-purchase-invoice/pending-purchase-invoice.component';
 import { PendingSaleInvoiceComponent } from './pending-sale-invoice/pending-sale-invoice.component';
+import { PurchaseDetailsComponent } from './purchase-details/purchase-details.component';
 // import { PricingModelComponent } from './pricing-model/pricing-model.component';
 
 const routes: Routes = [
@@ -26,10 +27,10 @@ const routes: Routes = [
     path: 'add/purchase',
     component: AddPurchaseInvoiceComponent,
   },
-  // {
-  //   path: 'pricing_model',
-  //   component: PricingModelComponent,
-  // },
+  {
+    path: 'purchase/details/:_id',
+    component: PurchaseDetailsComponent,
+  },
   {
     path: 'pending-sale-invoice',
     component: PendingSaleInvoiceComponent,

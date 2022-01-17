@@ -22,7 +22,8 @@ export class AddSaleInvoiceComponent implements OnInit {
   displayRecomendedSerial = false;
   allSerialNumbers = new Array();
   Serial: any;
-  @ViewChild('Serial') serial: ElementRef;
+
+  // @ViewChild('Serial') serial: ElementRef;
   constructor(
  
     private serInvoices: InvoicesService,
@@ -36,10 +37,10 @@ export class AddSaleInvoiceComponent implements OnInit {
     if (typeOfperson === 'employee') {
       this.showPriceInput = false;
     }
-    setTimeout(() => {
-      // this will make the execution after the above boolean has changed
-      this.serial.nativeElement.focus();
-    }, 0);
+    // setTimeout(() => {
+    //   // this will make the execution after the above boolean has changed
+    //   this.serial.nativeElement.focus();
+    // }, 0);
     this.getAllproducts();
     this.createSaleForm()
   }
@@ -48,11 +49,14 @@ export class AddSaleInvoiceComponent implements OnInit {
     customerName:["",Validators.required],
     price:[""],
     seller:[""],
-    Products: this._fb.array([
-
-    ])
+    Products: this._fb.array([])
   })
  }
+
+ get Products() : FormArray {
+  return this.saleInvoiceForm.get("Products") as FormArray
+}
+
   getAllproducts() {
     this._ProductService.getAllProduct().subscribe((res) => {
       this.products = res;
@@ -65,11 +69,11 @@ export class AddSaleInvoiceComponent implements OnInit {
       }
     });
   }
-  selectedSerial(val) {
-    this.serial.nativeElement.value = val;
-    this.displayRecomendedSerial = true;
-    this.getAllData();
-  }
+  // selectedSerial(val,e) {
+  //   this.serial.nativeElement.value = val;
+  //   this.displayRecomendedSerial = true;
+  //   this.getAllData();
+  // }
   data(val) {
     return val;
   }
@@ -83,36 +87,29 @@ export class AddSaleInvoiceComponent implements OnInit {
     }
 
     let filterd = this.allSerialNumbers.filter(this.data);
+    this.Serial=e.target.value
   }
-  Getserial() {
-    const valueInput = this.serial.nativeElement.value;
-    this.Serial = valueInput;
-    return this.Serial;
-  }
-  get Products():FormArray {
-    return this.saleInvoiceForm.get('Products') as FormArray;
-  }
-  
+  // Getserial() {
+  //   const valueInput = this.serial.nativeElement.value;
+  //   this.Serial = valueInput;
+  //   return this.Serial;
+  // }
 
-  // {
-  //       prod
-  // uctId: [''],
-  //       quantity: [''],
-  //       configuration: this.formBuilder.group({
-  //         cpu: [''],
-  //         withCharger: [''],
-  //         ram: [''],
-  //         hard: [''],
-  //       }),
-  //     },
   alertWithSuccess(msg) {
     Swal.fire('Done', msg, 'success').then((res) => {
       location.reload();
     });
   }
+  alertWithFail(msg) {
+    Swal.fire('Failed', msg, 'error').then(
+      (res) => {
+       
+      }
+    );
+  }
   onSubmit() {
     this.saleInvoiceForm.patchValue({
-      seller: localStorage.getItem('response'),
+      seller: localStorage.getItem('id'),
     });
     let typeOfperson = localStorage.getItem('name');
     console.log(typeOfperson);
@@ -128,12 +125,14 @@ export class AddSaleInvoiceComponent implements OnInit {
         console.log('success');
         this.alertWithSuccess(res);
         console.log(res);
+      },(error)=>{
+        this.alertWithFail(error.error)
       });
   }
   getAllData() {
-    console.log(this.Getserial());
+    console.log(this.Serial);
     this.serInvoices
-      .listAllProductBySerial({ serialNumber: this.Getserial() })
+      .listAllProductBySerial({ serialNumber: this.Serial })
       .subscribe((res) => {
         this.dataOnBlur = res;
         this.showdata = true;
@@ -142,17 +141,22 @@ export class AddSaleInvoiceComponent implements OnInit {
       });
   }
   enterPressed(e) {
+    console.log(e)
+   
     var code = e.keyCode ? e.keyCode : e.which;
     if (code == 13) {
       //Enter keycode
+      this.Serial=e.target.value
+      e.target.blur()
       this.getAllData()
-      this.displayRecomendedSerial=true
+      this.displayRecomendedSerial=true;
+     
     }
   }
   newProductData(): FormGroup {
     return this._fb.group({
       productSerialNumber:[""],
-      configuration:{
+      configuration:this._fb.group({
         cpu: [""],
         withCharger: [""],
 
@@ -160,7 +164,7 @@ export class AddSaleInvoiceComponent implements OnInit {
 
         hard:[""]
 
-      }
+      })
 
 
     })
@@ -169,6 +173,6 @@ export class AddSaleInvoiceComponent implements OnInit {
     // console.log(array);
     this.Products.push(this.newProductData())
 
-    this.newSection.push(1);
+    // this.newSection.push(1);
   }
 }

@@ -10,14 +10,14 @@
   </button>
 </div>
 <div class="modal-body">
-  <form [formGroup]="EditFormsupplier">
+  <form [formGroup]="EditFormsupplier" autocomplete="off">
     <div class="form-group">
       <label for="dateOfBirth">Supplier</label>
       <div class="input-group">
         <input
           id="model"
           class="form-control"
-          placeholder="Model.."
+          placeholder="Supplier"
           name="model"
           formControlName="supplier"
         />

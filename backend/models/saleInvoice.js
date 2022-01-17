@@ -5,7 +5,7 @@ var autoIncrement = require("mongoose-auto-increment");
 const Schema = mongoose.Schema;
 var saleInvoice = new Schema({
   SerialNumber: {
-    type: Number,
+    type: String,
    
   },
   customerName: {
@@ -66,7 +66,7 @@ function validateInvoice(x) {
   var Schema =joi.object( {
     SerialNumber:joi.number(),
     customerName: joi.string().min(3).max(45).required(),
-    price: joi.number(),
+    price: joi.any(),
     seller: joi.string().min(2).max(225),
     status: joi.string().min(2).max(255),
     Products:joi.array().required()

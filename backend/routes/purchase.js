@@ -96,7 +96,8 @@ router.post("/add/:id", parseUrlencoded, async (req, res) => {
       console.log(acc);
       arr2.push({
         productId: acc.id,
-        quantity: acc.quantity
+        quantity: acc.quantity,
+        type: acc.type
       });
     }
   }
@@ -141,7 +142,7 @@ router.get("/list/pending", parseUrlencoded, async (req, res) => {
   res.json(result);
 });
 router.get("/list/:id", async (req, res) => {
-  let result = await PurchaseInvoice.findOne({ _id: req.params.id })
+  let result = await PurchaseInvoice.findOne({ _id: req.params.id }).populate("accessories").populate("products")
  
     ;
     res.json(result);

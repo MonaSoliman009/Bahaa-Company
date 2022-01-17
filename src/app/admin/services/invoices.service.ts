@@ -30,9 +30,15 @@ export class InvoicesService {
   }
   AddSupplier(id, body): Observable<any> {
     return this.http.post(
-      `http://localhost:3000/purchase/complete/pending/:${id}`,
+      `http://localhost:3000/purchase/complete/pending/${id}`,
       body
     );
+  }
+
+  listPurchaseById(id){
+    return this.http.get(`http://localhost:3000/purchase/list/${id}`);
+
+
   }
   private idOfEditPrice = new BehaviorSubject(this.id);
   currentId = this.idOfEditPrice.asObservable();

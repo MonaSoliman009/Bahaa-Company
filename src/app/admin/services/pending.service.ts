@@ -19,7 +19,7 @@ export class PendingService {
   }
   addPriceForPending(id, body): Observable<any> {
     return this.http.post(
-      `http://localhost:3000/sale/complete/pending/:${id}`,
+      `http://localhost:3000/sale/complete/pending/${id}`,
       body
     );
   }

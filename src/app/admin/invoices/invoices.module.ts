@@ -21,6 +21,7 @@ import { AddPricePendingSaleComponent } from './add-price-pending-sale/add-price
 import { PendingPurchaseInvoiceComponent } from './pending-purchase-invoice/pending-purchase-invoice.component';
 import { AddSupplierComponent } from './add-supplier/add-supplier.component';
 import { DemoNgZorroAntdModule } from 'src/app/ng-zoro.module';
+import { PurchaseDetailsComponent } from './purchase-details/purchase-details.component';
 @NgModule({
   declarations: [
     AddSaleInvoiceComponent,
@@ -34,6 +35,7 @@ import { DemoNgZorroAntdModule } from 'src/app/ng-zoro.module';
     AddPricePendingSaleComponent,
     PendingPurchaseInvoiceComponent,
     AddSupplierComponent,
+    PurchaseDetailsComponent,
   ],
   imports: [
     CommonModule,

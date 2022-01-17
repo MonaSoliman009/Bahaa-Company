@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { InvoicesService } from '../../services/invoices.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { InvoicesService } from '../../services/invoices.service';
 })
 export class ListPurchaseComponent implements OnInit {
   invoices: any;
-  constructor(private ser: InvoicesService) {}
+  constructor(private ser: InvoicesService,private router: Router) {}
 
   ngOnInit(): void {
     this.ser.listPurshuseInvoice().subscribe((res) => {
@@ -21,5 +22,10 @@ export class ListPurchaseComponent implements OnInit {
       // });
       console.log('list sale invoice', res);
     });
+  }
+
+  viewDetails(x){
+
+    this.router.navigate(["admin/Invoices/purchase/details", x])
   }
 }
