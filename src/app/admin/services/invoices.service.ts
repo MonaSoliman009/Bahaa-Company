@@ -11,32 +11,37 @@ export class InvoicesService {
   public subject = new Subject<any>();
   constructor(private http: HttpClient) {}
   addSaleInvoice(SaleInvoice: SaleInvoice) {
-    return this.http.post('http://localhost:3000/sale/add', SaleInvoice);
+    return this.http.post('http://162.240.5.234:3000/sale/add', SaleInvoice);
   }
   listSaleInvoice(): Observable<any> {
-    return this.http.get('http://localhost:3000/sale/list');
+    return this.http.get('http://162.240.5.234:3000/sale/list');
   }
   addPurchuseInvoice(id, product: PurchaseInvoise): Observable<any> {
-    return this.http.post(`http://localhost:3000/purchase/add/${id} `, product);
+    return this.http.post(`http://162.240.5.234:3000/purchase/add/${id} `, product);
   }
   listPurshuseInvoice(): Observable<any> {
-    return this.http.get('http://localhost:3000/purchase/list');
+    return this.http.get('http://162.240.5.234:3000/purchase/list');
   }
   listAllProductBySerial(serial: any) {
     return this.http.post(
-      `http://localhost:3000/product/getBySerialNum`,
+      `http://162.240.5.234:3000/product/getBySerialNum`,
       serial
     );
   }
   AddSupplier(id, body): Observable<any> {
     return this.http.post(
-      `http://localhost:3000/purchase/complete/pending/${id}`,
+      `http://162.240.5.234:3000/purchase/complete/pending/${id}`,
       body
     );
   }
-
+  getSellerById(id: any): Observable<any> {
+    return this.http.get(`http://162.240.5.234:3000/sale/getSeller/${id}`);
+  }
+  listSaleById(id) {
+    return this.http.get(`http://162.240.5.234:3000/sale/list/${id}`);
+  }
   listPurchaseById(id){
-    return this.http.get(`http://localhost:3000/purchase/list/${id}`);
+    return this.http.get(`http://162.240.5.234:3000/purchase/list/${id}`);
 
 
   }

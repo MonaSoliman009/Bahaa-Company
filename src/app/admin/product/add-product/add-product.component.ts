@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { ModelsService } from '../../services/models.service';
+import { InvoicesService } from '../../services/invoices.service';
 
 @Component({
   selector: 'app-add-product',
@@ -10,10 +11,13 @@ import { ModelsService } from '../../services/models.service';
   styleUrls: ['./add-product.component.css'],
 })
 export class AddProductComponent implements OnInit {
+  listOfModels = new Array();
+  listAllPurchaseNumber = new Array();
   constructor(
     private _fb: FormBuilder,
     public _ProductService: ProductService,
-    private _ModelsService: ModelsService
+    private _ModelsService: ModelsService,
+    private invoices: InvoicesService
   ) {}
   form: FormGroup;
   submitted: boolean;
@@ -28,6 +32,7 @@ export class AddProductComponent implements OnInit {
   ngOnInit(): void {
     this.creteForm();
     this.listModels();
+    this.listAllPurchaseInvoices();
   }
   listModels() {
     this._ModelsService.listModels().subscribe(
@@ -35,11 +40,14 @@ export class AddProductComponent implements OnInit {
         this.AllProduct = res;
         for (let val of this.AllProduct) {
           // console.log(val.serialNumber);
-          let stringSerial = val.model.toString();
-          console.log(stringSerial);
+          console.log(val.model);
 
-          this.allSerialNumbers.push(val.model.toString());
-          console.log('array of serial', this.allSerialNumbers);
+          this.listOfModels.push(val.model);
+          // let stringSerial = val.model.toString();
+          // console.log(stringSerial);
+
+          // this.allSerialNumbers.push(val.model.toString());
+          // console.log('array of serial', this.allSerialNumbers);
         }
       },
       (err) => {
@@ -47,11 +55,19 @@ export class AddProductComponent implements OnInit {
       }
     );
   }
+  listAllPurchaseInvoices() {
+    this.invoices.listPurshuseInvoice().subscribe((res) => {
+      console.log(res, 'res all invoices');
+      for (let val of res) {
+        this.listAllPurchaseNumber.push(val.purchaseNumber);
+      }
+    });
+  }
   creteForm() {
     this.form = this._fb.group({
       serialNumber: ['', [Validators.required]],
       model: ['', [Validators.required]],
-      purchaseSerialNumber: [''],
+      purchaseSerialNumber: ['', [Validators.required]],
     });
   }
   selectedSerial(val) {
@@ -64,11 +80,11 @@ export class AddProductComponent implements OnInit {
   data(val) {
     return val;
   }
-  Getserial() {
-    const valueInput = this.Model.nativeElement.value;
-    this.Serial = valueInput;
-    return this.Serial;
-  }
+  // Getserial() {
+  //   const valueInput = this.Model.nativeElement.value;
+  //   this.Serial = valueInput;
+  //   return this.Serial;
+  // }
   searchSerial(val) {
     // console.log(data);
 
@@ -88,43 +104,37 @@ export class AddProductComponent implements OnInit {
   }
   saveProduct() {
     this.submitted = true;
-    console.log(  this.form.value);
+    console.log(this.form.value);
     if (this.form.valid) {
-      this.form.value.model = this.Getserial();
+      // this.form.value.model = this.Getserial();
       // this.Getserial()
-      if(this.form.value.purchaseSerialNumber!=""){
-        console.log("hey")
-        var product:any={
- 
+      if (this.form.value.purchaseSerialNumber != '') {
+        console.log('hey');
+        var product: any = {
           serialNumber: this.form.value.serialNumber,
           model: this.form.value.model,
-          purchaseSerialNumber: this.form.value.purchaseSerialNumber
-       
-      }
-
-      }else{
-       
-      product={
- 
+          purchaseSerialNumber: this.form.value.purchaseSerialNumber,
+        };
+      } else {
+        product = {
           serialNumber: this.form.value.serialNumber,
-          model: this.form.value.model       
+          model: this.form.value.model,
+        };
       }
-      }
-      console.log(product)
+      console.log(product);
 
-        this._ProductService
-          .addNewProduct(localStorage.getItem('id'), product)
-          .subscribe(
-            (res) => {
-              console.log(res);
-              this.alertWithSuccess();
-            },
-            (err: any) => {
-              console.log(err);
-              this.alertWithFail(err.error);
-            }
-          );
-      
+      this._ProductService
+        .addNewProduct(localStorage.getItem('id'), product)
+        .subscribe(
+          (res) => {
+            console.log(res);
+            this.alertWithSuccess();
+          },
+          (err: any) => {
+            console.log(err);
+            this.alertWithFail(err.error);
+          }
+        );
     }
   }
 }

@@ -8,7 +8,7 @@ import { StartTest } from '../model/start-test';
   providedIn: 'root',
 })
 export class TestPhaseService {
-  private url = 'http://localhost:3000';
+  private url = 'http://162.240.5.234:3000';
   socket: any;
 
   constructor(private http: HttpClient) {
@@ -47,11 +47,11 @@ export class TestPhaseService {
     return message;
   }
   getProductBySerialnumer(seri): Observable<any> {
-    return this.http.post('http://localhost:3000/product/getBySerialNum', seri);
+    return this.http.post('http://162.240.5.234:3000/product/getBySerialNum', seri);
   }
 
   getTestData(serialNumber){
-    return this.http.get(`http://localhost:3000/test/${serialNumber}`);
+    return this.http.get(`http://162.240.5.234:3000/test/${serialNumber}`);
 
 
   }

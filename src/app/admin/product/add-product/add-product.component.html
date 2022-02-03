@@ -1,53 +1,75 @@
-<!-- Row -->
 <div class="row">
-    <div class="col-sm-12">
-      <!-- Custom Boostrap Validation -->
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Add New Product Form</h5>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm">
-              <form
-                class="needs-validation"
-                [formGroup]="form"
-                autocomplete="off"
-              >
-                <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Serial Number</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="validationCustom01"
-                      placeholder="Serial Number"
-                      name="serialNumber"formControlName="serialNumber"
-                      [ngClass]="{
-                        'is-invalid': submitted && form.controls.serialNumber.errors
-                      }" 
-                    />
-                    
-                    <div
+  <div class="col-sm-12">
+    <!-- Custom Boostrap Validation -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Add New Product Form</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm">
+            <form
+              class="needs-validation"
+              [formGroup]="form"
+              autocomplete="off"
+            >
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom01">Serial Number</label>
+                  <!-- <input
+                    type="text"
+                    class="form-control"
+                    id="validationCustom01"
+                    placeholder="Serial Number"
+                    name="serialNumber"
+                    formControlName="serialNumber"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted && form.controls.serialNumber.errors
+                    }"
+                  /> -->
+                  <input
+                    nz-input
+                    placeholder="Serial Number"
+                    id="validationCustom01"
+                    name="serialNumber"
+                    formControlName="serialNumber"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted && form.controls.serialNumber.errors
+                    }"
+                  />
+                  <div
                     class="alert alert-danger my-1 p-2 fadeInDown animated"
                     *ngIf="submitted && form.controls.serialNumber.errors"
                   >
-                   Field is required
+                    Field is required
                   </div>
-                    <div class="valid-feedback">Looks good!</div>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Model</label>
-                    <input
+                  <div class="valid-feedback">Looks good!</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom01">Model</label>
+                  <nz-select
+                    nzPlaceHolder="Select Model"
+                    formControlName="model"
+                    class="widthOfinput"
+                  >
+                    <nz-option
+                      *ngFor="let option of listOfModels"
+                      [nzLabel]="option"
+                      [nzValue]="option"
+                    ></nz-option>
+                  </nz-select>
+                  <!-- <input
                       type="text"
                       class="form-control"
                       id="validationCustom01"
                       placeholder="Model"
                       name="model"
-                      formControlName="model" 
+                      formControlName="model"
                       [ngClass]="{
                         'is-invalid': submitted && form.controls.model.errors
-                      }" 
+                      }"
                       #Model
                       [(ngModel)]="search"
                       (keyup)="searchSerial(search)"
@@ -58,41 +80,54 @@
                         *ngIf="!displayRecomendedSerial"
                         >{{ serial }}</a
                       >
-                    </div>
-                    <div
+                    </div> -->
+                  <div
                     class="alert alert-danger my-1 p-2 fadeInDown animated"
                     *ngIf="submitted && form.controls.model.errors"
                   >
-                   Field is required
+                    Field is required
                   </div>
-                    <div class="valid-feedback">Looks good!</div>
-                  </div>
-                 
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Purchase Invoice Serial Number</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="validationCustom01"
-                      placeholder="Purchase Invoice Serial Number"
-                      name="purchaseSerialNumber"
-                      formControlName="purchaseSerialNumber" 
-                      [ngClass]="{
-                        'is-invalid': submitted && form.controls.purchaseSerialNumber.errors
-                      }" 
-                    />
-                    <div class="valid-feedback">Looks good!</div>
-                  </div>
-                 
+                  <div class="valid-feedback">Looks good!</div>
                 </div>
-  
-             
-                <button class="btn btn-primary" type="submit" (click)="saveProduct()">Submit</button>
-              </form>
-            </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom01"
+                    >Purchase Invoice Serial Number</label
+                  >
+
+                  <nz-select
+                    nzPlaceHolder="Purchase Invoice"
+                    formControlName="purchaseSerialNumber"
+                    class="widthOfinput"
+                  >
+                    <nz-option
+                      *ngFor="let option of listAllPurchaseNumber"
+                      [nzLabel]="option"
+                      [nzValue]="option"
+                    ></nz-option>
+                  </nz-select>
+                  <div
+                    class="alert alert-danger my-1 p-2 fadeInDown animated"
+                    *ngIf="
+                      submitted && form.controls.purchaseSerialNumber.errors
+                    "
+                  >
+                    Field is required
+                  </div>
+                </div>
+              </div>
+
+              <button
+                class="btn btn-primary"
+                type="submit"
+                (click)="saveProduct()"
+              >
+                Submit
+              </button>
+            </form>
           </div>
         </div>
       </div>
-  
     </div>
   </div>
+</div>

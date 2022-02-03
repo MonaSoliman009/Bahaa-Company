@@ -83,7 +83,7 @@ this.createForm()
               this.router.navigate(['./admin/dashboard']);
         
             },(error)=>{
-        
+        console.log(error);
               this.alertWithFail(error.error)
         
             });

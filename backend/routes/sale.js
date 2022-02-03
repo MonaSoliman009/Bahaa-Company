@@ -1,7 +1,9 @@
 var express = require("express");
 var router = express.Router();
 const bodyParser = require("body-parser");
-
+var { accountant } = require("../models/accountant");
+var { employee } = require("../models/employee");
+var { owner } = require("../models/owner");
 var parseUrlencoded = bodyParser.urlencoded({
   extended: true,
 });
@@ -115,4 +117,36 @@ router.post("/complete/pending/:id", async (req, res) => {
     }
   ).clone().catch(function(err){ console.log(err)});
 });
+router.get("/getSeller/:id", async (req, res) => {
+  let ownerr = await owner.findOne({
+    _id: req.params.id,
+  });
+
+  if(!ownerr){
+
+    let accountantt = await accountant.findOne({
+      _id: req.params.id,
+      approved: true,
+    });
+    if (!accountantt) {
+      let employeee = await employee.findOne({
+        _id: req.params.id,
+        approved: true,
+      });
+      if(employeee){
+        res.json(employeee)
+      }else{
+        res.json("this user not exist")
+      }
+
+
+    }else{
+      res.json(accountantt);
+    }
+  }else{
+
+    res.json(ownerr);
+  }
+});
+
 module.exports = router;

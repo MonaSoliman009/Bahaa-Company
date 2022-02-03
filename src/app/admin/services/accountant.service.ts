@@ -8,29 +8,29 @@ export class AccountantService {
   constructor(private http: HttpClient) {}
   getUnApprovedAccountant() {
     return this.http.get(
-      'http://localhost:3000/owner/list/accountants/unapproved'
+      'http://162.240.5.234:3000/owner/list/accountants/unapproved'
     );
   }
   getAllAccountant() {
     return this.http.get(
-      'http://localhost:3000/owner/list/accountants/all'
+      'http://162.240.5.234:3000/owner/list/accountants/all'
     );
   }
   ApproveAccountant(id) {
     return this.http.post(
-      `http://localhost:3000/owner/approve/accountant/${id}`,
+      `http://162.240.5.234:3000/owner/approve/accountant/${id}`,
       id
     );
   }
   getApproveEmployee() {
     return this.http.get(
-      'http://localhost:3000/owner/list/accountants/approved'
+      'http://162.240.5.234:3000/owner/list/accountants/approved'
     );
   }
 
   deleteAccountant(id) {
     http: return this.http.delete(
-      `http://localhost:3000/owner/accountant/delete/${id}`
+      `http://162.240.5.234:3000/owner/accountant/delete/${id}`
     );
   }
 }

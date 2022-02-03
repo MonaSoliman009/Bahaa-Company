@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 
 const server = require("http").createServer(app);
+
 const io = require("socket.io")(server);
 const products = require("./routes/products");
 const images = require("./routes/images");
@@ -37,15 +38,14 @@ const cors = require("cors");
 var mongosanatize = require("express-mongo-sanitize");
 var xss = require("xss-clean");
 var helmet = require("helmet");
-const { Console } = require("console");
+
 
 mongoose
   .connect(
-    "mongodb+srv://bahaa123:mona123456789@cluster0.jt4lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-    }
+    // "mongodb://bahaahmedusedcomputertr.com :27017",
+    // "mongodb://bahaahme:Bahaa@2022_@162.240.5.234/company",
+    // "mongodb://bahaahmedusedcomputertr.com:27017/myFirstDatabase",
+    "mongodb+srv://bahaa123:mona123456789@cluster0.jt4lb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Connected to database!");

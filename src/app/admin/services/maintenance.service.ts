@@ -6,7 +6,7 @@ import {io}  from 'socket.io-client';
   providedIn: 'root'
 })
 export class MaintenanceService {
-  private url="http://localhost:3000";
+  private url="http://162.240.5.234:3000";
   socket:any;
   constructor() {
 

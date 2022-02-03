@@ -1,0 +1,80 @@
+<div class="row pricing-box">
+    <div class="col-md-8 col-lg-8 col-xl-8 m-auto">
+      <div class="card">
+        <div class="card-body">
+          <div class="pricing-header">
+            <h3 style="color: #ff0080">Invoice Details</h3>
+  
+            <!-- <h4>{{goodProductDetails.ProductDetails[0].serialNumber}}</h4> -->
+            <!-- <p>Monthly Price</p> -->
+          </div>
+          <div class="row">
+            <div class="pricing-card-price col-md-4">
+              <h6 class="heading2 price">Customer Name</h6>
+              <span>{{ invoiceDetails?.customerName }}</span>
+              <hr />
+            </div>
+            <div class="col-md-4">
+              <h6 class="heading2 price">Date</h6>
+              <span>{{ invoiceDetails?.date | date: "dd/MM/yyyy" }}</span>
+              <hr />
+            </div>
+            <div class="col-md-4">
+              <h6 class="heading2 price">Seller Name</h6>
+              <span>{{ sellerName }}</span>
+              <hr />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5" *ngIf="invoiceDetails?.Products.length">
+              <ul class="pricing-options">
+                <h6 class="heading2 price">All Products</h6>
+                <li *ngFor="let product of invoiceDetails?.Products; index as i">
+                  <h6>
+                    <i class="far fa-check-circle"></i> Serial Number:{{
+                      product.productSerialNumber
+                    }}
+                  </h6>
+                  <div>
+                    <p>Configration for this product</p>
+  
+                    <p>CPU: {{ product?.configuration?.cpu }}</p>
+                    <p>Hard: {{ product?.configuration?.hard }}</p>
+                    <p>RAM: {{ product?.configuration?.ram }}</p>
+                    <p>
+                      With charger:
+                      {{
+                        product?.configuration?.withCharger === true
+                          ? "Yes"
+                          : "No"
+                      }}
+                    </p>
+                    <p>
+                      <!-- Seller:
+                      {{
+  
+                      }} -->
+                    </p>
+                  </div>
+                  <!-- CPU:
+                  {{ product?.configuration?.cpu }}
+                  <i class="far fa-check-circle"></i>
+                  {{ product?.configuration?.hard }}
+                  <i class="far fa-check-circle"></i>
+                  {{ product?.configuration?.ram }}
+                  <i class="far fa-check-circle"></i>
+                  {{ product?.configuration?.withCharger }} -->
+                </li>
+              </ul>
+            </div>
+          </div>
+  
+          <a
+            [routerLink]="'/admin/Invoices/list/sale'"
+            class="btn btn-primary btn-block"
+            >Back</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>

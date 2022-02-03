@@ -10,6 +10,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(user: Login): Observable<any> {
-    return this.http.post('http://localhost:3000/login', user);
+    return this.http.post('//162.240.5.234:3000/login', user);
   }
 }

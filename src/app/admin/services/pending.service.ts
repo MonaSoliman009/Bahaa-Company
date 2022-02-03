@@ -15,15 +15,15 @@ export class PendingService {
     this.IdOfpendingPrice.next(id);
   }
   listPendingSale(): Observable<any> {
-    return this.http.get('http://localhost:3000/sale/list/pending');
+    return this.http.get('http://162.240.5.234:3000/sale/list/pending');
   }
   addPriceForPending(id, body): Observable<any> {
     return this.http.post(
-      `http://localhost:3000/sale/complete/pending/${id}`,
+      `http://162.240.5.234:3000/sale/complete/pending/${id}`,
       body
     );
   }
   listPendingPurchase(): Observable<any> {
-    return this.http.get('http://localhost:3000/purchase/list/pending');
+    return this.http.get('http://162.240.5.234:3000/purchase/list/pending');
   }
 }

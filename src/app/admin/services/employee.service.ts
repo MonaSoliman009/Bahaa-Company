@@ -8,47 +8,47 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
   getUnApprovedEmployee() {
     return this.http.get(
-      'http://localhost:3000/owner/list/employees/unapproved'
+      'http://162.240.5.234:3000/owner/list/employees/unapproved'
     );
   }
   ApproveEmployee(id) {
     return this.http.post(
-      `http://localhost:3000/owner/approve/employee/${id}`,
+      `http://162.240.5.234:3000/owner/approve/employee/${id}`,
       id
     );
   }
   getAllEmployee() {
     return this.http.get(
-      'http://localhost:3000/owner/list/employees/all'
+      'http://162.240.5.234:3000/owner/list/employees/all'
     );
   }
   getApproveEmployee() {
-    return this.http.get('http://localhost:3000/owner/list/employees/approved');
+    return this.http.get('http://162.240.5.234:3000/owner/list/employees/approved');
   }
   deleteEmployee(id) {
     return this.http.delete(
-      `http://localhost:3000/owner/employee/delete/${id}`
+      `http://162.240.5.234:3000/owner/employee/delete/${id}`
     );
   }
 
   getEmployeeById(_id){
-    return this.http.get(`http://localhost:3000/owner/employee/${_id}`);
+    return this.http.get(`http://162.240.5.234:3000/owner/employee/${_id}`);
 
   }
 
   getUsersCount(){
-    return this.http.get("http://localhost:3000/owner/usersCount")
+    return this.http.get("http://162.240.5.234:3000/owner/usersCount")
   }
   getProductsCount(){
-    return this.http.get("http://localhost:3000/owner/productsCount")
+    return this.http.get("http://162.240.5.234:3000/owner/productsCount")
 
   }
   getTestsCount(){
-    return this.http.get("http://localhost:3000/owner/testsCount")
+    return this.http.get("http://162.240.5.234:3000/owner/testsCount")
 
   }
   getMaintainedCount(){
-    return this.http.get("http://localhost:3000/owner/maintainedCount")
+    return this.http.get("http://162.240.5.234:3000/owner/maintainedCount")
 
   }
 }

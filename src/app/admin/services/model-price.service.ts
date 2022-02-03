@@ -11,10 +11,10 @@ export class ModelPriceService {
   constructor(private http: HttpClient) {}
 
   listMissingPiecesReport(): Observable<any> {
-    return this.http.get('http://localhost:3000/models/all');
+    return this.http.get('http://162.240.5.234:3000/models/all');
   }
   EditPrice(id, body): Observable<any> {
-    return this.http.put(`http://localhost:3000/models/update/:${id}`, body);
+    return this.http.put(`http://162.240.5.234:3000/models/update/:${id}`, body);
   }
   private idOfEditPrice = new BehaviorSubject(this.id);
   currentId = this.idOfEditPrice.asObservable();
@@ -22,10 +22,10 @@ export class ModelPriceService {
   //   this.idOfEditPrice.next(id);
   // }
   DeleteModel(id): Observable<any> {
-    return this.http.delete(`http://localhost:3000/models/delete/:${id}`);
+    return this.http.delete(`http://162.240.5.234:3000/models/delete/:${id}`);
   }
   listPendingSale(): Observable<any> {
-    return this.http.get('http://localhost:3000/sale/list/pending');
+    return this.http.get('http://162.240.5.234:3000/sale/list/pending');
   }
   addPriceForPending(): Observable<any> {
     return;

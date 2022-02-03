@@ -12,30 +12,30 @@ export class ProductService {
 
   }
   addNewProduct(_id, product: any) {
-    return this.http.post(`http://localhost:3000/product/add/${_id}`, product);
+    return this.http.post(`http://162.240.5.234:3000/product/add/${_id}`, product);
   }
   getLastFiveProducts() {
-    return this.http.get('http://localhost:3000/product/listLastFive');
+    return this.http.get('http://162.240.5.234:3000/product/listLastFive');
   }
 
 
 
 
   getProductBrSerialnumber(serial) {
-    return this.http.post('http://localhost:3000/product/getBySerialNum',{ "serialNumber":serial});
+    return this.http.post('http://162.240.5.234:3000/product/getBySerialNum',{ "serialNumber":serial});
   }
   getAllProduct() {
-    return this.http.get('http://localhost:3000/product/list');
+    return this.http.get('http://162.240.5.234:3000/product/list');
 
   }
   updateProduct(serialNumber,product) {
 
-    return this.http.put(`http://localhost:3000/product/update/${serialNumber}`,product);
+    return this.http.put(`http://162.240.5.234:3000/product/update/${serialNumber}`,product);
 
 
   }
   deleteProduct(serialNumber){
-    return this.http.delete(`http://localhost:3000/product/delete/${serialNumber}`);
+    return this.http.delete(`http://162.240.5.234:3000/product/delete/${serialNumber}`);
 
 
   }
